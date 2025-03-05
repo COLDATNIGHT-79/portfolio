@@ -668,11 +668,10 @@
         <div class="statement-bg"></div>
         <h2>let's go together sometimes</h2>
     </section>
-
     <section class="contact" id="contact">
         <div class="container">
             <h2 class="section-title fade-in">match me darrrrring</h2>
-            <form class="fade-in" action="mailto:ajnimator@gmail.com" method="post" enctype="text/plain"></form>
+            <form class="fade-in" id="contactForm">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -689,6 +688,25 @@
             </form>
         </div>
     </section>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const mailtoLink = `mailto:ajnimator@gmail.com?subject=Message from ${formData.get('name')}&body=${formData.get('message')}`;
+
+            window.location.href = mailtoLink;
+        });
+    </script>
 
     <footer>
         <div class="container">
