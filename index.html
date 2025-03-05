@@ -1,798 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJUN SINGH PORTFOLIO</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #0f0f0f;
-            --secondary: #223792;
-            --accent: #f1f1f1;
-            --text: #179ed3;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--primary);
-            color: var(--text);
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        /* HEADER */
-        header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            transition: background-color 0.3s ease;
-        }
-        
-        .nav-scrolled {
-            background-color: rgba(15, 15, 15, 0.95);
-            padding: 1rem 2rem;
-            backdrop-filter: blur(10px);
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--accent);
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 600;
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .hero {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        
-        .hero h1 {
-            font-size: 5rem;
-            font-weight: 900;
-            line-height: 1;
-        }
-        
-        .hero p {
-            font-size: 1.5rem;
-            font-weight: 300;
-            max-width: 600px;
-        }
-        
-        .highlight {
-            color: var(--accent);
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-        
-        .social-icons a {
-            color: var(--text);
-            font-size: 1.5rem;
-            transition: color 0.2s ease;
-        }
-        
-        .social-icons a:hover {
-            color: var(--accent);
-        }
-        
-        /* STATEMENT SECTIONS */
-        .statement {
-            height: vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--accent);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .statement h2 {
-            font-size: 7vw;
-            font-weight: 900;
-            text-align: center;
-            z-index: 1;
-            mix-blend-mode: difference;
-        }
-        
-        .statement-bg {
-            position: absolute;
-            width: 200%;
-            height: 150%;
-            top: -25%;
-            left: -50%;
-            background: linear-gradient(45deg, #000000, #ff0000);
-            animation: rotate 10s linear infinite;
-        }
-        
-        @keyframes rotate {
-            0% {
-            transform: rotate(0deg);
-            }
-            100% {
-            transform: rotate(360deg);
-            }
-        }
-        
-        /* PROJECTS */
-        .projects {
-            padding: 6rem 0;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 3rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60%;
-            height: 4px;
-            background-color: var(--accent);
-        }
-        
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-        
-        .project-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(255, 60, 120, 0.2);
-        }
-        
-        .project-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .project-info {
-            padding: 1.5rem;
-        }
-        
-        .project-info h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .project-info p {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1rem;
-        }
-        
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .project-links a {
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-        
-        .live-link {
-            background-color: var(--accent);
-            color: var(--primary);
-        }
-        
-        .live-link:hover {
-            background-color: #ff5e3a;
-        }
-        
-        .code-link {
-            background-color: transparent;
-            color: var(--text);
-            border: 1px solid var(--text);
-        }
-        
-        .code-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        /* SOCIAL FEED */
-        .social-feed {
-            padding: 6rem 0;
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-        
-        .feed-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .feed-item {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .feed-item:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feed-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .feed-platform {
-            margin-left: auto;
-            font-size: 1.2rem;
-        }
-        
-        .feed-content {
-            margin-bottom: 1rem;
-        }
-        
-        .feed-content img {
-            width: 100%;
-            border-radius: 5px;
-            margin-top: 0.5rem;
-        }
-        
-        .feed-date {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
-        }
-        
-        /* CONTACT */
-        .contact {
-            padding: 6rem 0;
-        }
-        
-        form {
-            max-width: 600px;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        input, textarea {
-            width: 100%;
-            padding: 1rem;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            color: var(--text);
-            font-family: inherit;
-            transition: border 0.3s ease;
-        }
-        
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        
-        textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-        
-        button {
-            background-color: var(--accent);
-            color: var(--primary);
-            border: none;
-            padding: 1rem 2rem;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        button:hover {
-            background-color: #ff5e3a;
-        }
-        
-        /* FOOTER */
-        footer {
-            padding: 3rem 0;
-            background-color: rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-links a {
-            color: var(--text);
-            text-decoration: none;
-        }
-        
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-        
-        .copyright {
-            color: rgba(255, 255, 255, 0.5);
-        }
-        
-        /* ANIMATIONS */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .statement h2 {
-                font-size: 10vw;
-            }
-        }
-        .project-card {
-            cursor: pointer;
-        }
-        
-        .project-detail {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(15, 15, 15, 0.95);
-            z-index: 2000;
-            overflow-y: auto;
-            padding: 2rem;
-        }
-        
-        .project-detail-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .project-detail-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 2rem;
-            color: var(--text);
-            cursor: pointer;
-        }
-        .project-detail {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(15, 15, 15, 0.95);
-            z-index: 2000;
-            overflow-y: auto;
-            padding: 2rem;
-        }
-
-        .project-detail-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .detail-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-        }
-
-        .detail-links {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARJUN SINGH PORTFOLIO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0f0f0f;
+      --secondary: #223792;
+      --accent: #f1f1f1;
+      --text: #179ed3;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--primary);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    /* HEADER */
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    
+    .nav-scrolled {
+      background-color: rgba(15, 15, 15, 0.95);
+      padding: 1rem 2rem;
+      backdrop-filter: blur(10px);
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .hero {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .hero h1 {
+      font-size: 5rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    
+    .hero p {
+      font-size: 1.5rem;
+      font-weight: 300;
+      max-width: 600px;
+    }
+    
+    .highlight {
+      color: var(--accent);
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .social-icons a {
+      color: var(--text);
+      font-size: 1.5rem;
+      transition: color 0.2s ease;
+    }
+    
+    .social-icons a:hover {
+      color: var(--accent);
+    }
+    
+    /* STATEMENT SECTIONS */
+    .statement {
+      height: 50vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .statement h2 {
+      font-size: 7vw;
+      font-weight: 900;
+      text-align: center;
+      z-index: 1;
+      mix-blend-mode: difference;
+    }
+    
+    .statement-bg {
+      position: absolute;
+      width: 200%;
+      height: 150%;
+      top: -25%;
+      left: -50%;
+      background: linear-gradient(45deg, #000000, #ff0000);
+      animation: rotate 10s linear infinite;
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* PROJECTS */
+    .projects {
+      padding: 6rem 0;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60%;
+      height: 4px;
+      background-color: var(--accent);
+    }
+    
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    
+    .project-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(255, 60, 120, 0.2);
+    }
+    
+    .project-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .project-info {
+      padding: 1.5rem;
+    }
+    
+    .project-info h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .project-info p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 1rem;
+    }
+    
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .project-links a {
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    
+    .live-link {
+      background-color: var(--accent);
+      color: var(--primary);
+    }
+    
+    .live-link:hover {
+      background-color: #ff5e3a;
+    }
+    
+    .code-link {
+      background-color: transparent;
+      color: var(--text);
+      border: 1px solid var(--text);
+    }
+    
+    .code-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* CONTACT */
+    .contact {
+      padding: 6rem 0;
+      text-align: center;
+    }
+    
+    .contact button {
+      background-color: var(--accent);
+      color: var(--primary);
+      border: none;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .contact button:hover {
+      background-color: #ff5e3a;
+    }
+    
+    /* FOOTER */
+    footer {
+      padding: 3rem 0;
+      background-color: rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-links a {
+      color: var(--text);
+      text-decoration: none;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+    
+    .copyright {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    /* ANIMATIONS */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* HERO BACKGROUND */
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+    }
+  </style>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="logo">ARJ</div>
-        <div class="nav-links">
-            <a href="#projects">Projects</a>
-            <a href="#games">Games</a>
-            <a href="#software">Software</a>
-            <a href="#prototypes">Prototypes</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
-
-    <header>
-        <div class="container">
-            <div class="hero fade-in">
-                <h1>I'm <span class="highlight">Arjun Singh</span>.<br></h1>
-                <p>otherwise known as coldatnight. I build stuff, mostly games, I love games!</p>
-                <div class="social-icons">
-                    <a href="https://79gamescoldatnight.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a>
-                    <a href="https://x.com/AllHeresy89790" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.linkedin.com/in/arjun-singh-0108981b4/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/cold_substantial/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://steamcommunity.com/id/ColdatNight/" target="_blank"><i class="fab fa-steam"></i></a>
-                    <a href="https://www.youtube.com/channel/UCOeRs-e34uktZ4x4e0k4XdA" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://github.com/COLDATNIGHT-79" target="_blank"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="hero-bg">
-            <img src="https://media.discordapp.net/attachments/1341225505780924447/1346672662138851368/get.png?ex=67c90a26&is=67c7b8a6&hm=aa16a667dc4a85394ff64d8ee501efe7a96914e706f7eaa359396d0ea66434ce&=&format=webp&quality=lossless&width=968&height=968" alt="Background Image">
-        </div>
-    </header>
-    <style>
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .hero-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.3;
-        }
-    </style>
-
-   
-
-    <section class="statement">
-        <div class="statement-bg"></div>
-        <h2>THE MAIN GIGS</h2>
-    </section>
-
-    <section class="projects" id="games">
-        <div class="container">
-            <h2 class="section-title fade-in">Games I Made</h2>
-            <div class="project-grid">
-                <!-- Repeat 6 times with game projects -->
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.itch.zone/aW1nLzE3MzUyMDY0LnBuZw==/original/EirMSH.png" alt="Game 1">
-                    <div class="project-info">
-                        <h3>MVNES</h3>
-                        <p>Chess meets minesweeper in a horror setting</p>
-                        <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/mvnes-chess-minesweeper" class="live-link">Play Now</a>
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.itch.zone/aW1nLzE3MzkwNzgxLnBuZw==/original/%2BGPwfl.png" alt="Game 1">
-                    <div class="project-info">
-                        <h3>10 seconds to scale the evrest</h3>
-                        <p>Do i HAVE to expalin that title?</p>
-                        <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/10stste" class="live-link">Play Now</a>
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.itch.zone/aW1hZ2UvMzI2OTY4NC8xOTUyMzMzMS5wbmc=/original/ezJPJW.png" alt="Game 1">
-                    <div class="project-info">
-                        <h3>CHA'CHINKO</h3>
-                        <p>roguelike pachinko where goal is to score more that atoms on earth</p>
-                        <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/cha-chinka" class="live-link">Play Now</a>
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.itch.zone/aW1nLzE5ODc4MTI3LnBuZw==/315x250%23c/7rzKOF.png" alt="Game 1">
-                    <div class="project-info">
-                        <h3>5000 metres deep</h3>
-                        <p>horror game set in middle of ocean on a static boat</p>
-                        <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/5000-metres-deep" class="live-link">Play Now</a>
-                           
-                        </div>
-                    </div>
-                </div>
-                <!-- Add 5 more game cards -->
-            </div>
-        </div>
-    </section>
-
-    <section class="statement">
-        <div class="statement-bg"></div>
-        <h2>felt like makin em</h2>
-    </section>
-
-    <section class="projects" id="software">
-        <div class="container">
-            <h2 class="section-title fade-in">Software I Built</h2>
-            <div class="project-grid">
-                <!-- Repeat 6 times with software projects -->
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://media.discordapp.net/attachments/1341225505780924447/1346478954890006590/image.png?ex=67c855bf&is=67c7043f&hm=ed039681f31cf5429fc1a0c14f9aaf2c8323b49d2d3b380726d71910799ae638&=&format=webp&quality=lossless&width=1872&height=772" alt="Software 1">
-                    <div class="project-info">
-                        <h3>PyDancer</h3>
-                        <p>genrate appropiate interface for any python code and even scehdule them to run at different times. Store the function in a secured Database as well! (code cannot be shown because made for a corpo, contact me to learn more) </p>
-                        <div class="project-links">
-                            <a href="#" class="live-link">Demo</a>
-                        
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://media.discordapp.net/attachments/1341225505780924447/1346482401034895451/image.png?ex=67c858f4&is=67c70774&hm=0490b0e60a8ca2ae60e95ee8a32051b1ef98db2eec3f50de0edbe6e19581542b&=&format=webp&quality=lossless&width=1657&height=864" alt="Software 1">
-                    <div class="project-info">
-                        <h3>DROP IT!!</h3>
-                        <p>A physics based chatting app where users can play with messages of each other. Currently in development but you see demo video below  </p>
-                        <div class="project-links">
-                            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7300912751122530304/" class="live-link">demonstration</a>
-                        
-                        </div>
-                    </div>
-                </div>
-                <!-- Add 5 more software cards -->
-            </div>
-        </div>
-    </section>
-
-    <section class="statement">
-        <div class="statement-bg"></div>
-        <h2>never left my mind ya know?</h2>
-    </section>
-
-    <section class="projects" id="prototypes">
-        <div class="container">
-            <h2 class="section-title fade-in">Unreleased Prototypes</h2>
-            <div class="project-grid">
-                <!-- Repeat 6 times with prototypes -->
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://placehold.co/600x400/78ff3c/1a1a1a?text=Prototype+1" alt=":3">
-                    <div class="project-info">
-                        <h3>this website</h3>
-                        <p>i have made lot of junk will take time to put all of them here have patience</p>
-                        <div class="project-links">
-                            <a href="#" class="live-link">Preview</a>
-                            <a href="#" class="code-link">Research Paper</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add 5 more prototype cards -->
-            </div>
-        </div>
-    </section>
-
-
-    <section class="statement">
-        <div class="statement-bg"></div>
-        <h2>let's go together sometimes</h2>
-    </section>
-
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title fade-in">match me darrrrring</h2>
-            <form class="fade-in" action="mailto:ajnimator@gmail.com" method="post" enctype="text/plain"></form>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-links">
-                <a href="#projects">Projects</a>
-                <a href="#social-feed">Feed</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="social-icons">
-                <a href="https://itch.io" target="_blank"><i class="fab fa-itch-io"></i></a>
-                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://store.steampowered.com" target="_blank"><i class="fab fa-steam"></i></a>
-            </div>
-    </footer>
-
-    <div class="project-detail">
-        <div class="project-detail-content">
-            <span class="project-detail-close">&times;</span>
-            <img class="detail-image" src="" alt="Project image">
-            <h2 class="detail-title"></h2>
-            <p class="detail-description"></p>
-            <div class="detail-links">
-                <a href="#" class="live-link detail-live-link" target="_blank">View Project</a>
-                <a href="#" class="code-link detail-code-link" target="_blank">View Details</a>
-            </div>
-        </div>
+  <nav id="navbar">
+    <div class="logo">ARJ</div>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#games">Games</a>
+      <a href="#software">Software</a>
+      <a href="#prototypes">Prototypes</a>
+      <a href="#contact">Contact</a>
     </div>
-
-    <script>
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-scrolled');
-            } else {
-                navbar.classList.remove('nav-scrolled');
-            }
-        });
-        
-        // Fade-in animation
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        fadeElements.forEach(element => {
-            observer.observe(element);
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        const projectCards = document.querySelectorAll('.project-card');
-        const projectDetail = document.querySelector('.project-detail');
-        const closeModal = document.querySelector('.project-detail-close');
-
-        projectCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const img = card.querySelector('.project-img').src;
-                const title = card.querySelector('h3').textContent;
-                const description = card.querySelector('p').textContent;
-                const liveLink = card.querySelector('.live-link').href;
-                const codeLink = card.querySelector('.code-link').href;
-
-                projectDetail.querySelector('.detail-image').src = img;
-                projectDetail.querySelector('.detail-title').textContent = title;
-                projectDetail.querySelector('.detail-description').textContent = description;
-                projectDetail.querySelector('.detail-live-link').href = liveLink;
-                projectDetail.querySelector('.detail-code-link').href = codeLink;
-                projectDetail.style.display = 'block';
-            });
-        });
-
-        closeModal.addEventListener('click', () => {
-            projectDetail.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === projectDetail) {
-                projectDetail.style.display = 'none';
-            }
-        });
-    </script>
+  </nav>
+  
+  <header>
+    <div class="container">
+      <div class="hero fade-in">
+        <h1>I'm <span class="highlight">Arjun Singh</span>.</h1>
+        <p>otherwise known as coldatnight. I build stuff, mostly games, I love games!</p>
+        <div class="social-icons">
+          <a href="https://79gamescoldatnight.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a>
+          <a href="https://x.com/AllHeresy89790" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.linkedin.com/in/arjun-singh-0108981b4/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.instagram.com/cold_substantial/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://steamcommunity.com/id/ColdatNight/" target="_blank"><i class="fab fa-steam"></i></a>
+          <a href="https://www.youtube.com/channel/UCOeRs-e34uktZ4x4e0k4XdA" target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://github.com/COLDATNIGHT-79" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bg">
+      <img src="https://media.discordapp.net/attachments/1341225505780924447/1346672662138851368/get.png?ex=67c90a26&is=67c7b8a6&hm=aa16a667dc4a85394ff64d8ee501efe7a96914e706f7eaa359396d0ea66434ce&=&format=webp&quality=lossless&width=968&height=968" alt="Background Image">
+    </div>
+  </header>
+  
+  <section class="statement">
+    <div class="statement-bg"></div>
+    <h2>THE MAIN GIGS</h2>
+  </section>
+  
+  <section class="projects" id="games">
+    <div class="container">
+      <h2 class="section-title fade-in">Games I Made</h2>
+      <div class="project-grid">
+        <div class="project-card fade-in">
+          <img class="project-img" src="https://img.itch.zone/aW1nLzE3MzUyMDY0LnBuZw==/original/EirMSH.png" alt="MVNES">
+          <div class="project-info">
+            <h3>MVNES</h3>
+            <p>Chess meets minesweeper in a horror setting</p>
+            <div class="project-links">
+              <a href="https://79gamescoldatnight.itch.io/mvnes-chess-minesweeper" class="live-link">Play Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card fade-in">
+          <img class="project-img" src="https://img.itch.zone/aW1nLzE3MzkwNzgxLnBuZw==/original/%2BGPwfl.png" alt="10 seconds to scale the evrest">
+          <div class="project-info">
+            <h3>10 seconds to scale the evrest</h3>
+            <p>Do I HAVE to explain that title?</p>
+            <div class="project-links">
+              <a href="https://79gamescoldatnight.itch.io/10stste" class="live-link">Play Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card fade-in">
+          <img class="project-img" src="https://img.itch.zone/aW1hZ2UvMzI2OTY4NC8xOTUyMzMzMS5wbmc=/original/ezJPJW.png" alt="CHA'CHINKO">
+          <div class="project-info">
+            <h3>CHA'CHINKO</h3>
+            <p>Roguelike pachinko where the goal is to score more than atoms on earth</p>
+            <div class="project-links">
+              <a href="https://79gamescoldatnight.itch.io/cha-chinka" class="live-link">Play Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card fade-in">
+          <img class="project-img" src="https://img.itch.zone/aW1nLzE5ODc4MTI3LnBuZw==/315x250%23c/7rzKOF.png" alt="5000 metres deep">
+          <div class="project-info">
+            <h3>5000 metres deep</h3>
+            <p>Horror game set in the middle of the ocean on a static boat</p>
+            <div class="project-links">
+              <a href="https://79gamescoldatnight.itch.io/5000-metres-deep" class="live-link">Play Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="statement">
+    <div class="statement-bg"></div>
+    <h2>felt like makin em</h2>
+  </section>
+  
+  <section class="projects" id="software">
+    <div class="container">
+      <h2 class="section-title fade-in">Software I Built</h2>
+      <div class="project-grid">
+        <div class="project-card fade-in">
+          <img class="project-img" src="https://media.discordapp.net/attachments/1341225505780924447/1346478954890006590/image.png?ex=67c855bf&is=67c7043f&hm=ed039681f31cf5429fc1a0c14f9aaf2c8323b49d2d3b380726d71910799ae638&=&format=webp&quality=lossless&width=1872&height=772" alt="PyDancer">
+          <div class="project-info">
+            <h3>PyDancer</h3>
+            <p>Generate an appropriate interface for any Python code and even schedule them to run at different times. (Code cannot be shown as it was developed for a corporate project—contact me to learn more.)</p>
+            <div class="project-links">
+              <a href="#" class="live-link">Demo</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card fade-in">
+          <img class="project-img" src="https://media.discordapp.net/attachments/1341225505780924447/1346482401034895451/image.png?ex=67c858f4&is=67c70774&hm=0490b0e60a8ca2ae60e95ee8a32051b1ef98db2eec3f50de0edbe6e19581542b&=&format=webp&quality=lossless&width=1657&height=864" alt="DROP IT!!">
+          <div class="project-info">
+            <h3>DROP IT!!</h3>
+            <p>A physics-based chatting app where users can play with messages—currently in development.</p>
+            <div class="project-links">
+              <a href="#" class="live-link">Demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section with Contact Me Button -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title fade-in">Contact Me</h2>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajnimator@gmail.com" target="_blank">
+        <button type="button">Contact Me</button>
+      </a>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#projects">Projects</a>
+        <a href="#games">Games</a>
+        <a href="#software">Software</a>
+        <a href="#prototypes">Prototypes</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="copyright">© 2025 ARJUN SINGH. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
