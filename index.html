@@ -1265,6 +1265,30 @@ body.custom-cursor {
                         </div>
                     </div>
                 </div>
+                <div class="project-card fade-in">
+                    <img class="project-img" src="https://img.youtube.com/vi/wp9cfFwf24U/hqdefault.jpg" alt=":3">
+                    <div class="project-info">
+                        <h3>unnamed fps deck builder</h3>
+                        <p>i was working a on fps where you could build a deck of cards and that would have way more impactfull visual effects and gameplay changes than normal deck builder</p>
+                        <div class="project-links">
+                           
+                            <a href="https://youtu.be/wp9cfFwf24U" class="live-link">video demo</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                    <img class="project-img" src="https://img.youtube.com/vi/loSf8KmCd9w/hqdefault.jpg" alt=":3">
+                    <div class="project-info">
+                        <h3>the rotating prison</h3>
+                        <p>was tryinh something new with a really huge prison that rotates inspired by the rotating prison in colorado museum. it was meant to be a horror game but i found the gameplay boring in prototyping so, its now abandoned. poetic now that i think.</p>
+                        <div class="project-links">
+                           
+                            <a href="https://youtu.be/loSf8KmCd9w" class="live-link">video demo</a>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1611,6 +1635,45 @@ document.addEventListener('DOMContentLoaded', function() {
         player.style.transition = 'top 0.1s ease';
         gameContainer.appendChild(player);
         
+        // Add control buttons for mobile users
+        const controlsContainer = document.createElement('div');
+        controlsContainer.style.position = 'absolute';
+        controlsContainer.style.bottom = '10px';
+        controlsContainer.style.left = '50%';
+        controlsContainer.style.transform = 'translateX(-50%)';
+        controlsContainer.style.display = 'flex';
+        controlsContainer.style.gap = '10px';
+        
+        const upButton = document.createElement('button');
+        upButton.textContent = '↑';
+        upButton.style.padding = '10px 20px';
+        upButton.style.fontSize = '20px';
+        upButton.style.backgroundColor = '#00ffcc';
+        upButton.style.border = 'none';
+        upButton.style.borderRadius = '5px';
+        upButton.style.cursor = 'pointer';
+        upButton.addEventListener('click', () => {
+            const currentTop = parseInt(player.style.top);
+            player.style.top = Math.max(30, currentTop - 15) + 'px';
+        });
+        
+        const downButton = document.createElement('button');
+        downButton.textContent = '↓';
+        downButton.style.padding = '10px 20px';
+        downButton.style.fontSize = '20px';
+        downButton.style.backgroundColor = '#00ffcc';
+        downButton.style.border = 'none';
+        downButton.style.borderRadius = '5px';
+        downButton.style.cursor = 'pointer';
+        downButton.addEventListener('click', () => {
+            const currentTop = parseInt(player.style.top);
+            player.style.top = Math.min(270, currentTop + 15) + 'px';
+        });
+        
+        controlsContainer.appendChild(upButton);
+        controlsContainer.appendChild(downButton);
+        gameContainer.appendChild(controlsContainer);
+        
         // Insert game container after the dotted line
         const dottedLine = document.querySelector('.contact-email');
         dottedLine.parentNode.insertBefore(gameContainer, dottedLine.nextSibling);
@@ -1633,7 +1696,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 500);
             }
         });
-        
         // Transform dotted line into a square
         const dottedLines = document.querySelectorAll('.contact .container > *');
         dottedLines.forEach(line => {
