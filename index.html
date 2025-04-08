@@ -16,7 +16,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-    /* Keep your existing CSS */
+        body {
+      -webkit-user-select: none; /* Chrome, Safari, Opera */
+      -moz-user-select: none;    /* Firefox */
+      -ms-user-select: none;     /* Internet Explorer/Edge */
+      user-select: none;         /* Standard syntax */
+    }
+    
     :root {
         --primary: #0f0f0f;
         --secondary: #223792;
@@ -773,21 +779,19 @@
         transform: rotate(-2deg);
         display: inline-block;
     }
-    /* Tilt the letter "a" */
-#tiltA {
-  display: inline-block;
-  transform: rotate(-10deg); /* Adjust tilt as desired */
-  transition: transform 0.3s ease;
-  cursor: pointer;
-}
-#tiltA:hover {
-  transform: rotate(-10deg) scale(1.1);
-}
+  
+    #tiltA {
+      display: inline-block;
+      transform: rotate(-10deg);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    /* Original hover style */
+    #tiltA:hover {
+      transform: rotate(-10deg) scale(1.1);
+    }
 
-/* Custom cursor using an inline SVG (rotated -45° so its tip mimics a default cursor) */
-body.custom-cursor {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='18' font-size='18' transform='rotate(-45 12 12)' fill='%23ffffff'%3Ea%3C/text%3E%3C/svg%3E"), auto;
-}
+
 
     
     .project-info p {
@@ -1045,6 +1049,7 @@ body.custom-cursor {
         background-position: center;
     }
 </style>
+
 </head>
 <body>
     
@@ -1116,7 +1121,7 @@ body.custom-cursor {
                     <img class="project-img" src="https://img.itch.zone/aW1nLzE3MzUyMDY0LnBuZw==/original/EirMSH.png" alt="Game 1">
                     <div class="project-info">
                         <h3>MVNES</h3>
-                        <p>Chess meets minesweeper in a horror setting</p>
+                        <p>Chess meets minesweeper in a horror setting. Featuring levels that drastically change the rules for engaging scenarios.</p>
                         <div class="project-links">
                             <a href="https://79gamescoldatnight.itch.io/mvnes-chess-minesweeper" class="live-link">Play Now</a>
                            
@@ -1168,7 +1173,7 @@ body.custom-cursor {
 
     <section class="projects" id="software">
         <div class="container">
-            <h2 class="section-title fade-in">Software I Built</h2>
+            <h2 class="section-title fade-in">Soft<span id="tiltA">w</span>are I Built</h2>
             <div class="project-grid">
                 <!-- Repeat 6 times with software projects -->
                 <div class="project-card fade-in">
@@ -1223,12 +1228,12 @@ body.custom-cursor {
 
     <section class="statement">
         <div class="statement-bg"></div>
-        <h2>never left my mind ya know?</h2>
+        <h2>buried with the rest</h2>
     </section>
 
     <section class="projects" id="prototypes">
         <div class="container">
-            <h2 class="section-title fade-in">Unreleased Prototypes</h2>
+            <h2 class="section-title fade-in">Unre<span id="tiltA">L</span>eased Prototypes</h2>
             <div class="project-grid">
             
                 <div class="project-card fade-in">
@@ -1471,11 +1476,7 @@ window.addEventListener('click', (e) => {
         }, 500);
     }
 });
-            // Add this JavaScript at the end of your existing script section
-
-// Add this JavaScript at the end of your existing script section
-
-// Make statement text interactive
+            
 const statementTexts = document.querySelectorAll('.statement h2');
 
 statementTexts.forEach(text => {
@@ -1980,6 +1981,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 });
     </script>
+     
     
 </body>
 </html>
