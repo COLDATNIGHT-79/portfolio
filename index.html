@@ -755,6 +755,27 @@
         gap: 2rem;
         margin-top: 2rem;
     }
+
+    #brick-breaker-controls {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        gap: 20px;
+    }
+
+    #brick-breaker-controls button {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid var(--accent);
+        color: var(--accent);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 2rem;
+        cursor: pointer;
+    }
 </style>
 
 </head>
@@ -789,6 +810,10 @@
             </div>
         </div>
         <div id="paddle-element"></div>
+        <div id="brick-breaker-controls">
+            <button id="bb-left-btn">&larr;</button>
+            <button id="bb-right-btn">&rarr;</button>
+        </div>
         <div class="hero-bg">
             <img src="get.png" alt="Background Image">
         </div>
@@ -1184,6 +1209,7 @@
                     }
                     span.classList.add('brick');
                     span.dataset.hits = hits;
+                    span.dataset.initialHits = hits;
                     element.appendChild(span);
                 });
             }
@@ -1219,16 +1245,22 @@
                 this.canvas = document.createElement('canvas');
                 this.ctx = this.canvas.getContext('2d');
                 this.ball = { x: 0, y: 0, dx: 0, dy: 0, radius: 10 };
-                this.paddle = { x: 0, y: 0, width: 0, height: 15 };
+                this.paddle = { x: 0, y: 0, width: 0, height: 15, speed: 10 };
+                this.controls = { left: false, right: false };
                 this.animationFrameId = null;
                 this.gameActive = false;
                 this.gameOverModal = document.getElementById('game-over-modal');
                 this.restartBtn = document.getElementById('restart-game-btn');
                 this.browseBtn = document.getElementById('browse-site-btn');
+                this.bbControls = document.getElementById('brick-breaker-controls');
+                this.bbLeftBtn = document.getElementById('bb-left-btn');
+                this.bbRightBtn = document.getElementById('bb-right-btn');
                 
                 this.movePaddleHandler = this.movePaddle.bind(this);
                 this.restartHandler = this.restart.bind(this);
                 this.endGameHandler = this.endGame.bind(this);
+                this.keyDownHandler = this.keyDown.bind(this);
+                this.keyUpHandler = this.keyUp.bind(this);
             }
 
             start() {
@@ -1242,6 +1274,7 @@
 
                 this.gameTrigger.style.opacity = '0';
                 this.highlight.classList.add('game-active');
+                this.bbControls.style.display = 'flex';
                 
                 const highlightRect = this.highlight.getBoundingClientRect();
                 this.paddleEl.style.width = `${highlightRect.width}px`;
@@ -1263,13 +1296,42 @@
                     this.ball.dx = 5 * (Math.random() > 0.5 ? 1 : -1);
                     this.ball.dy = -5;
 
-                    this.header.addEventListener('mousemove', this.movePaddleHandler);
-                    this.restartBtn.addEventListener('click', this.restartHandler);
-                    this.browseBtn.addEventListener('click', this.endGameHandler);
+                    this.addEventListeners();
                     this.update();
                 }, 500);
             }
             
+            addEventListeners() {
+                this.header.addEventListener('mousemove', this.movePaddleHandler);
+                document.addEventListener('keydown', this.keyDownHandler);
+                document.addEventListener('keyup', this.keyUpHandler);
+                this.restartBtn.addEventListener('click', this.restartHandler);
+                this.browseBtn.addEventListener('click', this.endGameHandler);
+
+                this.bbLeftBtn.addEventListener('touchstart', () => this.controls.left = true);
+                this.bbLeftBtn.addEventListener('touchend', () => this.controls.left = false);
+                this.bbRightBtn.addEventListener('touchstart', () => this.controls.right = true);
+                this.bbRightBtn.addEventListener('touchend', () => this.controls.right = false);
+            }
+
+            removeEventListeners() {
+                this.header.removeEventListener('mousemove', this.movePaddleHandler);
+                document.removeEventListener('keydown', this.keyDownHandler);
+                document.removeEventListener('keyup', this.keyUpHandler);
+                this.restartBtn.removeEventListener('click', this.restartHandler);
+                this.browseBtn.removeEventListener('click', this.endGameHandler);
+            }
+
+            keyDown(e) {
+                if (e.key === 'Right' || e.key === 'ArrowRight') this.controls.right = true;
+                if (e.key === 'Left' || e.key === 'ArrowLeft') this.controls.left = true;
+            }
+
+            keyUp(e) {
+                if (e.key === 'Right' || e.key === 'ArrowRight') this.controls.right = false;
+                if (e.key === 'Left' || e.key === 'ArrowLeft') this.controls.left = false;
+            }
+
             movePaddle(e) {
                  const rect = this.canvas.getBoundingClientRect();
                  const newX = e.clientX - rect.left - this.paddle.width / 2;
@@ -1284,6 +1346,18 @@
 
             update() {
                 if (!this.gameActive) return;
+                
+                if(this.controls.right) {
+                    this.paddle.x += this.paddle.speed;
+                }
+                if(this.controls.left) {
+                    this.paddle.x -= this.paddle.speed;
+                }
+                this.paddle.x = Math.max(0, Math.min(this.paddle.x, this.canvas.width - this.paddle.width));
+                const canvasRect = this.canvas.getBoundingClientRect();
+                this.paddleEl.style.transform = `translate(${this.paddle.x - (this.paddleEl.offsetLeft - canvasRect.left)}px, ${this.canvas.height * 0.6}px)`;
+
+
                 this.moveBall();
                 this.draw();
                 this.animationFrameId = requestAnimationFrame(() => this.update());
@@ -1352,12 +1426,14 @@
                 this.gameActive = false;
                 cancelAnimationFrame(this.animationFrameId);
                 this.gameOverModal.style.display = 'flex';
+                this.bbControls.style.display = 'none';
             }
 
             restart() {
                 this.gameOverModal.style.display = 'none';
+                this.bbControls.style.display = 'flex';
                 this.bricks.forEach(brick => {
-                    brick.dataset.hits = brick.dataset.initialHits || 8;
+                    brick.dataset.hits = brick.dataset.initialHits;
                     brick.style.opacity = '1';
                     brick.style.transform = 'none';
                     brick.style.boxShadow = 'none';
@@ -1381,10 +1457,9 @@
                 this.paddleEl.style.transform = 'translateY(0)';
                 this.highlight.classList.remove('game-active');
                 this.gameTrigger.style.opacity = '1';
+                this.bbControls.style.display = 'none';
                 
-                this.header.removeEventListener('mousemove', this.movePaddleHandler);
-                this.restartBtn.removeEventListener('click', this.restartHandler);
-                this.browseBtn.removeEventListener('click', this.endGameHandler);
+                this.removeEventListeners();
 
                 if(this.onEndCallback) this.onEndCallback();
                 brickBreakerGame = null;
@@ -1509,7 +1584,57 @@
         function setupFadeInAnimations() { const o=new IntersectionObserver(e=>{e.forEach(t=>{if(t.isIntersecting){t.target.classList.add('visible');o.unobserve(t.target)}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.fade-in').forEach(e=>o.observe(e)) }
         function setupSmoothScrolling() { document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener('click',function(t){t.preventDefault();const o=document.querySelector(this.getAttribute('href'));o&&window.scrollTo({top:o.offsetTop-100,behavior:'smooth'})})}) }
         function setupProjectModal() { const e=document.querySelector('.project-detail');document.querySelectorAll('.project-card').forEach(t=>{t.addEventListener('click',()=>{const o=t.querySelector('.project-img').src,n=t.querySelector('h3').textContent,r=t.querySelector('p').textContent,c=t.querySelector('.project-links');e.querySelector('.detail-image').src=o;e.querySelector('.detail-title').textContent=n;e.querySelector('.detail-description').textContent=r;const l=e.querySelector('.detail-links');l.innerHTML=c?c.innerHTML:'';e.style.display='block';setTimeout(()=>e.classList.add('active'),10)})});const t=()=>{e.classList.remove('active');setTimeout(()=>e.style.display='none',500)};e.querySelector('.project-detail-close').addEventListener('click',t);window.addEventListener('click',o=>{o.target===e&&t()}) }
-        function setupInteractiveStatement() { document.querySelectorAll('.statement h2').forEach(e=>{const t=e.textContent.split('');e.innerHTML='';t.forEach(t=>{const o=document.createElement('span');o.textContent=t;o.className='interactive-letter';e.appendChild(o)})}) }
+        function setupInteractiveStatement() {
+            document.querySelectorAll('.statement h2').forEach(text => {
+                const letters = text.textContent.split('');
+                text.innerHTML = '';
+                letters.forEach(letter => {
+                    const span = document.createElement('span');
+                    span.textContent = letter;
+                    span.className = 'interactive-letter';
+                    text.appendChild(span);
+                });
+
+                text.addEventListener('mousemove', (e) => {
+                    const rect = text.getBoundingClientRect();
+                    const letters = text.querySelectorAll('.interactive-letter');
+                    
+                    letters.forEach(letter => {
+                        const letterRect = letter.getBoundingClientRect();
+                        const centerX = letterRect.left + letterRect.width / 2;
+                        const centerY = letterRect.top + letterRect.height / 2;
+                        
+                        const distX = e.clientX - centerX;
+                        const distY = e.clientY - centerY;
+                        const distance = Math.sqrt(distX * distX + distY * distY);
+                        
+                        if (distance < 150) {
+                            const scale = 1 + (1 - distance / 150) * 0.5;
+                            const rotate = (1 - distance / 150) * 15 * (Math.random() > 0.5 ? 1 : -1);
+                            const translateX = (1 - distance / 150) * distX * 0.1;
+                            const translateY = (1 - distance / 150) * distY * 0.1;
+                            
+                            letter.style.transform = `scale(${scale}) rotate(${rotate}deg) translate(${translateX}px, ${translateY}px)`;
+                            letter.style.color = `hsl(${Math.floor(Math.random() * 360)}, 100%, 70%)`;
+                            letter.style.transition = '0.1s ease-out';
+                        } else {
+                            letter.style.transform = 'scale(1) rotate(0deg) translate(0px, 0px)';
+                            letter.style.color = '';
+                            letter.style.transition = '0.5s ease';
+                        }
+                    });
+                });
+
+                text.addEventListener('mouseleave', () => {
+                    const letters = text.querySelectorAll('.interactive-letter');
+                    letters.forEach(letter => {
+                        letter.style.transform = 'scale(1) rotate(0deg) translate(0px, 0px)';
+                        letter.style.color = '';
+                        letter.style.transition = '0.5s ease';
+                    });
+                });
+            });
+        }
     });
     </script>
      
