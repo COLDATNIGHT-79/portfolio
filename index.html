@@ -639,6 +639,9 @@
         border: 3px solid #00ffcc;
         box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
         overflow: hidden;
+        width: 100%;
+        height: 300px;
+        margin-top: 2rem;
     }
 
     .title-letter {
@@ -1570,7 +1573,14 @@
                 const r2 = el2.getBoundingClientRect();
                 return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom);
             }
-            function updateScore(p) { mGame.score += p; document.getElementById('m-game-score').textContent = 'Score: ' + mGame.score; }
+            function updateScore(p) {
+                if (!mGame.active) return;
+                mGame.score += p;
+                const scoreDisplay = document.getElementById('m-game-score');
+                if (scoreDisplay) {
+                    scoreDisplay.textContent = 'Score: ' + mGame.score;
+                }
+            }
             function gameOver() {
                 mGame.active = false;
                 document.body.classList.remove('scroll-locked');
