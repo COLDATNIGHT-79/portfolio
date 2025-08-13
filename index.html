@@ -17,46 +17,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-      -webkit-user-select: none; /* Chrome, Safari, Opera */
-      -moz-user-select: none;    /* Firefox */
-      -ms-user-select: none;     /* Internet Explorer/Edge */
-      user-select: none;         /* Standard syntax */
-    }
-    
-    :root {
-        --primary: #0f0f0f;
-        --secondary: #223792;
-        --accent: #f1f1f1;
-        --text: #179ed3;
-    }
-    
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    .contact-email {
-    margin-bottom: 2rem;
-    font-size: 1.2rem;
-    color: var(--accent);
-}
+          -webkit-user-select: none; /* Chrome, Safari, Opera */
+          -moz-user-select: none;    /* Firefox */
+          -ms-user-select: none;     /* Internet Explorer/Edge */
+          user-select: none;         /* Standard syntax */
+        }
+        
+        body.scroll-locked {
+            overflow: hidden;
+        }
 
-.contact-email a {
-    color: var(--secondary);
-    text-decoration: none;
-    position: relative;
-    font-weight: 600;
-}
+        :root {
+            --primary: #0f0f0f;
+            --secondary: #ff0066;
+            --accent: #00ffcc;
+            --text: #ffffff;
+            --dot-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .contact-email {
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
+        color: var(--accent);
+    }
 
-.contact-email a:hover {
-    color: var(--accent);
-}
-    
+    .contact-email a {
+        color: var(--secondary);
+        text-decoration: none;
+        position: relative;
+        font-weight: 600;
+    }
+
+    .contact-email a:hover {
+        color: var(--accent);
+    }
+        
     body {
         font-family: 'Outfit', sans-serif;
         background-color: var(--primary);
         color: var(--text);
         overflow-x: hidden;
+        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3C/g%3E%3C/svg%3E");
+        background-attachment: fixed;
+        cursor: default;
     }
     
     .container {
@@ -71,11 +79,13 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        position: relative; /* Needed for game elements */
     }
     
     nav {
         position: fixed;
         top: 0;
+        left: 0;
         width: 100%;
         padding: 2rem;
         display: flex;
@@ -95,6 +105,13 @@
         font-size: 1.5rem;
         font-weight: 900;
         color: var(--accent);
+        cursor: grab;
+        position: relative;
+        z-index: 10;
+    }
+
+    .logo:active {
+        cursor: grabbing;
     }
     
     .nav-links {
@@ -107,38 +124,51 @@
         text-decoration: none;
         font-weight: 600;
         position: relative;
-        transition: color 0.3s ease;
+        padding: 5px 10px;
+        transition: all 0.3s ease;
+        transform: skew(-5deg);
+        z-index: 1;
     }
     
-    .nav-links a:hover {
-        color: var(--accent);
-    }
-    
-    .nav-links a::after {
+    .nav-links a::before {
         content: '';
         position: absolute;
-        bottom: -5px;
+        top: 0;
         left: 0;
-        width: 0;
-        height: 2px;
-        background-color: var(--accent);
-        transition: width 0.3s ease;
+        width: 100%;
+        height: 100%;
+        background: var(--accent);
+        z-index: -1;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     }
     
-    .nav-links a:hover::after {
-        width: 100%;
+    .nav-links a:hover::before {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    .nav-links a:hover {
+        color: var(--primary);
     }
     
     .hero {
         display: flex;
         flex-direction: column;
         gap: 2rem;
+        position: relative;
+        z-index: 5;
+        padding: 4rem 0;
     }
     
     .hero h1 {
-        font-size: 5rem;
-        font-weight: 900;
-        line-height: 1;
+        font-size: 6rem;
+        font-family: 'Outfit', sans-serif;
+        text-transform: uppercase;
+        text-shadow: 5px 5px 0 #ff0066;
+        letter-spacing: -2px;
+        transform: skew(-5deg);
     }
     
     .hero p {
@@ -148,7 +178,32 @@
     }
     
     .highlight {
+        position: relative;
+        display: inline-block;
         color: var(--accent);
+        text-shadow: 3px 3px 0 #0066ff;
+    }
+    
+    .highlight::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 15px;
+        background: repeating-linear-gradient(45deg, var(--secondary), var(--secondary) 5px, transparent 5px, transparent 10px);
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        transition: opacity 0.3s ease;
+    }
+
+    .highlight.game-active::after {
+        opacity: 0;
+    }
+
+    #game-trigger {
+        cursor: pointer;
+        display: inline-block;
+        transition: opacity 0.3s ease;
     }
     
     .social-icons {
@@ -169,21 +224,23 @@
     
     /* STATEMENT SECTIONS */
     .statement {
-        height: vh;
+        position: relative;
+        height: 40vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: var(--accent);
-        position: relative;
+        background: none;
         overflow: hidden;
     }
     
     .statement h2 {
-        font-size: 7vw;
+        font-size: 5vw;
         font-weight: 900;
-        text-align: center;
-        z-index: 1;
-        mix-blend-mode: difference;
+        text-transform: uppercase;
+        letter-spacing: -2px;
+        text-shadow: 4px 4px 0 var(--secondary);
+        animation: textFloat 4s ease-in-out infinite;
+        color: var(--text);
     }
     
     .statement-bg {
@@ -192,17 +249,19 @@
         height: 150%;
         top: -25%;
         left: -50%;
-        background: linear-gradient(45deg, #000000, #ff0000);
-        animation: rotate 10s linear infinite;
+        background: repeating-radial-gradient(var(--accent), var(--accent) 5px, transparent 5px, transparent 20px);
+        animation: rotate 15s linear infinite;
+        opacity: 0.3;
     }
     
     @keyframes rotate {
-        0% {
-        transform: rotate(0deg);
-        }
-        100% {
-        transform: rotate(360deg);
-        }
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes textFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
     }
     
     /* PROJECTS */
@@ -211,9 +270,14 @@
     }
     
     .section-title {
-        font-size: 2.5rem;
+        font-size: 4rem;
         font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -2px;
+        color: var(--accent);
+        text-shadow: 4px 4px 0 var(--secondary);
         margin-bottom: 3rem;
+        transform: rotate(-2deg);
         position: relative;
         display: inline-block;
     }
@@ -223,9 +287,9 @@
         position: absolute;
         bottom: -10px;
         left: 0;
-        width: 60%;
-        height: 4px;
-        background-color: var(--accent);
+        width: 100%;
+        height: 8px;
+        background: repeating-linear-gradient(90deg, var(--accent), var(--accent) 10px, transparent 10px, transparent 20px);
     }
     
     .project-grid {
@@ -235,79 +299,122 @@
     }
     
     .project-card {
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                opacity 0.3s ease;
-    cursor: pointer;
-}
+        position: relative;
+        border: 3px solid var(--accent);
+        overflow: visible;
+        background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
+        transform-style: preserve-3d;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+    }
+    
+    .project-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E");
+        z-index: -1;
+        opacity: 0.5;
+    }
     
     .project-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 20px rgba(255, 60, 120, 0.2);
+        transform: translateY(-15px) rotate(2deg);
+        box-shadow: 15px 15px 0 var(--secondary), 
+                    15px 15px 0 var(--secondary), 
+                    20px 20px 30px rgba(0,0,0,0.5);
+        z-index: 10;
     }
     
     .project-img {
         width: 100%;
         height: 200px;
         object-fit: cover;
+        filter: grayscale(30%) contrast(120%);
+        transition: all 0.3s ease;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+    }
+    
+    .project-card:hover .project-img {
+        filter: grayscale(0%) contrast(130%) brightness(110%);
     }
     
     .project-info {
-        padding: 1.5rem;
+        padding: 2rem;
+        position: relative;
     }
     
     .project-info h3 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
+        font-size: 2rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1rem;
+        transform: rotate(-2deg);
+        display: inline-block;
     }
     
     .project-info p {
         font-size: 1rem;
-        color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 1rem;
+        color: var(--text);
+        position: relative;
+        padding-left: 1rem;
+        border-left: 4px dotted var(--secondary);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     
     .project-links {
         display: flex;
         gap: 1rem;
+        align-items: center;
     }
     
-    .project-links a {
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: all 0.2s ease;
-    }
-    
-    .live-link {
+    /* UNIFIED BUTTON STYLE */
+    .btn-capsule {
+        text-decoration: none !important;
+        border: none;
+        padding: 0.8rem 1.8rem;
+        border-radius: 50px; /* Capsule shape */
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        cursor: pointer;
         background-color: var(--accent);
         color: var(--primary);
+        font-size: 0.9rem;
+        text-align: center;
+        display: inline-block;
     }
-    
-    .live-link:hover {
-        background-color: #ff5e3a;
-    }
-    
-    .code-link {
-        background-color: transparent;
+
+    .btn-capsule:hover {
+        transform: scale(1.05) translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0, 255, 204, 0.3);
+        background-color: var(--secondary);
         color: var(--text);
-        border: 1px solid var(--text);
     }
     
-    .code-link:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-  
     /* CONTACT */
     .contact {
         padding: 6rem 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
     }
     
-    form {
-        max-width: 600px;
+    .contact form {
+        position: relative;
+        backdrop-filter: blur(10px);
+        border: 3px solid var(--accent);
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        box-shadow: 10px 10px 0 var(--secondary);
+        z-index: 2;
     }
     
     .form-group {
@@ -341,21 +448,6 @@
         min-height: 150px;
     }
     
-    button {
-        background-color: var(--accent);
-        color: var(--primary);
-        border: none;
-        padding: 1rem 2rem;
-        font-weight: 600;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    
-    button:hover {
-        background-color: #ff5e3a;
-    }
-    
     /* FOOTER */
     footer {
         padding: 3rem 0;
@@ -384,15 +476,24 @@
     }
     
     /* ANIMATIONS */
+    @keyframes tracking-in-expand {
+      0% {
+        letter-spacing: -0.5em;
+        opacity: 0;
+      }
+      40% {
+        opacity: 0.6;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
     .fade-in {
         opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    
     .fade-in.visible {
-        opacity: 1;
-        transform: translateY(0);
+        animation: tracking-in-expand 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
     }
     
     @media (max-width: 768px) {
@@ -408,435 +509,7 @@
             font-size: 10vw;
         }
     }
-    .project-card {
-        cursor: pointer;
-    }
-    
-    .project-detail {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0);
-    z-index: 2000;
-    overflow: hidden;
-    transition: background-color 0.6s ease;
-}
-    
-    .project-detail-content {
-        max-width: 800px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    
-    .project-detail-close {
-        position: absolute;
-        top: 2rem;
-        right: 2rem;
-        font-size: 2rem;
-        color: var(--text);
-        cursor: pointer;
-    }
-    .project-detail {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(15, 15, 15, 0.95);
-        z-index: 2000;
-        overflow-y: auto;
-        padding: 2rem;
-    }
 
-    .project-detail-content {
-        max-width: 800px;
-        margin: 0 auto;
-        position: relative;
-    }
-
-    .detail-image {
-        width: 100%;
-        height: 400px;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 2rem;
-    }
-
-    .detail-links {
-        margin-top: 2rem;
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-    }
-    /* Add this CSS to your existing <style> section */
-
-/* Dino game styles */
-.dino-game {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 200px;
-    background-color: #f1f1f1;
-    border: 5px solid var(--secondary);
-    overflow: hidden;
-    z-index: 9999;
-    box-shadow: 0 0 30px rgba(0, 255, 204, 0.7);
-}
-
-.dino-game.active {
-    display: block;
-}
-
-.dino {
-    position: absolute;
-    width: 40px;
-    height: 60px;
-    background-color: #333;
-    bottom: 0;
-    left: 50px;
-    clip-path: polygon(
-        25% 0%, 75% 0%, 100% 25%, 
-        75% 50%, 100% 75%, 75% 100%, 
-        50% 80%, 25% 100%, 0% 75%, 
-        25% 50%, 0% 25%
-    );
-}
-
-.dino.jump {
-    animation: dinoJump 0.5s linear;
-}
-
-@keyframes dinoJump {
-    0% { bottom: 0; }
-    50% { bottom: 80px; }
-    100% { bottom: 0; }
-}
-
-.cactus {
-    position: absolute;
-    width: 20px;
-    height: 60px;
-    background-color: var(--secondary);
-    bottom: 0;
-    right: -20px;
-    clip-path: polygon(
-        50% 0%, 20% 100%, 80% 100%
-    );
-}
-
-.ground {
-    position: absolute;
-    width: 100%;
-    height: 10px;
-    background-color: #333;
-    bottom: 0;
-}
-/* Add this CSS to your existing styles */
-
-/* M game specific styling */
-#m-game-container {
-    position: relative;
-    border: 3px solid #00ffcc;
-    box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-    overflow: hidden;
-}
-
-.title-letter {
-    display: inline-block;
-}
-
-.first-m {
-    cursor: pointer;
-    position: relative;
-    z-index: 5;
-}
-
-.first-m:hover {
-    animation: pulse 0.5s infinite alternate;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.2); }
-}
-
-.m-game-explosion {
-    pointer-events: none;
-    z-index: 10;
-    animation: explode 0.3s forwards;
-}
-
-@keyframes explode {
-    0% { transform: scale(0.5); opacity: 1; }
-    100% { transform: scale(2); opacity: 0; }
-}
-
-#m-game-player {
-    text-shadow: 0 0 10px #ff0000;
-}
-
-.m-game-bullet {
-    box-shadow: 0 0 5px #00ffcc;
-}
-
-.m-game-obstacle {
-    box-shadow: 0 0 8px #ff0066;
-}
-.interactive-letter {
-    display: inline-block;
-    transition: transform 0.3s ease, color 0.3s ease;
-    cursor: pointer;
-}
-    /* Then add these 90s Magazine Style Enhancements */
-    :root {
-        --primary: #0f0f0f;
-        --secondary: #ff0066;
-        --accent: #00ffcc;
-        --text: #ffffff;
-        --dot-color: rgba(255, 255, 255, 0.5);
-    }
-    
-    body {
-        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3C/g%3E%3C/svg%3E");
-        background-attachment: fixed;
-        /* cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%2300ffcc' fill-opacity='0.7'/%3E%3C/svg%3E"), auto; */ /*<-- REMOVED CURSOR*/
-    }
-    
-    /* Dot overlay effect */
-    .dot-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
-        background-size: 4px 4px;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: 0.5;
-    }
-    
-    /* Scan line effect */
-    .scan-lines {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, 
-            rgba(0,0,0,0) 50%, 
-            rgba(0,0,0,0.1) 50%);
-        background-size: 100% 4px;
-        pointer-events: none;
-        z-index: 9990;
-        opacity: 0.2;
-    }
-    
-    /* Header Styling */
-    header {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .hero {
-        position: relative;
-        z-index: 5;
-        mix-blend-mode: difference;
-        padding: 4rem 0;
-    }
-    
-    /* MODIFIED HERO H1 */
-    .hero h1 {
-        font-size: 6rem;
-        font-family: 'Outfit', sans-serif;
-        text-transform: uppercase;
-        text-shadow: 2px 2px 0px var(--secondary), 4px 4px 8px rgba(0,0,0,0.4);
-        letter-spacing: 0;
-        transform: skew(0);
-    }
-    
-    /* MODIFIED HIGHLIGHT */
-    .highlight {
-        position: relative;
-        display: inline-block;
-        color: var(--accent);
-        text-shadow: none;
-    }
-    
-    .highlight::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 8px;
-        background: var(--accent);
-        bottom: 0.2em;
-        left: 0;
-        z-index: -1;
-    }
-    
-    /* Section Title Styling */
-    .section-title {
-        font-size: 4rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: -2px;
-        color: var(--accent);
-        text-shadow: 4px 4px 0 var(--secondary);
-        margin-bottom: 3rem;
-        transform: rotate(-2deg);
-    }
-    
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 8px;
-        background: repeating-linear-gradient(90deg, var(--accent), var(--accent) 10px, transparent 10px, transparent 20px);
-    }
-    
-    /* Statement Section */
-    .statement {
-        position: relative;
-        height: 40vh;
-        background: none;
-        overflow: hidden;
-    }
-    
-    .statement-bg {
-        animation: rotate 15s linear infinite;
-        background: repeating-radial-gradient(var(--accent), var(--accent) 5px, transparent 5px, transparent 20px);
-        opacity: 0.3;
-    }
-    
-    .statement h2 {
-        font-size: 5vw;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: -2px;
-        text-shadow: 4px 4px 0 var(--secondary);
-        animation: textFloat 4s ease-in-out infinite;
-        color: var(--text);
-    }
-    
-    @keyframes textFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
-    }
-    
-    /* Project Card Magazine Style */
-    .project-card {
-        position: relative;
-        border: 3px solid var(--accent);
-        overflow: visible;
-        background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
-        transform-style: preserve-3d;
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    
-    .project-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E");
-        z-index: -1;
-        opacity: 0.5;
-    }
-    
-    .project-card:hover {
-        transform: translateY(-15px) rotate(2deg);
-        box-shadow: 15px 15px 0 var(--secondary), 
-                    15px 15px 0 var(--secondary), 
-                    20px 20px 30px rgba(0,0,0,0.5);
-        z-index: 10;
-    }
-    
-    .project-img {
-        filter: grayscale(30%) contrast(120%);
-        transition: all 0.3s ease;
-        clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
-    }
-    
-    .project-card:hover .project-img {
-        filter: grayscale(0%) contrast(130%) brightness(110%);
-    }
-    
-    .project-info {
-        padding: 2rem;
-        position: relative;
-    }
-    
-    .project-info h3 {
-        font-size: 2rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 1rem;
-        transform: rotate(-2deg);
-        display: inline-block;
-    }
-  
-    #tiltA {
-      display: inline-block;
-      transform: rotate(-10deg);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-    /* Original hover style */
-    #tiltA:hover {
-      transform: rotate(-10deg) scale(1.1);
-    }
-
-
-
-    
-    .project-info p {
-        font-size: 1rem;
-        color: var(--text);
-        position: relative;
-        padding-left: 1rem;
-        border-left: 4px dotted var(--secondary);
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-    
-    .project-links a {
-        position: relative;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-    
-    /* MODIFIED LIVE LINK BUTTON */
-    .live-link {
-        background: var(--accent);
-        color: var(--primary);
-        padding: 0.7rem 1.5rem;
-        border-radius: 50px; /* Capsule shape */
-        text-decoration: none;
-    }
-    
-    .live-link:hover {
-        background: var(--secondary);
-        color: var(--accent);
-        transform: scale(1.05) translateY(-2px);
-        box-shadow: 0 5px 15px rgba(255, 0, 102, 0.4);
-    }
-    
     /* Pop-up Effect for Project Detail */
     .project-detail {
         display: none;
@@ -864,25 +537,13 @@
     }
     
     .project-detail.active {
-    background-color: rgba(0, 0, 0, 0.9);
-}
+        background-color: rgba(0, 0, 0, 0.9);
+    }
 
-.project-detail-content {
-    max-width: 800px;
-    margin: 3rem auto;
-    background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
-    border: 5px solid var(--accent);
-    padding: 2rem;
-    position: relative;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-.project-detail.active .project-detail-content {
-    opacity: 1;
-    transform: scale(1);
-}
+    .project-detail.active .project-detail-content {
+        opacity: 1;
+        transform: scale(1);
+    }
     .project-detail-close {
         position: absolute;
         top: 1rem;
@@ -928,145 +589,171 @@
         border-left: 4px dotted var(--secondary);
     }
     
-    /* Contact Form Styling */
-    .contact {
-        background-color: rgba(0, 0, 0, 0.5);
-        padding: 4rem 0;
+    .detail-links {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+  
+    #tiltA {
+      display: inline-block;
+      transform: rotate(-10deg);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    
+    #tiltA:hover {
+      transform: rotate(-10deg) scale(1.1);
+    }
+
+    .interactive-letter {
+        display: inline-block;
+        transition: transform 0.3s ease, color 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .scan-lines {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, 
+            rgba(0,0,0,0) 50%, 
+            rgba(0,0,0,0.1) 50%);
+        background-size: 100% 4px;
+        pointer-events: none;
+        z-index: 9990;
+        opacity: 0.2;
+    }
+    
+    header {
         position: relative;
         overflow: hidden;
     }
-    
-    .contact form {
+
+    /* M game specific styling */
+    #m-game-container {
         position: relative;
-        backdrop-filter: blur(10px);
-        border: 3px solid var(--accent);
-        padding: 2rem;
-        max-width: 800px;
-        margin: 0 auto;
-        box-shadow: 10px 10px 0 var(--secondary);
-        z-index: 2;
+        border: 3px solid #00ffcc;
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+        overflow: hidden;
     }
-    
-    /* MODIFIED BUTTON */
-    button {
-        background-color: var(--accent);
-        color: var(--primary);
-        border: none;
-        padding: 1rem 2rem;
-        font-weight: 800;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        border-radius: 50px; /* Capsule shape */
-        transition: all 0.3s ease;
-        cursor: pointer;
-        position: relative;
-        font-size: 1.1rem;
-    }
-    
-    button:hover {
-        background-color: var(--secondary);
-        color: var(--accent);
-        transform: scale(1.05) translateY(-2px);
-        box-shadow: 0 5px 15px rgba(255, 0, 102, 0.4);
-    }
-    
-    /* MODIFIED Nav links - REPLACED a block of CSS here */
-    /* This new block provides a clean underline hover effect */
-    .nav-links a {
-        position: relative;
-        padding: 5px 10px;
-        border: 2px solid transparent;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        font-weight: 600;
-        color: var(--text);
-    }
-    .nav-links a:hover {
-        color: var(--accent);
-        transform: translateY(-2px);
-    }
-    .nav-links a::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 2px;
-        background-color: var(--accent);
-        transition: width 0.3s ease;
-    }
-    .nav-links a:hover::after {
-        width: 100%;
-    }
-    
-    /* Random shape styles */
-    .random-shape {
-        position: absolute;
-        pointer-events: none;
-    }
-    
-    .triangle {
-        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    }
-    
-    .circle {
-        border-radius: 50%;
-    }
-    
-    .square {
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    }
-    
-    .zigzag {
-        clip-path: polygon(0% 0%, 25% 50%, 0% 100%, 50% 75%, 100% 100%, 75% 50%, 100% 0%, 50% 25%);
-    }
-    
-    /* 90s-style animations */
-    @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.2; }
-    }
-    
-    @keyframes glitch {
-        0% { transform: translate(0); }
-        20% { transform: translate(-5px, 5px); }
-        40% { transform: translate(-5px, -5px); }
-        60% { transform: translate(5px, 5px); }
-        80% { transform: translate(5px, -5px); }
-        100% { transform: translate(0); }
-    }
-    
-    .glitch-text {
-        animation: glitch 3s infinite;
+
+    .title-letter {
         display: inline-block;
     }
-    
-    /* Parallax container */
-    .parallax-container {
+
+    .first-m {
+        cursor: pointer;
         position: relative;
-        height: 50vh;
-        overflow: hidden;
-        margin-bottom: 4rem;
+        z-index: 5;
     }
-    
-    .parallax-layer {
+
+    .first-m:hover {
+        animation: pulse 0.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.2); }
+    }
+
+    .m-game-explosion {
+        pointer-events: none;
+        z-index: 10;
+        animation: explode 0.3s forwards;
+    }
+
+    @keyframes explode {
+        0% { transform: scale(0.5); opacity: 1; }
+        100% { transform: scale(2); opacity: 0; }
+    }
+
+    #m-game-player {
+        text-shadow: 0 0 10px #ff0000;
+    }
+
+    .m-game-bullet {
+        box-shadow: 0 0 5px #00ffcc;
+    }
+
+    .m-game-obstacle {
+        box-shadow: 0 0 8px #ff0066;
+    }
+
+    /* Brick Breaker Game Styles */
+    #paddle-element {
+        position: absolute;
+        height: 15px;
+        background: repeating-linear-gradient(45deg, var(--secondary), var(--secondary) 5px, transparent 5px, transparent 10px);
+        z-index: 6;
+        pointer-events: none;
+        transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        opacity: 0;
+    }
+
+    .brick-breaker-canvas {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-size: cover;
-        background-position: center;
+        z-index: 4;
+        pointer-events: none;
     }
 
-    /* ADDED TEXT HOVER EFFECT */
-    .project-info p, .detail-description {
-        transition: color 0.3s ease;
+    .hero h1 .brick, .hero p .brick {
+        display: inline-block;
+        position: relative;
+        transition: all 0.2s ease;
     }
 
-    .project-info p:hover, .detail-description:hover {
+    @keyframes shake-brick {
+        0%, 100% { transform: translate(0, 0) rotate(0); }
+        25% { transform: translate(5px, 5px) rotate(2deg); }
+        50% { transform: translate(-5px, -5px) rotate(-2deg); }
+        75% { transform: translate(5px, -5px) rotate(2deg); }
+    }
+
+    .brick.hit {
+        animation: shake-brick 0.2s ease-in-out;
+        filter: brightness(1.5);
+    }
+    
+    .brick::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        transition: box-shadow 0.2s ease;
+        pointer-events: none;
+    }
+
+    #game-over-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        z-index: 3000;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         color: var(--accent);
+        font-size: 3rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-shadow: 3px 3px 0 var(--secondary);
+    }
+
+    #game-over-modal .btn-container {
+        display: flex;
+        gap: 2rem;
+        margin-top: 2rem;
     }
 </style>
 
@@ -1088,8 +775,8 @@
     <header>
         <div class="container">
             <div class="hero fade-in">
-                <h1>I'm <span class="highlight">Arjun Singh</span>.<br></h1>
-                <p>otherwise known as coldatnight. I build stuff, mostly games, I love games!</p>
+                <h1><span id="im-text">I'm </span><span class="highlight">Arjun Singh</span><span id="game-trigger">.</span></h1>
+                <p id="description-text">otherwise known as coldatnight. I build stuff, mostly games, I love games!</p>
                 <div class="social-icons">
                     <a href="https://79gamescoldatnight.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a>
                     <a href="https://x.com/AllHeresy89790" target="_blank"><i class="fab fa-twitter"></i></a>
@@ -1101,6 +788,7 @@
                 </div>
             </div>
         </div>
+        <div id="paddle-element"></div>
         <div class="hero-bg">
             <img src="get.png" alt="Background Image">
         </div>
@@ -1136,16 +824,13 @@
             <h2 class="section-title fade-in">G<span id="tiltA">a</span>mes I Made</h2>
 
             <div class="project-grid">
-
-
                 <div class="project-card fade-in">
                     <img class="project-img" src="yes.png" alt="Game 1">
                     <div class="project-info">
                         <h3>Fortiori</h3>
                         <p>The relentless number multiplication video puzzle. My first game on steam. very proud of this one. Check out its steam page to learn more!</p>
                         <div class="project-links">
-                            <a href="https://fortiori.vercel.app/" class="live-link">Play Now</a>
-                           
+                            <a href="https://fortiori.vercel.app/" class="btn-capsule">Play Now</a>
                         </div>
                     </div>
                 </div>
@@ -1156,8 +841,7 @@
                         <h3>MVNES</h3>
                         <p>Chess meets minesweeper in a horror setting. Featuring levels that drastically change the rules for engaging scenarios.</p>
                         <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/mvnes-chess-minesweeper" class="live-link">Play Now</a>
-                           
+                            <a href="https://79gamescoldatnight.itch.io/mvnes-chess-minesweeper" class="btn-capsule">Play Now</a>
                         </div>
                     </div>
                 </div>
@@ -1167,8 +851,7 @@
                         <h3>10 seconds to scale the evrest</h3>
                         <p>Do i HAVE to expalin that title?</p>
                         <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/10stste" class="live-link">Play Now</a>
-                           
+                            <a href="https://79gamescoldatnight.itch.io/10stste" class="btn-capsule">Play Now</a>
                         </div>
                     </div>
                 </div>
@@ -1178,8 +861,7 @@
                         <h3>CHA'CHINKO</h3>
                         <p>roguelike pachinko where goal is to score more that atoms on earth</p>
                         <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/cha-chinka" class="live-link">Play Now</a>
-                           
+                            <a href="https://79gamescoldatnight.itch.io/cha-chinka" class="btn-capsule">Play Now</a>
                         </div>
                     </div>
                 </div>
@@ -1189,12 +871,10 @@
                         <h3>5000 metres deep</h3>
                         <p>horror game set in middle of ocean on a static boat</p>
                         <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/5000-metres-deep" class="live-link">Play Now</a>
-                           
+                            <a href="https://79gamescoldatnight.itch.io/5000-metres-deep" class="btn-capsule">Play Now</a>
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </section>
@@ -1213,10 +893,6 @@
                     <div class="project-info">
                         <h3>PyDancer</h3>
                         <p>genrate appropiate interface for any python code and even scehdule them to run at different times. Store the function in a secured Database as well! (code cannot be shown because made for a corpo, contact me to learn more) </p>
-                        <div class="project-links">
-                            
-                        
-                        </div>
                     </div>
                 </div>
                 <div class="project-card fade-in">
@@ -1225,8 +901,7 @@
                         <h3>DROP IT!!</h3>
                         <p>A physics based chatting app where users can play with messages of each other. Downloadable on andoroid and IOS as well  </p>
                         <div class="project-links">
-                            <a href="https://drop-it-wyq5.onrender.com/" class="live-link">try for yo self</a>
-                        
+                            <a href="https://drop-it-wyq5.onrender.com/" class="btn-capsule">try for yo self</a>
                         </div>
                     </div>
                 </div>
@@ -1236,8 +911,7 @@
                         <h3>CUT-IT</h3>
                         <p>a mild photo editing tool that lets you cut images however you feel like in any shape. You can also resize indivisual components and apply filters onto them because why the hell not ay? </p>
                         <div class="project-links">
-                            <a href="https://cut-it-91ir.onrender.com/" class="live-link">try for yo self</a>
-                        
+                            <a href="https://cut-it-91ir.onrender.com/" class="btn-capsule">try for yo self</a>
                         </div>
                     </div>
                 </div>
@@ -1247,12 +921,10 @@
                         <h3>cold's app launcher</h3>
                         <p>I built this because my desktop was a mess and finding apps was killing my workflow.  So, I created a clean hub to categorize and instantly search for all my programs.  Custom shortcuts and icons make it truly mine.  It dramatically boosted my efficiency, and I thought, "maybe others would love this too!"  Hope it helps you streamline your workflow as much as it does mine!</p>
                         <div class="project-links">
-                            <a href="https://github.com/COLDATNIGHT-79/Custom-App-Launcher-and-close?tab=License-1-ov-file" class="live-link">github</a>
-                        
+                            <a href="https://github.com/COLDATNIGHT-79/Custom-App-Launcher-and-close?tab=License-1-ov-file" class="btn-capsule">github</a>
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </section>
@@ -1267,16 +939,11 @@
         <div class="container">
             <h2 class="section-title fade-in">Unre<span id="tiltA">L</span>eased Prototypes</h2>
             <div class="project-grid">
-            
                 <div class="project-card fade-in">
                     <img class="project-img" src="https://placehold.co/600x400/78ff3c/1a1a1a?text=:3" alt=":3">
                     <div class="project-info">
                         <h3>some stuff</h3>
                         <p>my early proj's was to replicate other peoples stuff to grasp basics of coding. after that i went on jounry to make actually functional apps. all are on my github</p>
-                        <div class="project-links">
-                           
-                          
-                        </div>
                     </div>
                 </div>
                 <div class="project-card fade-in">
@@ -1285,8 +952,7 @@
                         <h3>osaka browser</h3>
                         <p>I made my own browser to keep track of my history and privacy myself. I actually used it for a while before switching to arc broswer, lol</p>
                         <div class="project-links">
-                            <a href="https://github.com/COLDATNIGHT-79/Osakar-Browser" class="live-link">github</a>
-
+                            <a href="https://github.com/COLDATNIGHT-79/Osakar-Browser" class="btn-capsule">github</a>
                         </div>
                     </div>
                 </div>
@@ -1296,9 +962,8 @@
                         <h3>using hands to control games</h3>
                         <p>made a python file to control game using hands as hand gesture. eventually got bored of it xd</p>
                         <div class="project-links">
-                            <a href="https://github.com/COLDATNIGHT-79/Hand-gamingr" class="live-link">github</a>
-                            <a href="https://www.linkedin.com/posts/coldatnight_hey-people-this-weekend-i-got-inspired-by-activity-7189523990778990592-UaK0?utm_source=share&utm_medium=member_desktop&rcm=ACoAADH27wwBHgHs_Qg47sBWMNMMDYzRmVL-Teo" class="live-link">video demo</a>
-
+                            <a href="https://github.com/COLDATNIGHT-79/Hand-gamingr" class="btn-capsule">github</a>
+                            <a href="https://www.linkedin.com/posts/coldatnight_hey-people-this-weekend-i-got-inspired-by-activity-7189523990778990592-UaK0?utm_source=share&utm_medium=member_desktop" class="btn-capsule">video demo</a>
                         </div>
                     </div>
                 </div>
@@ -1308,9 +973,7 @@
                         <h3>unnamed fps deck builder</h3>
                         <p>i was working a on fps where you could build a deck of cards and that would have way more impactfull visual effects and gameplay changes than normal deck builder</p>
                         <div class="project-links">
-                           
-                            <a href="https://youtu.be/wp9cfFwf24U" class="live-link">video demo</a>
-
+                            <a href="https://youtu.be/wp9cfFwf24U" class="btn-capsule">video demo</a>
                         </div>
                     </div>
                 </div>
@@ -1320,9 +983,7 @@
                         <h3>the rotating prison</h3>
                         <p>was tryinh something new with a really huge prison that rotates inspired by the rotating prison in colorado museum. it was meant to be a horror game but i found the gameplay boring in prototyping so, its now abandoned. poetic now that i think.</p>
                         <div class="project-links">
-                           
-                            <a href="https://youtu.be/loSf8KmCd9w" class="live-link">video demo</a>
-
+                            <a href="https://youtu.be/loSf8KmCd9w" class="btn-capsule">video demo</a>
                         </div>
                     </div>
                 </div>
@@ -1352,10 +1013,18 @@
                     <label for="message">Message</label>
                     <textarea id="message" name="message" required></textarea>
                 </div>
-                <button type="submit">Send Message</button>
+                <button type="submit" class="btn-capsule">Send Message</button>
             </form>
         </div>
     </section>
+
+    <div id="game-over-modal">
+        <span>Game Over</span>
+        <div class="btn-container">
+            <button id="restart-game-btn" class="btn-capsule">Restart</button>
+            <button id="browse-site-btn" class="btn-capsule">Browse Site</button>
+        </div>
+    </div>
 
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
@@ -1364,7 +1033,7 @@
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             if (!emailPattern.test(email)) {
-                alert('Please enter a valid email address.');
+                console.error('Please enter a valid email address.');
                 return;
             }
 
@@ -1377,20 +1046,16 @@
     </script>
 
     <footer>
-        
-            
-                <div class="social-icons">
-                   
-                    <div class="social-icons">
-                        <a href="https://79gamescoldatnight.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a>
-                        <div style="text-align: center; margin: 0;">
-                            <a href="https://x.com/AllHeresy89790" target="_blank"><i class="fab fa-twitter" style="font-size: 0.75em;"></i></a>
-                            <div style="font-size: 0.5em;">not calling it X</div>
-                        </div>
-                    <a href="https://www.linkedin.com/in/arjun-singh-0108981b4/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/cold_substantial/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://steamcommunity.com/id/ColdatNight/" target="_blank"><i class="fab fa-steam"></i></a>
-                </div>
+        <div class="social-icons">
+            <a href="https://79gamescoldatnight.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a>
+            <div style="text-align: center; margin: 0;">
+                <a href="https://x.com/AllHeresy89790" target="_blank"><i class="fab fa-twitter" style="font-size: 0.75em;"></i></a>
+                <div style="font-size: 0.5em;">not calling it X</div>
+            </div>
+            <a href="https://www.linkedin.com/in/arjun-singh-0108981b4/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/cold_substantial/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://steamcommunity.com/id/ColdatNight/" target="_blank"><i class="fab fa-steam"></i></a>
+        </div>
     </footer>
 
     <div class="project-detail">
@@ -1399,611 +1064,454 @@
             <img class="detail-image" src="" alt="Project image">
             <h2 class="detail-title"></h2>
             <p class="detail-description"></p>
-            <div class="detail-links">
-                </div>
+            <div class="detail-links"></div>
         </div>
     </div>
 
     <script>
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-scrolled');
-            } else {
-                navbar.classList.remove('nav-scrolled');
+    document.addEventListener('DOMContentLoaded', function() {
+        let brickBreakerGame = null;
+
+        setupNavbarScroll();
+        setupFadeInAnimations();
+        setupSmoothScrolling();
+        setupProjectModal();
+        setupInteractiveStatement();
+        setupSlingshotLogo();
+        initMMinigame();
+        initBrickBreakerGame();
+
+        function setupSlingshotLogo() {
+            const logo = document.querySelector('.logo');
+            if (!logo) return;
+
+            let isDragging = false;
+            let startPos = { x: 0, y: 0 };
+            let currentPos = { x: 0, y: 0 };
+            let velocity = { x: 0, y: 0 };
+            let animationFrame;
+
+            const stiffness = 0.1;
+            const damping = 0.8;
+
+            function animate() {
+                if (isDragging) return;
+
+                const dx = -currentPos.x;
+                const dy = -currentPos.y;
+
+                const ax = dx * stiffness;
+                const ay = dy * stiffness;
+
+                velocity.x += ax;
+                velocity.y += ay;
+
+                velocity.x *= damping;
+                velocity.y *= damping;
+
+                currentPos.x += velocity.x;
+                currentPos.y += velocity.y;
+
+                logo.style.transform = `translate(${currentPos.x}px, ${currentPos.y}px)`;
+
+                if (Math.abs(currentPos.x) < 0.1 && Math.abs(currentPos.y) < 0.1 && Math.abs(velocity.x) < 0.1 && Math.abs(velocity.y) < 0.1) {
+                    logo.style.transform = 'translate(0, 0)';
+                    cancelAnimationFrame(animationFrame);
+                    return;
+                }
+                animationFrame = requestAnimationFrame(animate);
             }
-        });
-        
-        // Fade-in animation
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
+
+            function onMouseDown(e) {
+                isDragging = true;
+                cancelAnimationFrame(animationFrame);
+                startPos.x = e.clientX - currentPos.x;
+                startPos.y = e.clientY - currentPos.y;
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            }
+
+            function onMouseMove(e) {
+                if (!isDragging) return;
+                currentPos.x = e.clientX - startPos.x;
+                currentPos.y = e.clientY - startPos.y;
+                logo.style.transform = `translate(${currentPos.x}px, ${currentPos.y}px)`;
+            }
+
+            function onMouseUp() {
+                isDragging = false;
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+                animate();
+            }
+
+            logo.addEventListener('mousedown', onMouseDown);
+        }
+
+        function initBrickBreakerGame() {
+            const imText = document.getElementById('im-text');
+            const highlightSpan = document.querySelector('.highlight');
+            const descriptionText = document.getElementById('description-text');
+            const gameTrigger = document.getElementById('game-trigger');
+
+            if (!imText || !highlightSpan || !descriptionText || !gameTrigger) return;
+            
+            const originalTexts = {
+                im: imText.innerText,
+                highlight: highlightSpan.innerText,
+                description: descriptionText.innerText
+            };
+            
+            let isReadyForGame = false;
+
+            function setupBricks() {
+                if(isReadyForGame) return;
+                splitTextIntoBricks(imText, 4);
+                splitTextIntoBricks(highlightSpan, 8);
+                splitTextIntoBricks(descriptionText, 2);
+                isReadyForGame = true;
+            }
+
+            function splitTextIntoBricks(element, hits) {
+                const text = element.innerText;
+                element.innerHTML = '';
+                text.split('').forEach(char => {
+                    const span = document.createElement('span');
+                    if (char.trim() === '') {
+                        span.innerHTML = '&nbsp;';
+                    } else {
+                        span.textContent = char;
+                    }
+                    span.classList.add('brick');
+                    span.dataset.hits = hits;
+                    element.appendChild(span);
+                });
+            }
+            
+            function restoreOriginalText() {
+                imText.innerHTML = originalTexts.im;
+                highlightSpan.innerHTML = originalTexts.highlight;
+                descriptionText.innerHTML = originalTexts.description;
+                isReadyForGame = false;
+            }
+
+
+            let clickCount = 0;
+            gameTrigger.addEventListener('click', () => {
+                clickCount++;
+                if (clickCount === 3 && !brickBreakerGame) {
+                    clickCount = 0;
+                    setupBricks();
+                    brickBreakerGame = new BrickBreaker(restoreOriginalText);
+                    brickBreakerGame.start();
                 }
             });
-        }, observerOptions);
-        
-        fadeElements.forEach(element => {
-            observer.observe(element);
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        const projectCards = document.querySelectorAll('.project-card');
-const projectDetail = document.querySelector('.project-detail');
-const closeModal = document.querySelector('.project-detail-close');
-
-projectCards.forEach(card => {
-    card.addEventListener('click', () => {
-        const img = card.querySelector('.project-img').src;
-        const title = card.querySelector('h3').textContent;
-        const description = card.querySelector('p').textContent;
-        const linksContainer = card.querySelector('.project-links');
-        
-        // Set image, title and description
-        projectDetail.querySelector('.detail-image').src = img;
-        projectDetail.querySelector('.detail-title').textContent = title;
-        projectDetail.querySelector('.detail-description').textContent = description;
-        
-        // Get the destination for the links in the modal
-        const detailLinksContainer = projectDetail.querySelector('.detail-links');
-        
-        // Clear any previous links
-        detailLinksContainer.innerHTML = '';
-        
-        // If the card has links, clone and append them to the modal
-        if (linksContainer) {
-            detailLinksContainer.innerHTML = linksContainer.innerHTML;
         }
-        
-        // Show the popup with animation
-        projectDetail.style.display = 'block';
-        setTimeout(() => {
-            projectDetail.classList.add('active');
-        }, 10);
-    });
-});
 
-closeModal.addEventListener('click', () => {
-    projectDetail.classList.remove('active');
-    setTimeout(() => {
-        projectDetail.style.display = 'none';
-    }, 500);
-});
-
-window.addEventListener('click', (e) => {
-    if (e.target === projectDetail) {
-        projectDetail.classList.remove('active');
-        setTimeout(() => {
-            projectDetail.style.display = 'none';
-        }, 500);
-    }
-});
-            
-const statementTexts = document.querySelectorAll('.statement h2');
-
-statementTexts.forEach(text => {
-    // Split text into individual letters wrapped in spans
-    const letters = text.textContent.split('');
-    text.textContent = '';
-    
-    letters.forEach(letter => {
-        const span = document.createElement('span');
-        span.textContent = letter;
-        span.className = 'interactive-letter';
-        text.appendChild(span);
-    });
-
-    // Add event listeners for mouse interaction
-    text.addEventListener('mousemove', (e) => {
-        const rect = text.getBoundingClientRect();
-        const letters = text.querySelectorAll('.interactive-letter');
-        
-        letters.forEach(letter => {
-            const letterRect = letter.getBoundingClientRect();
-            const centerX = letterRect.left + letterRect.width / 2;
-            const centerY = letterRect.top + letterRect.height / 2;
-            
-            const distX = e.clientX - centerX;
-            const distY = e.clientY - centerY;
-            const distance = Math.sqrt(distX * distX + distY * distY);
-            
-            // Apply transformations based on mouse distance
-            if (distance < 150) {
-                const scale = 1 + (1 - distance / 150) * 0.5;
-                const rotate = (1 - distance / 150) * 15 * (Math.random() > 0.5 ? 1 : -1);
-                const translateX = (1 - distance / 150) * distX * 0.1;
-                const translateY = (1 - distance / 150) * distY * 0.1;
+        class BrickBreaker {
+            constructor(onEndCallback) {
+                this.onEndCallback = onEndCallback;
+                this.header = document.querySelector('header');
+                this.highlight = document.querySelector('.highlight');
+                this.paddleEl = document.getElementById('paddle-element');
+                this.gameTrigger = document.getElementById('game-trigger');
+                this.bricks = Array.from(document.querySelectorAll('.hero .brick'));
+                this.canvas = document.createElement('canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.ball = { x: 0, y: 0, dx: 0, dy: 0, radius: 10 };
+                this.paddle = { x: 0, y: 0, width: 0, height: 15 };
+                this.animationFrameId = null;
+                this.gameActive = false;
+                this.gameOverModal = document.getElementById('game-over-modal');
+                this.restartBtn = document.getElementById('restart-game-btn');
+                this.browseBtn = document.getElementById('browse-site-btn');
                 
-                letter.style.transform = `scale(${scale}) rotate(${rotate}deg) translate(${translateX}px, ${translateY}px)`;
-                letter.style.color = `hsl(${Math.floor(Math.random() * 360)}, 100%, 70%)`;
-                letter.style.transition = '0.1s ease-out';
-            } else {
-                letter.style.transform = 'scale(1) rotate(0deg) translate(0px, 0px)';
-                letter.style.color = '';
-                letter.style.transition = '0.5s ease';
+                this.movePaddleHandler = this.movePaddle.bind(this);
+                this.restartHandler = this.restart.bind(this);
+                this.endGameHandler = this.endGame.bind(this);
             }
-        });
-    });
 
-    // Reset when mouse leaves
-    text.addEventListener('mouseleave', () => {
-        const letters = text.querySelectorAll('.interactive-letter');
-        letters.forEach(letter => {
-            letter.style.transform = 'scale(1) rotate(0deg) translate(0px, 0px)';
-            letter.style.color = '';
-            letter.style.transition = '0.5s ease';
-        });
-    });
-});
+            start() {
+                if (this.gameActive) return;
+                this.gameActive = true;
 
-// Add this code to your JavaScript
+                this.canvas.classList.add('brick-breaker-canvas');
+                this.header.appendChild(this.canvas);
+                this.resizeCanvas();
+                window.addEventListener('resize', () => this.resizeCanvas());
 
-// Create the game functionality for the M in "match me darrrring"
-document.addEventListener('DOMContentLoaded', function() {
-    const contactTitle = document.querySelector('.contact .section-title');
-    
-    // Only proceed if we found the title
-    if (!contactTitle) return;
-    
-    // Split the title text into individual letters
-    const text = contactTitle.textContent;
-    contactTitle.innerHTML = '';
-    
-    // Create individual spans for each letter
-    for (let i = 0; i < text.length; i++) {
-        const span = document.createElement('span');
-        span.textContent = text[i];
-        span.className = 'title-letter';
-        
-        // Add special class to the first M
-        if (i === 0) {
-            span.className += ' first-m';
-            span.style.transition = 'all 0.3s ease';
-        }
-        
-        contactTitle.appendChild(span);
-    }
-    
-    // Get the first M element
-    const firstM = document.querySelector('.first-m');
-    
-    // Add hover effect to the first M
-    firstM.addEventListener('mouseover', function() {
-        this.style.color = '#ff0000';
-    });
-    
-    firstM.addEventListener('mouseout', function() {
-        if (!gameActive) {
-            this.style.color = '';
-        }
-    });
-    
-    // Track clicks on the M
-    let clickCount = 0;
-    let gameActive = false;
-    let gameSpeed = 200;
-    let obstacleInterval;
-    let bulletInterval;
-    let score = 0;
-    
-    firstM.addEventListener('click', function() {
-        clickCount++;
-        
-        if (clickCount >= 5 && !gameActive) {
-            startMGame();
-        }
-    });
-    
-    function startMGame() {
-        gameActive = true;
-        score = 0;
-        
-        // Clear any existing game elements
-        const existingGame = document.getElementById('m-game-container');
-        if (existingGame) existingGame.remove();
-        
-        // Create game container
-        const gameContainer = document.createElement('div');
-        gameContainer.id = 'm-game-container';
-        gameContainer.style.position = 'relative';
-        gameContainer.style.width = '100%';
-        gameContainer.style.height = '300px';
-        gameContainer.style.border = '2px solid #00ffcc';
-        gameContainer.style.marginTop = '20px';
-        gameContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-        gameContainer.style.overflow = 'hidden';
-        
-        // Add score display
-        const scoreDisplay = document.createElement('div');
-        scoreDisplay.id = 'm-game-score';
-        scoreDisplay.style.position = 'absolute';
-        scoreDisplay.style.top = '10px';
-        scoreDisplay.style.right = '10px';
-        scoreDisplay.style.color = '#00ffcc';
-        scoreDisplay.style.fontSize = '20px';
-        scoreDisplay.style.fontWeight = 'bold';
-        scoreDisplay.textContent = 'Score: 0';
-        gameContainer.appendChild(scoreDisplay);
-        
-        // Add the M character as player
-        const player = document.createElement('div');
-        player.id = 'm-game-player';
-        player.textContent = 'M';
-        player.style.position = 'absolute';
-        player.style.left = '50px';
-        player.style.top = '150px';
-        player.style.fontSize = '30px';
-        player.style.color = '#ff0000';
-        player.style.transform = 'rotate(90deg)';
-        player.style.transition = 'top 0.1s ease';
-        gameContainer.appendChild(player);
-        
-        // Add control buttons for mobile users
-        const controlsContainer = document.createElement('div');
-        controlsContainer.style.position = 'absolute';
-        controlsContainer.style.bottom = '10px';
-        controlsContainer.style.left = '50%';
-        controlsContainer.style.transform = 'translateX(-50%)';
-        controlsContainer.style.display = 'flex';
-        controlsContainer.style.gap = '10px';
-        
-        const upButton = document.createElement('button');
-        upButton.textContent = '↑';
-        upButton.style.padding = '10px 20px';
-        upButton.style.fontSize = '20px';
-        upButton.style.backgroundColor = '#00ffcc';
-        upButton.style.border = 'none';
-        upButton.style.borderRadius = '5px';
-        upButton.style.cursor = 'pointer';
-        upButton.addEventListener('click', () => {
-            const currentTop = parseInt(player.style.top);
-            player.style.top = Math.max(30, currentTop - 15) + 'px';
-        });
-        
-        const downButton = document.createElement('button');
-        downButton.textContent = '↓';
-        downButton.style.padding = '10px 20px';
-        downButton.style.fontSize = '20px';
-        downButton.style.backgroundColor = '#00ffcc';
-        downButton.style.border = 'none';
-        downButton.style.borderRadius = '5px';
-        downButton.style.cursor = 'pointer';
-        downButton.addEventListener('click', () => {
-            const currentTop = parseInt(player.style.top);
-            player.style.top = Math.min(270, currentTop + 15) + 'px';
-        });
-        
-        controlsContainer.appendChild(upButton);
-        controlsContainer.appendChild(downButton);
-        gameContainer.appendChild(controlsContainer);
-        
-        // Insert game container after the dotted line
-        const dottedLine = document.querySelector('.contact-email');
-        dottedLine.parentNode.insertBefore(gameContainer, dottedLine.nextSibling);
-        
-        // Animate the title transformation
-        const titleLetters = document.querySelectorAll('.title-letter');
-        titleLetters.forEach((letter, index) => {
-            if (index === 0) {
-                // First M becomes the player
-                letter.style.opacity = '0';
-            } else {
-                // Other letters fall down
-                letter.style.transition = 'all 0.5s ease';
-                letter.style.transform = 'translateY(70px)';
-                letter.style.opacity = '0';
+                this.gameTrigger.style.opacity = '0';
+                this.highlight.classList.add('game-active');
                 
-                // Remove them after animation
+                const highlightRect = this.highlight.getBoundingClientRect();
+                this.paddleEl.style.width = `${highlightRect.width}px`;
+                this.paddleEl.style.left = `${highlightRect.left}px`;
+                this.paddleEl.style.top = `${highlightRect.bottom - this.paddle.height}px`;
+                this.paddleEl.style.opacity = '1';
+                this.paddleEl.style.transform = `translateY(${this.canvas.height * 0.6}px)`;
+                
                 setTimeout(() => {
-                    letter.style.display = 'none';
+                    const paddleRect = this.paddleEl.getBoundingClientRect();
+                    const canvasRect = this.canvas.getBoundingClientRect();
+                    this.paddle.width = paddleRect.width;
+                    this.paddle.x = paddleRect.left - canvasRect.left;
+                    this.paddle.y = paddleRect.top - canvasRect.top;
+                    
+                    const triggerRect = this.gameTrigger.getBoundingClientRect();
+                    this.ball.x = (triggerRect.left + triggerRect.right) / 2 - canvasRect.left;
+                    this.ball.y = triggerRect.top - canvasRect.top;
+                    this.ball.dx = 5 * (Math.random() > 0.5 ? 1 : -1);
+                    this.ball.dy = -5;
+
+                    this.header.addEventListener('mousemove', this.movePaddleHandler);
+                    this.restartBtn.addEventListener('click', this.restartHandler);
+                    this.browseBtn.addEventListener('click', this.endGameHandler);
+                    this.update();
                 }, 500);
             }
-        });
-        // Transform dotted line into a square
-        const dottedLines = document.querySelectorAll('.contact .container > *');
-        dottedLines.forEach(line => {
-            if (line !== gameContainer && line !== dottedLine.parentNode) {
-                line.style.transition = 'all 0.5s ease';
-                line.style.transform = 'scale(0.8)';
-                line.style.opacity = '0.5';
-            }
-        });
-        
-        // Start the game
-        setupGameControls(player);
-        startObstacles(gameContainer, player);
-        startBullets(gameContainer, player);
-        
-        // Add game over container (hidden initially)
-        const gameOverContainer = document.createElement('div');
-        gameOverContainer.id = 'm-game-over';
-        gameOverContainer.style.position = 'absolute';
-        gameOverContainer.style.top = '0';
-        gameOverContainer.style.left = '0';
-        gameOverContainer.style.width = '100%';
-        gameOverContainer.style.height = '100%';
-        gameOverContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-        gameOverContainer.style.display = 'flex';
-        gameOverContainer.style.flexDirection = 'column';
-        gameOverContainer.style.justifyContent = 'center';
-        gameOverContainer.style.alignItems = 'center';
-        gameOverContainer.style.color = '#ff0066';
-        gameOverContainer.style.fontSize = '24px';
-        gameOverContainer.style.fontWeight = 'bold';
-        gameOverContainer.style.zIndex = '100';
-        gameOverContainer.style.display = 'none';
-        
-        const gameOverText = document.createElement('div');
-        gameOverText.textContent = 'GAME OVER';
-        gameOverContainer.appendChild(gameOverText);
-        
-        const finalScore = document.createElement('div');
-        finalScore.id = 'final-score';
-        finalScore.style.marginTop = '10px';
-        finalScore.style.fontSize = '20px';
-        gameOverContainer.appendChild(finalScore);
-        
-        const restartButton = document.createElement('button');
-        restartButton.textContent = 'Restart';
-        restartButton.style.marginTop = '20px';
-        restartButton.style.padding = '10px 20px';
-        restartButton.style.backgroundColor = '#00ffcc';
-        restartButton.style.border = 'none';
-        restartButton.style.borderRadius = '5px';
-        restartButton.style.color = '#000';
-        restartButton.style.cursor = 'pointer';
-        restartButton.addEventListener('click', startMGame);
-        gameOverContainer.appendChild(restartButton);
-        
-        gameContainer.appendChild(gameOverContainer);
-    }
-    
-    function setupGameControls(player) {
-        let playerPos = 150;
-        const moveStep = 15;
-        const gameContainer = document.getElementById('m-game-container');
-        const containerHeight = gameContainer.offsetHeight;
-        
-        function movePlayer(direction) {
-            if (direction === 'up') {
-                playerPos = Math.max(30, playerPos - moveStep);
-            } else {
-                playerPos = Math.min(containerHeight - 30, playerPos + moveStep);
-            }
-            player.style.top = playerPos + 'px';
-        }
-        
-        // Keyboard controls
-        document.addEventListener('keydown', function(e) {
-            if (!gameActive) return;
             
-            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
-                movePlayer('up');
-            } else if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
-                movePlayer('down');
+            movePaddle(e) {
+                 const rect = this.canvas.getBoundingClientRect();
+                 const newX = e.clientX - rect.left - this.paddle.width / 2;
+                 this.paddle.x = Math.max(0, Math.min(newX, this.canvas.width - this.paddle.width));
+                 this.paddleEl.style.transform = `translate(${this.paddle.x - (this.paddleEl.offsetLeft - rect.left)}px, ${this.canvas.height * 0.6}px)`;
             }
-        });
-    }
-    
-    function startObstacles(gameContainer, player) {
-        gameSpeed = 200; // Reset speed
-        let obstacleSpeed = 5;
-        let spawnRate = 1500;
-        
-        function createObstacle() {
-            const obstacle = document.createElement('div');
-            obstacle.className = 'm-game-obstacle';
-            obstacle.style.position = 'absolute';
-            obstacle.style.right = '0';
-            obstacle.style.top = Math.floor(Math.random() * (gameContainer.offsetHeight - 30)) + 'px';
-            obstacle.style.width = '15px';
-            obstacle.style.height = '15px';
-            obstacle.style.backgroundColor = '#ff0066';
-            obstacle.style.borderRadius = '50%';
-            gameContainer.appendChild(obstacle);
-            
-            return obstacle;
-        }
-        
-        function moveObstacle(obstacle) {
-            let obstaclePos = 0;
-            
-            const moveInterval = setInterval(() => {
-                if (!gameActive) {
-                    clearInterval(moveInterval);
+
+            resizeCanvas() {
+                this.canvas.width = this.header.clientWidth;
+                this.canvas.height = this.header.clientHeight;
+            }
+
+            update() {
+                if (!this.gameActive) return;
+                this.moveBall();
+                this.draw();
+                this.animationFrameId = requestAnimationFrame(() => this.update());
+            }
+
+            moveBall() {
+                this.ball.x += this.ball.dx;
+                this.ball.y += this.ball.dy;
+
+                if (this.ball.x + this.ball.radius > this.canvas.width || this.ball.x - this.ball.radius < 0) this.ball.dx *= -1;
+                if (this.ball.y - this.ball.radius < 0) this.ball.dy *= -1;
+                
+                if (this.ball.y + this.ball.radius > this.canvas.height) {
+                    this.gameOver();
                     return;
                 }
-                
-                obstaclePos += obstacleSpeed;
-                obstacle.style.right = obstaclePos + 'px';
-                
-                // Check for collision with player
-                const playerRect = player.getBoundingClientRect();
-                const obstacleRect = obstacle.getBoundingClientRect();
-                
-                if (
-                    playerRect.left < obstacleRect.right &&
-                    playerRect.right > obstacleRect.left &&
-                    playerRect.top < obstacleRect.bottom &&
-                    playerRect.bottom > obstacleRect.top
-                ) {
-                    gameOver();
-                    clearInterval(moveInterval);
+
+                const paddleRect = this.paddleEl.getBoundingClientRect();
+                const canvasRect = this.canvas.getBoundingClientRect();
+                if (this.ball.y + this.ball.radius > paddleRect.top - canvasRect.top && this.ball.x > paddleRect.left - canvasRect.left && this.ball.x < paddleRect.right - canvasRect.left) {
+                    this.ball.dy *= -1;
+                    this.ball.y = paddleRect.top - canvasRect.top - this.ball.radius;
                 }
-                
-                // Remove when off screen
-                if (obstaclePos > gameContainer.offsetWidth) {
-                    obstacle.remove();
-                    clearInterval(moveInterval);
+
+                this.bricks.forEach(brick => {
+                    if (parseInt(brick.dataset.hits) <= 0) return;
+                    const brickRect = brick.getBoundingClientRect();
                     
-                    // Increase score for avoiding obstacle
-                    updateScore(1);
-                }
-            }, gameSpeed / 30);
-        }
-        
-        obstacleInterval = setInterval(() => {
-            if (!gameActive) {
-                clearInterval(obstacleInterval);
-                return;
-            }
-            
-            const obstacle = createObstacle();
-            moveObstacle(obstacle);
-            
-            // Gradually increase difficulty
-            if (gameSpeed > 100) {
-                gameSpeed -= 1;
-                obstacleSpeed += 0.05;
-                if (spawnRate > 500) {
-                    spawnRate -= 10;
-                    clearInterval(obstacleInterval);
-                    obstacleInterval = setInterval(() => {
-                        if (gameActive) {
-                            const obstacle = createObstacle();
-                            moveObstacle(obstacle);
-                        }
-                    }, spawnRate);
-                }
-            }
-        }, spawnRate);
-    }
-    
-    function startBullets(gameContainer, player) {
-        bulletInterval = setInterval(() => {
-            if (!gameActive) {
-                clearInterval(bulletInterval);
-                return;
-            }
-            
-            const bullet = document.createElement('div');
-            bullet.className = 'm-game-bullet';
-            bullet.style.position = 'absolute';
-            bullet.style.left = '50px';
-            bullet.style.top = (parseInt(player.style.top) + 15) + 'px';
-            bullet.style.width = '10px';
-            bullet.style.height = '3px';
-            bullet.style.backgroundColor = '#00ffcc';
-            gameContainer.appendChild(bullet);
-            
-            let bulletPos = 50;
-            const bulletSpeed = 10;
-            
-            const moveBullet = setInterval(() => {
-                if (!gameActive) {
-                    clearInterval(moveBullet);
-                    return;
-                }
-                
-                bulletPos += bulletSpeed;
-                bullet.style.left = bulletPos + 'px';
-                
-                // Check for collision with obstacles
-                const obstacles = document.querySelectorAll('.m-game-obstacle');
-                const bulletRect = bullet.getBoundingClientRect();
-                
-                obstacles.forEach(obstacle => {
-                    const obstacleRect = obstacle.getBoundingClientRect();
-                    
-                    if (
-                        bulletRect.left < obstacleRect.right &&
-                        bulletRect.right > obstacleRect.left &&
-                        bulletRect.top < obstacleRect.bottom &&
-                        bulletRect.bottom > obstacleRect.top
-                    ) {
-                        // Destroy obstacle
-                        obstacle.remove();
-                        bullet.remove();
-                        clearInterval(moveBullet);
+                    if (this.ball.x + this.ball.radius > brickRect.left - canvasRect.left && 
+                        this.ball.x - this.ball.radius < brickRect.right - canvasRect.left &&
+                        this.ball.y + this.ball.radius > brickRect.top - canvasRect.top &&
+                        this.ball.y - this.ball.radius < brickRect.bottom - canvasRect.top) {
                         
-                        // Increase score for hitting obstacle
-                        updateScore(5);
-                        
-                        // Create explosion effect
-                        createExplosion(obstacleRect);
+                        this.ball.dy *= -1;
+                        brick.dataset.hits--;
+                        this.handleBrickHit(brick);
                     }
                 });
-                
-                // Remove when off screen
-                if (bulletPos > gameContainer.offsetWidth) {
-                    bullet.remove();
-                    clearInterval(moveBullet);
+            }
+            
+            handleBrickHit(brick) {
+                brick.classList.add('hit');
+                setTimeout(() => brick.classList.remove('hit'), 200);
+                const hitsLeft = parseInt(brick.dataset.hits);
+                const maxHits = parseInt(brick.dataset.initialHits) || 8;
+                const shatterLevel = (maxHits - hitsLeft) / maxHits;
+                let shadow = Array.from({length: 10 * shatterLevel}, () => `${(Math.random() - 0.5) * 20 * shatterLevel}px ${(Math.random() - 0.5) * 20 * shatterLevel}px 0 rgba(255, 255, 255, ${Math.random() * 0.5})`).join(',');
+                brick.style.boxShadow = shadow;
+                if (hitsLeft <= 0) {
+                    brick.style.transition = 'opacity 0.3s, transform 0.3s';
+                    brick.style.opacity = '0';
+                    brick.style.transform = 'scale(0.5) rotate(45deg)';
                 }
-            }, 20);
-        }, 500);
-    }
-    
-    function createExplosion(rect) {
-        const gameContainer = document.getElementById('m-game-container');
-        const explosion = document.createElement('div');
-        explosion.className = 'm-game-explosion';
-        explosion.style.position = 'absolute';
-        explosion.style.left = (rect.left + rect.width/2 - 15) + 'px';
-        explosion.style.top = (rect.top + rect.height/2 - 15) + 'px';
-        explosion.style.width = '30px';
-        explosion.style.height = '30px';
-        explosion.style.backgroundColor = '#ff9900';
-        explosion.style.borderRadius = '50%';
-        explosion.style.opacity = '1';
-        explosion.style.transition = 'all 0.3s ease';
-        gameContainer.appendChild(explosion);
-        
-        setTimeout(() => {
-            explosion.style.transform = 'scale(2)';
-            explosion.style.opacity = '0';
-        }, 10);
-        
-        setTimeout(() => {
-            explosion.remove();
-        }, 300);
-    }
-    
-    function updateScore(points) {
-        score += points;
-        const scoreDisplay = document.getElementById('m-game-score');
-        if (scoreDisplay) {
-            scoreDisplay.textContent = 'Score: ' + score;
-        }
-    }
-    
-    function gameOver() {
-        gameActive = false;
-        clearInterval(obstacleInterval);
-        clearInterval(bulletInterval);
-        
-        const gameOverScreen = document.getElementById('m-game-over');
-        const finalScore = document.getElementById('final-score');
-        
-        if (gameOverScreen && finalScore) {
-            finalScore.textContent = 'Your score: ' + score;
-            gameOverScreen.style.display = 'flex';
-        }
-    }
+            }
 
-    
-});
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.beginPath();
+                this.ctx.arc(this.ball.x, this.ball.y, this.ball.radius, 0, Math.PI * 2);
+                this.ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+                this.ctx.fill();
+                this.ctx.closePath();
+            }
+
+            gameOver() {
+                this.gameActive = false;
+                cancelAnimationFrame(this.animationFrameId);
+                this.gameOverModal.style.display = 'flex';
+            }
+
+            restart() {
+                this.gameOverModal.style.display = 'none';
+                this.bricks.forEach(brick => {
+                    brick.dataset.hits = brick.dataset.initialHits || 8;
+                    brick.style.opacity = '1';
+                    brick.style.transform = 'none';
+                    brick.style.boxShadow = 'none';
+                });
+                const triggerRect = this.gameTrigger.getBoundingClientRect();
+                const canvasRect = this.canvas.getBoundingClientRect();
+                this.ball.x = (triggerRect.left + triggerRect.right) / 2 - canvasRect.left;
+                this.ball.y = triggerRect.top - canvasRect.top;
+                this.ball.dx = 5 * (Math.random() > 0.5 ? 1 : -1);
+                this.ball.dy = -5;
+                this.gameActive = true;
+                this.update();
+            }
+
+            endGame() {
+                this.gameOverModal.style.display = 'none';
+                if (this.header.contains(this.canvas)) {
+                    this.header.removeChild(this.canvas);
+                }
+                this.paddleEl.style.opacity = '0';
+                this.paddleEl.style.transform = 'translateY(0)';
+                this.highlight.classList.remove('game-active');
+                this.gameTrigger.style.opacity = '1';
+                
+                this.header.removeEventListener('mousemove', this.movePaddleHandler);
+                this.restartBtn.removeEventListener('click', this.restartHandler);
+                this.browseBtn.removeEventListener('click', this.endGameHandler);
+
+                if(this.onEndCallback) this.onEndCallback();
+                brickBreakerGame = null;
+            }
+        }
+
+        function initMMinigame() {
+            const contactTitle = document.querySelector('.contact .section-title');
+            if (!contactTitle) return;
+            const text = contactTitle.textContent;
+            contactTitle.innerHTML = '';
+            text.split('').forEach((char, i) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'title-letter';
+                if (i === 0) span.className += ' first-m';
+                contactTitle.appendChild(span);
+            });
+            const firstM = document.querySelector('.first-m');
+            if (!firstM) return;
+            let clickCount = 0;
+            let mGame = { active: false, paused: false, score: 0, obstacleInterval: null, bulletInterval: null, player: null, gameContainer: null };
+            firstM.addEventListener('click', () => {
+                clickCount++;
+                if (clickCount >= 5 && !mGame.active) startMGame();
+            });
+            window.addEventListener('keydown', (e) => {
+                if (mGame.active) {
+                    if (e.code === 'Space') {
+                        e.preventDefault();
+                        mGame.paused = !mGame.paused;
+                        document.body.classList.toggle('scroll-locked', !mGame.paused);
+                    }
+                    if (['ArrowUp', 'ArrowDown', 'w', 's'].includes(e.key) && !mGame.paused) e.preventDefault();
+                }
+            });
+            function startMGame() {
+                mGame = { ...mGame, active: true, paused: false, score: 0 };
+                document.body.classList.add('scroll-locked');
+                const existingGame = document.getElementById('m-game-container');
+                if (existingGame) existingGame.remove();
+                mGame.gameContainer = document.createElement('div');
+                mGame.gameContainer.id = 'm-game-container';
+                const scoreDisplay = document.createElement('div');
+                scoreDisplay.id = 'm-game-score';
+                scoreDisplay.style.cssText = 'position:absolute; top:10px; right:10px; color:#00ffcc; font-size:20px; font-weight:bold;';
+                scoreDisplay.textContent = 'Score: 0';
+                mGame.gameContainer.appendChild(scoreDisplay);
+                mGame.player = document.createElement('div');
+                mGame.player.id = 'm-game-player';
+                mGame.player.textContent = 'M';
+                mGame.player.style.cssText = "position:absolute; left:50px; top:150px; font-size:30px; color:#ff0000; transform:rotate(90deg); transition:top 0.1s ease;";
+                mGame.gameContainer.appendChild(mGame.player);
+                document.querySelector('.contact-email').parentNode.insertBefore(mGame.gameContainer, document.querySelector('.contact-email').nextSibling);
+                setupMGameControls();
+                startObstacles();
+                startBullets();
+            }
+            function setupMGameControls() {
+                document.addEventListener('keydown', function(e) {
+                    if (!mGame.active || mGame.paused) return;
+                    const currentTop = parseInt(mGame.player.style.top);
+                    const moveStep = 15;
+                    if (e.key === 'ArrowUp' || e.key === 'w') mGame.player.style.top = Math.max(10, currentTop - moveStep) + 'px';
+                    else if (e.key === 'ArrowDown' || e.key === 's') mGame.player.style.top = Math.min(mGame.gameContainer.offsetHeight - 40, currentTop + moveStep) + 'px';
+                });
+            }
+            function startObstacles() {
+                mGame.obstacleInterval = setInterval(() => {
+                    if (!mGame.active || mGame.paused) return;
+                    const obstacle = document.createElement('div');
+                    obstacle.className = 'm-game-obstacle';
+                    obstacle.style.cssText = `position:absolute; right:-20px; top:${Math.floor(Math.random()*(mGame.gameContainer.offsetHeight-20))}px; width:15px; height:15px; background-color:#ff0066;`;
+                    mGame.gameContainer.appendChild(obstacle);
+                    let pos = -20;
+                    const move = setInterval(() => {
+                        if (!mGame.active) { clearInterval(move); obstacle.remove(); return; }
+                        if (mGame.paused) return;
+                        pos += 5;
+                        obstacle.style.right = pos + 'px';
+                        if (checkCollision(mGame.player, obstacle)) gameOver();
+                        if (pos > mGame.gameContainer.offsetWidth) { clearInterval(move); obstacle.remove(); updateScore(1); }
+                    }, 20);
+                }, 1500);
+            }
+            function startBullets() {
+                 mGame.bulletInterval = setInterval(() => {
+                    if (!mGame.active || mGame.paused) return;
+                    const bullet = document.createElement('div');
+                    bullet.className = 'm-game-bullet';
+                    bullet.style.cssText = `position:absolute; left:70px; top:${parseInt(mGame.player.style.top)+10}px; width:10px; height:3px; background-color:#00ffcc;`;
+                    mGame.gameContainer.appendChild(bullet);
+                    let pos = 70;
+                    const move = setInterval(() => {
+                        if (!mGame.active) { clearInterval(move); bullet.remove(); return; }
+                        if (mGame.paused) return;
+                        pos += 10;
+                        bullet.style.left = pos + 'px';
+                        document.querySelectorAll('.m-game-obstacle').forEach(obs => {
+                            if (checkCollision(bullet, obs)) { obs.remove(); bullet.remove(); updateScore(5); }
+                        });
+                        if (pos > mGame.gameContainer.offsetWidth) { clearInterval(move); bullet.remove(); }
+                    }, 20);
+                }, 400);
+            }
+            function checkCollision(el1, el2) {
+                const r1 = el1.getBoundingClientRect();
+                const r2 = el2.getBoundingClientRect();
+                return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom);
+            }
+            function updateScore(p) { mGame.score += p; document.getElementById('m-game-score').textContent = 'Score: ' + mGame.score; }
+            function gameOver() {
+                mGame.active = false;
+                document.body.classList.remove('scroll-locked');
+                clearInterval(mGame.obstacleInterval);
+                clearInterval(mGame.bulletInterval);
+                alert('Game Over! Score: ' + mGame.score);
+                document.getElementById('m-game-container').remove();
+            }
+        }
+        function setupNavbarScroll() { const n=document.getElementById('navbar');window.addEventListener('scroll',()=>{n.classList.toggle('nav-scrolled',window.scrollY>50)}) }
+        function setupFadeInAnimations() { const o=new IntersectionObserver(e=>{e.forEach(t=>{if(t.isIntersecting){t.target.classList.add('visible');o.unobserve(t.target)}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.fade-in').forEach(e=>o.observe(e)) }
+        function setupSmoothScrolling() { document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener('click',function(t){t.preventDefault();const o=document.querySelector(this.getAttribute('href'));o&&window.scrollTo({top:o.offsetTop-100,behavior:'smooth'})})}) }
+        function setupProjectModal() { const e=document.querySelector('.project-detail');document.querySelectorAll('.project-card').forEach(t=>{t.addEventListener('click',()=>{const o=t.querySelector('.project-img').src,n=t.querySelector('h3').textContent,r=t.querySelector('p').textContent,c=t.querySelector('.project-links');e.querySelector('.detail-image').src=o;e.querySelector('.detail-title').textContent=n;e.querySelector('.detail-description').textContent=r;const l=e.querySelector('.detail-links');l.innerHTML=c?c.innerHTML:'';e.style.display='block';setTimeout(()=>e.classList.add('active'),10)})});const t=()=>{e.classList.remove('active');setTimeout(()=>e.style.display='none',500)};e.querySelector('.project-detail-close').addEventListener('click',t);window.addEventListener('click',o=>{o.target===e&&t()}) }
+        function setupInteractiveStatement() { document.querySelectorAll('.statement h2').forEach(e=>{const t=e.textContent.split('');e.innerHTML='';t.forEach(t=>{const o=document.createElement('span');o.textContent=t;o.className='interactive-letter';e.appendChild(o)})}) }
+    });
     </script>
      
-    
 </body>
 </html>
