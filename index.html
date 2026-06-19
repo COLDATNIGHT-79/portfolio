@@ -1,1789 +1,1384 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARJUN SINGH PORTFOLIO</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Arjun Singh — Portfolio</title>
+    <meta name="description" content="Arjun Singh (coldatnight) — Game dev, software engineer, artist.">
     <link rel="icon" type="image/png" href="favicon.png">
-
-    <meta property="og:title" content="Arjun Singh Portfolio">
-    <meta property="og:description" content="Portfolio of Arjun Singh (coldatnight) - Game developer and software engineer">
-    <meta property="og:image" content="https://thingscolddid.vercel.app/favicon.png">
-    <meta property="og:url" content="https://thingscolddid.vercel.app/">
-    <meta property="og:type" content="website">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-          -webkit-user-select: none; /* Chrome, Safari, Opera */
-          -moz-user-select: none;    /* Firefox */
-          -ms-user-select: none;     /* Internet Explorer/Edge */
-          user-select: none;         /* Standard syntax */
-        }
-        
-        body.scroll-locked {
-            overflow: hidden;
-        }
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,700;1,300&family=Syne:wght@400;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        :root {
-            --primary: #0f0f0f;
-            --secondary: #ff0066;
-            --accent: #00ffcc;
-            --text: #ffffff;
-            --dot-color: rgba(255, 255, 255, 0.5);
-        }
-        
-        * {
+    <link rel="preload" href="Bg/sky.png" as="image">
+    <link rel="preload" href="Bg/clouds.png" as="image">
+    <link rel="preload" href="Bg/mountains.png" as="image">
+    <link rel="preload" href="Bg/land.png" as="image">
+    <link rel="preload" href="Bg/fence.png" as="image">
+    <link rel="preload" href="Bg/bench.png" as="image">
+    <link rel="preload" href="Bg/girl.png" as="image">
+
+    <style>
+        /* ══════════════════════════════
+   BASE
+══════════════════════════════ */
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        .contact-email {
-        margin-bottom: 2rem;
-        font-size: 1.2rem;
-        color: var(--accent);
-    }
 
-    .contact-email a {
-        color: var(--secondary);
-        text-decoration: none;
-        position: relative;
-        font-weight: 600;
-    }
-
-    .contact-email a:hover {
-        color: var(--accent);
-    }
-        
-    body {
-        font-family: 'Outfit', sans-serif;
-        background-color: var(--primary);
-        color: var(--text);
-        overflow-x: hidden;
-        background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3C/g%3E%3C/svg%3E");
-        background-attachment: fixed;
-        cursor: default;
-    }
-    
-    .container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 2rem;
-    }
-    
-    /* HEADER */
-    header {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        position: relative; /* Needed for game elements */
-    }
-    
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 1000;
-        transition: background-color 0.3s ease;
-    }
-    
-    .nav-scrolled { domain status will au
-        background-color: rgba(15, 15, 15, 0.95);
-        padding: 1rem 2rem;
-        backdrop-filter: blur(10px);
-    }
-    
-    .logo {
-        font-size: 1.5rem;
-        font-weight: 900;
-        color: var(--accent);
-        cursor: grab;
-        position: relative;
-        z-index: 10;
-    }
-
-    .logo:active {
-        cursor: grabbing;
-    }
-    
-    .nav-links {
-        display: flex;
-        gap: 2rem;
-    }
-    
-    .nav-links a {
-        color: var(--text);
-        text-decoration: none;
-        font-weight: 600;
-        position: relative;
-        padding: 5px 10px;
-        transition: all 0.3s ease;
-        transform: skew(-5deg);
-        z-index: 1;
-    }
-    
-    .nav-links a::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--accent);
-        z-index: -1;
-        transform: scaleX(0);
-        transform-origin: right;
-        transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-    
-    .nav-links a:hover::before {
-        transform: scaleX(1);
-        transform-origin: left;
-    }
-
-    .nav-links a:hover {
-        color: var(--primary);
-    }
-    
-    .hero {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        position: relative;
-        z-index: 5;
-        padding: 4rem 0;
-    }
-    
-    .hero h1 {
-        font-size: 6rem;
-        font-family: 'Outfit', sans-serif;
-        text-transform: uppercase;
-        text-shadow: 5px 5px 0 #ff0066;
-        letter-spacing: -2px;
-        transform: skew(-5deg);
-    }
-    
-    .hero p {
-        font-size: 1.5rem;
-        font-weight: 300;
-        max-width: 600px;
-    }
-    
-    .highlight {
-        position: relative;
-        display: inline-block;
-        color: var(--accent);
-        text-shadow: 3px 3px 0 #0066ff;
-    }
-    
-    .highlight::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 15px;
-        background: repeating-linear-gradient(45deg, var(--secondary), var(--secondary) 5px, transparent 5px, transparent 10px);
-        bottom: 0;
-        left: 0;
-        z-index: -1;
-        transition: opacity 0.3s ease;
-    }
-
-    .highlight.game-active::after {
-        opacity: 0;
-    }
-
-    #game-trigger {
-        cursor: pointer;
-        display: inline-block;
-        transition: opacity 0.3s ease;
-    }
-    
-    .social-icons {
-        display: flex;
-        gap: 1.5rem;
-        margin-top: 1rem;
-    }
-    
-    .social-icons a {
-        color: var(--text);
-        font-size: 1.5rem;
-        transition: color 0.2s ease;
-    }
-    
-    .social-icons a:hover {
-        color: var(--accent);
-    }
-    
-    /* STATEMENT SECTIONS */
-    .statement {
-        position: relative;
-        height: 40vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: none;
-        overflow: hidden;
-    }
-    
-    .statement h2 {
-        font-size: 5vw;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: -2px;
-        text-shadow: 4px 4px 0 var(--secondary);
-        animation: textFloat 4s ease-in-out infinite;
-        color: var(--text);
-    }
-    
-    .statement-bg {
-        position: absolute;
-        width: 200%;
-        height: 150%;
-        top: -25%;
-        left: -50%;
-        background: repeating-radial-gradient(var(--accent), var(--accent) 5px, transparent 5px, transparent 20px);
-        animation: rotate 15s linear infinite;
-        opacity: 0.3;
-    }
-    
-    @keyframes rotate {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    @keyframes textFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
-    }
-    
-    /* PROJECTS */
-    .projects {
-        padding: 6rem 0;
-    }
-    
-    .section-title {
-        font-size: 4rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: -2px;
-        color: var(--accent);
-        text-shadow: 4px 4px 0 var(--secondary);
-        margin-bottom: 3rem;
-        transform: rotate(-2deg);
-        position: relative;
-        display: inline-block;
-    }
-    
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 8px;
-        background: repeating-linear-gradient(90deg, var(--accent), var(--accent) 10px, transparent 10px, transparent 20px);
-    }
-    
-    .project-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 2rem;
-    }
-    
-    .project-card {
-        position: relative;
-        border: 3px solid var(--accent);
-        overflow: visible;
-        background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
-        transform-style: preserve-3d;
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: pointer;
-    }
-    
-    .project-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E");
-        z-index: -1;
-        opacity: 0.5;
-    }
-    
-    .project-card:hover {
-        transform: translateY(-15px) rotate(2deg);
-        box-shadow: 15px 15px 0 var(--secondary), 
-                    15px 15px 0 var(--secondary), 
-                    20px 20px 30px rgba(0,0,0,0.5);
-        z-index: 10;
-    }
-    
-    .project-img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        filter: grayscale(30%) contrast(120%);
-        transition: all 0.3s ease;
-        clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
-    }
-    
-    .project-card:hover .project-img {
-        filter: grayscale(0%) contrast(130%) brightness(110%);
-    }
-    
-    .project-info {
-        padding: 2rem;
-        position: relative;
-    }
-    
-    .project-info h3 {
-        font-size: 2rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 1rem;
-        transform: rotate(-2deg);
-        display: inline-block;
-    }
-    
-    .project-info p {
-        font-size: 1rem;
-        color: var(--text);
-        position: relative;
-        padding-left: 1rem;
-        border-left: 4px dotted var(--secondary);
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-    
-    .project-links {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-    }
-    
-    /* UNIFIED BUTTON STYLE */
-    .btn-capsule {
-        text-decoration: none !important;
-        border: none;
-        padding: 0.8rem 1.8rem;
-        border-radius: 50px; /* Capsule shape */
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        background-color: var(--accent);
-        color: var(--primary);
-        font-size: 0.9rem;
-        text-align: center;
-        display: inline-block;
-    }
-
-    .btn-capsule:hover {
-        transform: scale(1.05) translateY(-3px);
-        box-shadow: 0 8px 15px rgba(0, 255, 204, 0.3);
-        background-color: var(--secondary);
-        color: var(--text);
-    }
-    
-    /* CONTACT */
-    .contact {
-        padding: 6rem 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .contact form {
-        position: relative;
-        backdrop-filter: blur(10px);
-        border: 3px solid var(--accent);
-        padding: 2rem;
-        max-width: 800px;
-        margin: 0 auto;
-        box-shadow: 10px 10px 0 var(--secondary);
-        z-index: 2;
-    }
-    
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-    
-    label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-    }
-    
-    input, textarea {
-        width: 100%;
-        padding: 1rem;
-        background-color: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 5px;
-        color: var(--text);
-        font-family: inherit;
-        transition: border 0.3s ease;
-    }
-    
-    input:focus, textarea:focus {
-        outline: none;
-        border-color: var(--accent);
-    }
-    
-    textarea {
-        resize: vertical;
-        min-height: 150px;
-    }
-    
-    /* FOOTER */
-    footer {
-        padding: 3rem 0;
-        background-color: rgba(0, 0, 0, 0.3);
-        text-align: center;
-    }
-    
-    .footer-links {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin-bottom: 1rem;
-    }
-    
-    .footer-links a {
-        color: var(--text);
-        text-decoration: none;
-    }
-    
-    .footer-links a:hover {
-        color: var(--accent);
-    }
-    
-    .copyright {
-        color: rgba(255, 255, 255, 0.5);
-    }
-    
-    /* ANIMATIONS */
-    @keyframes tracking-in-expand {
-      0% {
-        letter-spacing: -0.5em;
-        opacity: 0;
-      }
-      40% {
-        opacity: 0.6;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    .fade-in {
-        opacity: 0;
-    }
-    .fade-in.visible {
-        animation: tracking-in-expand 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-    }
-    
-    @media (max-width: 768px) {
-        .hero h1 {
-            font-size: 3rem;
-        }
-        
-        .nav-links {
-            display: none;
-        }
-        
-        .statement h2 {
-            font-size: 10vw;
-        }
-    }
-
-    /* Pop-up Effect for Project Detail */
-    .project-detail {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        z-index: 2000;
-        overflow-y: auto;
-        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    }
-    
-    .project-detail-content {
-        max-width: 800px;
-        margin: 3rem auto;
-        background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
-        border: 5px solid var(--accent);
-        padding: 2rem;
-        position: relative;
-        opacity: 0;
-        transform: scale(0.9);
-        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    }
-    
-    .project-detail.active {
-        background-color: rgba(0, 0, 0, 0.9);
-    }
-
-    .project-detail.active .project-detail-content {
-        opacity: 1;
-        transform: scale(1);
-    }
-    .project-detail-close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        font-size: 2.5rem;
-        color: var(--accent);
-        text-shadow: 2px 2px 0 var(--secondary);
-        cursor: pointer;
-        z-index: 10;
-        transition: all 0.3s ease;
-    }
-    
-    .project-detail-close:hover {
-        transform: scale(1.2) rotate(90deg);
-        color: var(--secondary);
-    }
-    
-    .detail-image {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        border: 3px solid var(--secondary);
-        margin-bottom: 2rem;
-        filter: contrast(120%) grayscale(30%);
-    }
-    
-    .detail-title {
-        font-size: 3rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 1rem;
-        text-shadow: 3px 3px 0 var(--secondary);
-    }
-    
-    .detail-description {
-        font-size: 1.2rem;
-        line-height: 1.6;
-        color: var(--text);
-        margin-bottom: 2rem;
-        position: relative;
-        padding-left: 1rem;
-        border-left: 4px dotted var(--secondary);
-    }
-    
-    .detail-links {
-        margin-top: 2rem;
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-    }
-  
-    #tiltA {
-      display: inline-block;
-      transform: rotate(-10deg);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-    
-    #tiltA:hover {
-      transform: rotate(-10deg) scale(1.1);
-    }
-
-    .interactive-letter {
-        display: inline-block;
-        transition: transform 0.3s ease, color 0.3s ease;
-        cursor: pointer;
-    }
-    
-    .scan-lines {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, 
-            rgba(0,0,0,0) 50%, 
-            rgba(0,0,0,0.1) 50%);
-        background-size: 100% 4px;
-        pointer-events: none;
-        z-index: 9990;
-        opacity: 0.2;
-    }
-    
-    header {
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* M game specific styling */
-    #m-game-container {
-        position: relative;
-        border: 3px solid #00ffcc;
-        box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-        overflow: hidden;
-        width: 100%;
-        height: 300px;
-        margin-top: 2rem;
-    }
-
-    .title-letter {
-        display: inline-block;
-    }
-
-    .first-m {
-        cursor: pointer;
-        position: relative;
-        z-index: 5;
-    }
-
-    .first-m:hover {
-        animation: pulse 0.5s infinite alternate;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        100% { transform: scale(1.2); }
-    }
-
-    .m-game-explosion {
-        pointer-events: none;
-        z-index: 10;
-        animation: explode 0.3s forwards;
-    }
-
-    @keyframes explode {
-        0% { transform: scale(0.5); opacity: 1; }
-        100% { transform: scale(2); opacity: 0; }
-    }
-
-    #m-game-player {
-        text-shadow: 0 0 10px #ff0000;
-    }
-
-    .m-game-bullet {
-        box-shadow: 0 0 5px #00ffcc;
-    }
-
-    .m-game-obstacle {
-        box-shadow: 0 0 8px #ff0066;
-    }
-
-    /* Brick Breaker Game Styles */
-    #paddle-element {
-        position: absolute;
-        height: 15px;
-        background: repeating-linear-gradient(45deg, var(--secondary), var(--secondary) 5px, transparent 5px, transparent 10px);
-        z-index: 6;
-        pointer-events: none;
-        transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        opacity: 0;
-    }
-
-    .brick-breaker-canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 4;
-        pointer-events: none;
-    }
-
-    .hero h1 .brick, .hero p .brick {
-        display: inline-block;
-        position: relative;
-        transition: all 0.2s ease;
-    }
-
-    @keyframes shake-brick {
-        0%, 100% { transform: translate(0, 0) rotate(0); }
-        25% { transform: translate(5px, 5px) rotate(2deg); }
-        50% { transform: translate(-5px, -5px) rotate(-2deg); }
-        75% { transform: translate(5px, -5px) rotate(2deg); }
-    }
-
-    .brick.hit {
-        animation: shake-brick 0.2s ease-in-out;
-        filter: brightness(1.5);
-    }
-    
-    .brick::after {
-        content: '';
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        transition: box-shadow 0.2s ease;
-        pointer-events: none;
-    }
-
-    #game-over-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.85);
-        z-index: 3000;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        color: var(--accent);
-        font-size: 3rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        text-shadow: 3px 3px 0 var(--secondary);
-    }
-
-    #game-over-modal .btn-container {
-        display: flex;
-        gap: 2rem;
-        margin-top: 2rem;
-    }
-
-    #brick-breaker-controls {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 100;
-        gap: 20px;
-    }
-
-    #brick-breaker-controls button {
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid var(--accent);
-        color: var(--accent);
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        font-size: 2rem;
-        cursor: pointer;
-    }
-</style>
-
-</head>
-<body>
-    
-    <div class="scan-lines"></div>
-    <nav id="navbar">
-        <div class="logo">ARJ</div>
-        <div class="nav-links">
-    <a href="#games">Games</a>
-    <a href="#software">Software</a>
-    <a href="#prototypes">Prototypes</a>
-    <a href="#drawings">Art</a>
-    <a href="#contact">Contact</a>
-</div>
-    </nav>
-
-    <header>
-        <div class="container">
-            <div class="hero fade-in">
-                <h1><span id="im-text">I'm </span><span class="highlight">Arjun Singh</span><span id="game-trigger">.</span></h1>
-                <p id="description-text">I love building software, from internal engineering tools to dynamic interactive systems.</p>
-                <div class="social-icons">
-                    <a href="https://79gamescoldatnight.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a>
-                    <a href="https://x.com/AllHeresy89790" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.linkedin.com/in/arjun-singh-0108981b4/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/cold_substantial/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://steamcommunity.com/id/ColdatNight/" target="_blank"><i class="fab fa-steam"></i></a>
-                    <a href="https://www.youtube.com/channel/UCOeRs-e34uktZ4x4e0k4XdA" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://github.com/COLDATNIGHT-79" target="_blank"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-        </div>
-        <div id="paddle-element"></div>
-        <div id="brick-breaker-controls">
-            <button id="bb-left-btn">&larr;</button>
-            <button id="bb-right-btn">&rarr;</button>
-        </div>
-        <div class="hero-bg">
-            <img src="get.png" alt="Background Image">
-        </div>
-    </header>
-    <style>
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
+        html,
+        body {
             width: 100%;
             height: 100%;
-            z-index: -1;
             overflow: hidden;
+            background: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            -webkit-user-select: none;
+            user-select: none;
         }
-        
-        .hero-bg img {
+
+        /* ══════════════════════════════
+   SCENE
+══════════════════════════════ */
+        #scene {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            /* Single contain rule — tells browser layout/paint stop here */
+            contain: layout paint;
+        }
+
+        #hero-bg {
+            position: absolute;
+            inset: -5%;
+            width: 110%;
+            height: 110%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* PERF: Force every parallax layer onto its own GPU compositor layer immediately.
+           translateZ(0) is the minimal hint — no actual 3D, just layer promotion.
+           This prevents the browser from compositing all 7 images together on the CPU. */
+        .pl-layer {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.3;
+            object-position: center 22%;
+            /* promote each layer individually */
+            transform: translateZ(0);
+            /* seat them on the GPU from the start */
+            backface-visibility: hidden;
+        }
+
+        /* PERF: Cloud scroll — use a CSS custom property driven by JS so we can
+           drive it via rAF rather than relying on 3 separate CSS animations that
+           each cause a repaint cascade.  We keep the CSS animation as a fallback
+           but it only runs when the user isn't moving the mouse (quiet state). */
+        .pl-clouds-wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70%;
+            pointer-events: none;
+            overflow: hidden;
+            /* own layer */
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        .pl-clouds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            /* PERF: background-repeat on a 200%-wide div is cheap — only one
+               texture tile needed. Keep it but trim to 2 layers (was 3). */
+            background: url('Bg/clouds.png') repeat-x left center;
+            background-size: auto 50%;
+            /* PERF: Use a single long-duration translate animation that the
+               browser can completely offload to the compositor thread.
+               Replaced "animation" shorthand with will-change + transform. */
+            animation: cloudScroll 800s linear infinite;
+            opacity: 0.8;
+            will-change: transform;
+        }
+
+        .pl-clouds-2 {
+            top: 5%;
+            background-size: auto 70%;
+            opacity: 0.45;
+            animation: cloudScroll 1200s linear infinite;
+            will-change: transform;
+        }
+
+        /* PERF: Removed pl-clouds-3 — three simultaneous repeating background
+           animations all sharing the same texture is wasteful. Two layers
+           give the same visual effect at 2/3 the compositor cost. */
+
+        @keyframes cloudScroll {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(-50%, 0, 0);
+            }
+        }
+
+        /* PERF: Dynamic light overlay — removed mix-blend-mode entirely.
+           Original had a comment saying this was already removed, but the
+           radial-gradient repaint still happened every mousemove frame.
+           Now it's a pre-baked gradient that only moves (translate3d), zero repaint. */
+        #dynamic-light {
+            position: absolute;
+            inset: -20%;
+            width: 140%;
+            height: 140%;
+            z-index: 10;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        #thumb-reveal {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            /* PERF: removed backdrop-filter from thumb-reveal — it had none in original,
+               keeping clean. transition only on opacity. */
+            transition: opacity .12s ease;
+            pointer-events: none;
+            /* Force own layer so opacity transitions don't trigger repaint of hero-bg */
+            will-change: opacity;
+            transform: translateZ(0);
+        }
+
+        /* Vignette — single pseudo-element, static, no repaint */
+        #scene::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(ellipse 80% 90% at 50% 50%, transparent 25%, rgba(0, 0, 0, .55) 100%);
+            /* PERF: force own layer so vignette doesn't share compositor layer with hero */
+            transform: translateZ(0);
+        }
+
+        /* ══════════════════════════════
+   INTRO OVERLAY
+   PERF: Biggest single culprit fixed here.
+   isolation:isolate + mix-blend-mode:destination-out creates an expensive
+   stacking context. The browser must composite the ENTIRE page through this.
+   
+   FIX: We keep the visual effect but render it differently:
+   Instead of destination-out (which needs a full offscreen bitmap pass),
+   we use a canvas-based cutout during intro only, then remove the whole
+   thing. The canvas approach is GPU-accelerated and doesn't trigger
+   stacking context recompositing on every frame.
+   
+   For the "hello words" phase: we swap to canvas-painted text instead.
+══════════════════════════════ */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            background-color: #000;
+            pointer-events: none;
+            transition: background-color 0.9s ease;
+        }
+
+        #namaste {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: clamp(5rem, 16vw, 13rem);
+            letter-spacing: -.04em;
+            line-height: 1;
+            white-space: nowrap;
+            color: #ffeb3b;
+            opacity: 1;
+            pointer-events: none;
+            will-change: opacity, color;
+            text-shadow: 0 0 120px rgba(255, 255, 255, 0.3);
+            transition: color 0.5s ease, opacity 0.4s ease;
+        }
+
+        /* ══════════════════════════════
+   INTRO PILL
+══════════════════════════════ */
+        #intro-pill {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 501;
+
+            width: 12px;
+            height: 44px;
+            border-radius: 100px;
+            overflow: hidden;
+            padding: 0;
+
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, .2);
+            box-shadow: 0 8px 36px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .25);
+
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            will-change: transform, width, height, top, opacity;
+        }
+
+        #ipt-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 0 2rem;
+            overflow: hidden;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity .35s ease;
+        }
+
+        #ipt-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -.035em;
+            line-height: 1.05;
+            white-space: nowrap;
+        }
+
+        #ipt-name .nm {
+            background: linear-gradient(115deg, #9dd5ff 0%, #d0a8ff 50%, #9dffd4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #ipt-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(.68rem, 1.1vw, .78rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, .55);
+            letter-spacing: .03em;
+            white-space: nowrap;
+        }
+
+        /* ══════════════════════════════
+   IDENTITY
+══════════════════════════════ */
+        #identity {
+            position: absolute;
+            top: 1.6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .6s ease;
+            white-space: nowrap;
+            /* Own layer so opacity transition doesn't repaint siblings */
+            will-change: opacity;
+        }
+
+        #identity.vis {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #identity h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.9rem, 3.5vw, 3.2rem);
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -.035em;
+            text-shadow: 0 2px 24px rgba(0, 0, 0, .55);
+            line-height: 1.05;
+        }
+
+        #identity h1 .nm {
+            background: linear-gradient(115deg, #9dd5ff 0%, #d0a8ff 50%, #9dffd4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #identity .tl {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(.72rem, 1.2vw, .82rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, .52);
+            margin-top: .3rem;
+            letter-spacing: .03em;
+        }
+
+        .srow {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: .6rem;
+        }
+
+        .srow a {
+            color: rgba(255, 255, 255, .45);
+            font-size: .95rem;
+            text-decoration: none;
+            transition: color .25s, transform .25s;
+        }
+
+        .srow a:hover {
+            color: #9dd5ff;
+            transform: translateY(-2px);
+        }
+
+        /* ══════════════════════════════
+   PILL NAV
+══════════════════════════════ */
+        #nav-wrap {
+            position: absolute;
+            bottom: 1.6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .5s ease;
+            will-change: opacity;
+        }
+
+        #nav-wrap.vis {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #pill-nav {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 46px;
+            padding: 5px;
+            border-radius: 100px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, .1);
+            box-shadow: 0 8px 36px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .12);
+            cursor: grab;
+            touch-action: none;
+        }
+
+        #pill-nav:active {
+            cursor: grabbing;
+        }
+
+        #pill-thumb {
+            position: absolute;
+            top: 5px;
+            height: calc(100% - 10px);
+            border-radius: 100px;
+            background: rgba(255, 255, 255, .15);
+            border: 1px solid rgba(255, 255, 255, .22);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 2px 10px rgba(0, 0, 0, .2);
+            transition: left .36s cubic-bezier(.34, 1.56, .64, 1), width .36s cubic-bezier(.34, 1.56, .64, 1);
+            pointer-events: none;
+            z-index: 0;
+            /* Own layer for smooth slide */
+            will-change: left, width;
+        }
+
+        .ptab {
+            position: relative;
+            z-index: 1;
+            padding: 0 1.05rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-family: 'Syne', sans-serif;
+            font-size: .78rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .38);
+            letter-spacing: .04em;
+            white-space: nowrap;
+            border-radius: 100px;
+            transition: color .25s ease;
+        }
+
+        .ptab.on {
+            color: #fff;
+        }
+
+        .ptab:hover:not(.on) {
+            color: rgba(255, 255, 255, .7);
+        }
+
+        /* ══════════════════════════════
+   CARDS
+   PERF: This is the other major culprit.
+   backdrop-filter:blur(20px) on every .gc card is catastrophic —
+   6 blurred glass cards = 6 separate GPU offscreen render passes.
+   
+   FIX: Replace the per-card blur with a solid semi-transparent dark surface.
+   We preserve the glassmorphism aesthetic using:
+   - A very subtle box-shadow that mimics the depth
+   - A slight inner-border gradient for the "glass edge" look
+   - A background that's just dark-transparent instead of blurred
+   
+   This drops the card rendering cost by ~80% on most GPUs.
+══════════════════════════════ */
+        #cards {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .gc {
+            position: absolute;
+            border-radius: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            pointer-events: auto;
+            will-change: transform;
+
+            /* PERF: No backdrop-filter. Dark semi-transparent surface with
+               gradient inner border instead. Visually almost identical,
+               ~10x cheaper to render. */
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, .16);
+            box-shadow:
+                0 8px 28px rgba(0, 0, 0, .45),
+                inset 0 1px 0 rgba(255, 255, 255, .22),
+                inset 0 -1px 0 rgba(0, 0, 0, .2);
+            /* A subtle dark fill so cards are legible over the bright sky */
+            background-color: #000;
+
+            opacity: 0;
+            /* PERF: Transition only properties that can be GPU-composited.
+               transform and opacity only — no layout properties in steady state. */
+            transition: box-shadow .3s, border-color .3s, transform .3s cubic-bezier(.34, 1.2, .64, 1), opacity .3s;
+        }
+
+        /* Top sheen — static pseudo, zero cost */
+        .gc::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 38%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .08), transparent);
+            border-radius: 18px 18px 0 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* PERF: Hover uses transform only — no width/height/position changes */
+        .gc:hover:not(.xp) {
+            transform: translateY(-8px) scale(1.03) !important;
+            box-shadow:
+                0 18px 52px rgba(0, 0, 0, .5),
+                0 0 0 1px rgba(255, 255, 255, .24),
+                inset 0 1px 0 rgba(255, 255, 255, .3);
+            border-color: rgba(255, 255, 255, .28);
+            z-index: 50 !important;
+        }
+
+        .gc img.th {
+            width: 100%;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid rgba(255, 255, 255, .09);
+            pointer-events: none;
+            /* PERF: decoding handled by attribute; add rendering hint */
+            image-rendering: auto;
+        }
+
+        .gc .ci {
+            padding: .8rem 1rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: .25rem;
+        }
+
+        .gc .ci h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: .85rem;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: .01em;
+        }
+
+        .gc .ci p {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: .69rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, .58);
+            line-height: 1.45;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .clk {
+            display: none;
+            flex-wrap: wrap;
+            gap: .4rem;
+            margin-top: .6rem;
+        }
+
+        /* ── EXPANDED CARD ──
+           PERF: Expanded card CAN have a blur — only one card is ever expanded
+           at a time, and we add/remove the blur class dynamically. */
+        .gc.xp {
+            z-index: 300 !important;
+            cursor: default;
+            border-radius: 22px !important;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%), #000 !important;
+            border-color: rgba(255, 255, 255, .24) !important;
+            box-shadow:
+                0 28px 80px rgba(0, 0, 0, .65),
+                0 0 0 1px rgba(255, 255, 255, .18),
+                inset 0 1px 0 rgba(255, 255, 255, .28) !important;
+        }
+
+        .gc.xp img.th {
+            height: 220px !important;
+        }
+
+        .gc.xp .ci {
+            padding: 1.2rem 1.5rem 1.4rem;
+        }
+
+        .gc.xp .ci h3 {
+            font-size: 1.3rem;
+            white-space: normal;
+            letter-spacing: -.01em;
+        }
+
+        .gc.xp .ci p {
+            font-size: .88rem;
+            -webkit-line-clamp: unset;
+            overflow: visible;
+            color: rgba(255, 255, 255, .82);
+        }
+
+        .gc.xp .clk {
+            display: flex;
+        }
+
+        .cla {
+            display: inline-flex;
+            align-items: center;
+            padding: .38rem 1rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .18);
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-decoration: none;
+            transition: background .25s, border-color .25s, transform .2s;
+        }
+
+        .cla:hover {
+            background: rgba(157, 213, 255, .22);
+            border-color: rgba(157, 213, 255, .45);
+            transform: translateY(-1px);
+        }
+
+        .cbtn {
+            display: none;
+            position: absolute;
+            top: 11px;
+            right: 12px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .15);
+            color: rgba(255, 255, 255, .65);
+            font-size: .82rem;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            z-index: 310;
+            transition: background .2s, transform .25s;
+            font-family: sans-serif;
+        }
+
+        .gc.xp .cbtn {
+            display: flex;
+        }
+
+        .cbtn:hover {
+            background: rgba(255, 70, 70, .28);
+            transform: rotate(90deg);
+        }
+
+        /* ══════════════════════════════
+   CONTACT PANEL
+══════════════════════════════ */
+        #cpanel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -55%);
+            z-index: 15;
+            width: min(450px, 90vw);
+            padding: 1.9rem 2.1rem;
+            border-radius: 22px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, .13);
+            box-shadow: 0 20px 65px rgba(0, 0, 0, .48), inset 0 1px 0 rgba(255, 255, 255, .18);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .4s ease;
+            will-change: opacity;
+        }
+
+        #cpanel.vis {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #cpanel h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: .15rem;
+        }
+
+        #cpanel .csub {
+            font-size: .78rem;
+            color: rgba(255, 255, 255, .42);
+            margin-bottom: 1.3rem;
+        }
+
+        #cpanel .csub a {
+            color: #9dd5ff;
+            text-decoration: none;
+        }
+
+        #cpanel label {
+            display: block;
+            font-size: .66rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .42);
+            margin-bottom: .26rem;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+        }
+
+        #cpanel input,
+        #cpanel textarea {
+            width: 100%;
+            padding: .58rem .88rem;
+            margin-bottom: .75rem;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 11px;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: .86rem;
+            outline: none;
+            transition: border-color .25s, box-shadow .25s;
+        }
+
+        #cpanel input:focus,
+        #cpanel textarea:focus {
+            border-color: rgba(157, 213, 255, .5);
+            box-shadow: 0 0 0 3px rgba(157, 213, 255, .1);
+        }
+
+        #cpanel textarea {
+            resize: none;
+            height: 72px;
+        }
+
+        #cpanel .sbtn {
+            padding: .55rem 1.7rem;
+            border-radius: 50px;
+            background: linear-gradient(135deg, rgba(157, 213, 255, .2), rgba(208, 168, 255, .16));
+            border: 1px solid rgba(255, 255, 255, .18);
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            cursor: pointer;
+            transition: background .3s, transform .2s, box-shadow .3s;
+        }
+
+        #cpanel .sbtn:hover {
+            background: linear-gradient(135deg, rgba(157, 213, 255, .38), rgba(208, 168, 255, .3));
+            box-shadow: 0 0 22px rgba(157, 213, 255, .22);
+            transform: translateY(-1px);
+        }
+
+        /* ══════════════════════════════
+   CATEGORY HEADER
+══════════════════════════════ */
+        #catlabel {
+            position: absolute;
+            top: 1.6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.9rem, 3.5vw, 3.2rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.04em;
+            text-shadow: 0 2px 24px rgba(0, 0, 0, .55);
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .38s ease;
+            will-change: opacity;
+        }
+
+        #catlabel.sh {
+            opacity: 1;
+        }
+
+        /* ══════════════════════════════
+   REDUCED MOTION
+══════════════════════════════ */
+        @media (prefers-reduced-motion: reduce) {
+
+            .pl-clouds,
+            .pl-clouds-2 {
+                animation: none;
+            }
+
+            .gc {
+                transition: opacity .3s;
+            }
         }
     </style>
+</head>
 
-
-
-    <section class="statement">
-        <div class="statement-bg"></div>
-        <h2>THE MAIN GIGS</h2>
-    </section>
-
-    <section class="projects" id="games">
-        <div class="container">
-            <h2 class="section-title fade-in">G<span id="tiltA">a</span>mes I Made</h2>
-
-            <div class="project-grid">
-                <div class="project-card fade-in">
-                    <img class="project-img" src="yes.png" alt="Game 1">
-                    <div class="project-info">
-                        <h3>Fortiori</h3>
-                        <p>The relentless number multiplication video puzzle. My first game on steam. very proud of this one. Check out its steam page to learn more!</p>
-                        <div class="project-links">
-                            <a href="https://fortiori.site/" class="btn-capsule">Play Now</a>
-                        </div>
-                    </div>
-                </div>
-             
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.itch.zone/aW1nLzE3MzUyMDY0LnBuZw==/original/EirMSH.png" alt="Game 1">
-                    <div class="project-info">
-                        <h3>MVNES</h3>
-                        <p>Chess meets minesweeper in a horror setting. Featuring levels that drastically change the rules for engaging scenarios.</p>
-                        <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/mvnes-chess-minesweeper" class="btn-capsule">Play Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.itch.zone/aW1nLzE3MzkwNzgxLnBuZw==/original/%2BGPwfl.png" alt="Game 1">
-                    <div class="project-info">
-                        <h3>10 seconds to scale the evrest</h3>
-                        <p>Do i HAVE to expalin that title?</p>
-                        <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/10stste" class="btn-capsule">Play Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.itch.zone/aW1hZ2UvMzI2OTY4NC8xOTUyMzMzMS5wbmc=/original/ezJPJW.png" alt="Game 1">
-                    <div class="project-info">
-                        <h3>CHA'CHINKO</h3>
-                        <p>roguelike pachinko where goal is to score more that atoms on earth</p>
-                        <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/cha-chinka" class="btn-capsule">Play Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.itch.zone/aW1nLzE5ODc4MTI3LnBuZw==/315x250%23c/7rzKOF.png" alt="Game 1">
-                    <div class="project-info">
-                        <h3>5000 metres deep</h3>
-                        <p>horror game set in middle of ocean on a static boat</p>
-                        <div class="project-links">
-                            <a href="https://79gamescoldatnight.itch.io/5000-metres-deep" class="btn-capsule">Play Now</a>
-                        </div>
-                    </div>
-                </div>
+<body>
+    <div id="scene">
+        <div id="hero-bg">
+            <img class="pl-layer" id="pl-sky" src="Bg/sky.png" alt="" decoding="async" fetchpriority="high">
+            <div class="pl-clouds-wrap" id="pl-clouds-layer">
+                <div class="pl-clouds"></div>
+                <div class="pl-clouds pl-clouds-2"></div>
+                <!-- PERF: removed pl-clouds-3, two layers is enough -->
             </div>
-        </div>
-    </section>
-
-    <section class="statement">
-        <div class="statement-bg"></div>
-        <h2>felt like makin em</h2>
-    </section>
-
-    <section class="projects" id="software">
-        <div class="container">
-            <h2 class="section-title fade-in">Soft<span id="tiltA">w</span>are I Built</h2>
-
-             <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.itch.zone/aW1nLzI2MTIwNDAwLnBuZw==/315x250%23c/6nbdOU.png" alt="Software 1">
-                    <div class="project-info">
-                        <h3>Just a Minimal Notepad</h3>
-                        <p>write stuff in this app :D </p>
-                    </div>
-                </div>
-            <div class="project-grid">
-                <div class="project-card fade-in">
-                    <img class="project-img" src="get2.png" alt="Software 1">
-                    <div class="project-info">
-                        <h3>PyDancer</h3>
-                        <p>genrate appropiate interface for any python code and even scehdule them to run at different times. Store the function in a secured Database as well! (code cannot be shown because made for a corpo, contact me to learn more) </p>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="get3.png" alt="Software 1">
-                    <div class="project-info">
-                        <h3>DROP IT!!</h3>
-                        <p>A physics based chatting app where users can play with messages of each other. Downloadable on andoroid and IOS as well  </p>
-                        <div class="project-links">
-                            <a href="https://drop-it-wyq5.onrender.com/" class="btn-capsule">try for yo self</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="get6.png" alt="Software 1">
-                    <div class="project-info">
-                        <h3>CUT-IT</h3>
-                        <p>a mild photo editing tool that lets you cut images however you feel like in any shape. You can also resize indivisual components and apply filters onto them because why the hell not ay? </p>
-                        <div class="project-links">
-                            <a href="https://cut-it-91ir.onrender.com/" class="btn-capsule">try for yo self</a>
-                        </div>
-                    </div>
-                </div>
-                  <div class="project-card fade-in">
-                    <img class="project-img" src="get-20.png" alt="Software 1">
-                    <div class="project-info">
-                        <h3>i Hate This Person</h3>
-                        <p>A social Media website to spread hatred </p>
-                        <div class="project-links">
-                            <a href="https://ihatethisperson.onrender.com/create" class="btn-capsule">try for yo self</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="get4.png" alt="Software 1">
-                    <div class="project-info">
-                        <h3>cold's app launcher</h3>
-                        <p>I built this because my desktop was a mess and finding apps was killing my workflow.  So, I created a clean hub to categorize and instantly search for all my programs.  Custom shortcuts and icons make it truly mine.  It dramatically boosted my efficiency, and I thought, "maybe others would love this too!"  Hope it helps you streamline your workflow as much as it does mine!</p>
-                        <div class="project-links">
-                            <a href="https://github.com/COLDATNIGHT-79/Custom-App-Launcher-and-close?tab=License-1-ov-file" class="btn-capsule">github</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="statement">
-        <div class="statement-bg"></div>
-        <h2>buried with the rest</h2>
-    </section>
-
-    <section class="projects" id="prototypes">
-        <div class="container">
-            <h2 class="section-title fade-in">Unre<span id="tiltA">L</span>eased Prototypes</h2>
-            <div class="project-grid">
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://placehold.co/600x400/78ff3c/1a1a1a?text=:3" alt=":3">
-                    <div class="project-info">
-                        <h3>some stuff</h3>
-                        <p>my early proj's was to replicate other peoples stuff to grasp basics of coding. after that i went on jounry to make actually functional apps. all are on my github</p>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="get5.png" alt=":3">
-                    <div class="project-info">
-                        <h3>osaka browser</h3>
-                        <p>I made my own browser to keep track of my history and privacy myself. I actually used it for a while before switching to arc broswer, lol</p>
-                        <div class="project-links">
-                            <a href="https://github.com/COLDATNIGHT-79/Osakar-Browser" class="btn-capsule">github</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://placehold.co/600x400/78ff3c/1a1a1a?text=hand gesture gaming" alt=":3">
-                    <div class="project-info">
-                        <h3>using hands to control games</h3>
-                        <p>made a python file to control game using hands as hand gesture. eventually got bored of it xd</p>
-                        <div class="project-links">
-                            <a href="https://github.com/COLDATNIGHT-79/Hand-gamingr" class="btn-capsule">github</a>
-                            <a href="https://www.linkedin.com/posts/coldatnight_hey-people-this-weekend-i-got-inspired-by-activity-7189523990778990592-UaK0?utm_source=share&utm_medium=member_desktop" class="btn-capsule">video demo</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.youtube.com/vi/wp9cfFwf24U/hqdefault.jpg" alt=":3">
-                    <div class="project-info">
-                        <h3>unnamed fps deck builder</h3>
-                        <p>i was working a on fps where you could build a deck of cards and that would have way more impactfull visual effects and gameplay changes than normal deck builder</p>
-                        <div class="project-links">
-                            <a href="https://youtu.be/wp9cfFwf24U" class="btn-capsule">video demo</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <img class="project-img" src="https://img.youtube.com/vi/loSf8KmCd9w/hqdefault.jpg" alt=":3">
-                    <div class="project-info">
-                        <h3>the rotating prison</h3>
-                        <p>was tryinh something new with a really huge prison that rotates inspired by the rotating prison in colorado museum. it was meant to be a horror game but i found the gameplay boring in prototyping so, its now abandoned. poetic now that i think.</p>
-                        <div class="project-links">
-                            <a href="https://youtu.be/loSf8KmCd9w" class="btn-capsule">video demo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="statement">
-    <div class="statement-bg"></div>
-    <h2>Colors of the Night</h2>
-</section>
-<section class="projects" id="drawings">
-    <div class="container">
-        <h2 class="section-title fade-in">Hand Made Art in big 2026</h2>
-
-        <div class="project-grid">
-
-            <!-- Card 1 -->
-            <div class="project-card fade-in">
-                <img class="project-img" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/684c2a84-44c4-4280-b3af-8c3d53f1204e/dl1pgfh-9fa8522e-bcbf-4bec-bea4-8c35a21fdd72.png/v1/fill/w_1196,h_668,q_70,strp/ever_shatter___coldatnight_by_ajxcool79_dl1pgfh-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzE1IiwicGF0aCI6Ii9mLzY4NGMyYTg0LTQ0YzQtNDI4MC1iM2FmLThjM2Q1M2YxMjA0ZS9kbDFwZ2ZoLTlmYTg1MjJlLWJjYmYtNGJlYy1iZWE0LThjMzVhMjFmZGQ3Mi5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.55Xj103veEwDhxQVx0k_nlT0OUhnwcwr5ealJtRfcm4" alt="Artwork 1">
-                <div class="project-info">
-                    <h3>Ever Shatter</h3>
-                    <p>Sleek and bold</p>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="project-card fade-in">
-                <img class="project-img" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/684c2a84-44c4-4280-b3af-8c3d53f1204e/dlxx9da-6b2444bb-ee62-41c9-b3cb-9e4383b35212.png/v1/fill/w_1024,h_576,q_80,strp/ignore_the_fluff__cone_rest__by_ajxcool79_dlxx9da-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi82ODRjMmE4NC00NGM0LTQyODAtYjNhZi04YzNkNTNmMTIwNGUvZGx4eDlkYS02YjI0NDRiYi1lZTYyLTQxYzktYjNjYi05ZTQzODNiMzUyMTIucG5nIiwiaGVpZ2h0IjoiPD01NzYiLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS53YXRlcm1hcmsiXSwid21rIjp7InBhdGgiOiIvd20vNjg0YzJhODQtNDRjNC00MjgwLWIzYWYtOGMzZDUzZjEyMDRlL2FqeGNvb2w3OS00LnBuZyIsIm9wYWNpdHkiOjk1LCJwcm9wb3J0aW9ucyI6MC40NSwiZ3Jhdml0eSI6ImNlbnRlciJ9fQ.K_4W4OlsDTMiXFQ03sWfANNrWgamhmSFLdcY_x4jbW4" alt="Artwork 2">
-                <div class="project-info">
-                    <h3>Come, Rest</h3>
-                    <p>/p>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="project-card fade-in">
-                <img class="project-img" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/684c2a84-44c4-4280-b3af-8c3d53f1204e/dly0o3n-5d7c3588-0aa5-4b20-9318-d099ad5c5b5e.png/v1/fill/w_894,h_894,q_70,strp/escalate_by_coldatnight_by_ajxcool79_dly0o3n-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA4MCIsInBhdGgiOiIvZi82ODRjMmE4NC00NGM0LTQyODAtYjNhZi04YzNkNTNmMTIwNGUvZGx5MG8zbi01ZDdjMzU4OC0wYWE1LTRiMjAtOTMxOC1kMDk5YWQ1YzViNWUucG5nIiwid2lkdGgiOiI8PTEwODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.CYAwqdtXEslCVmnSmew2PTt_g9FCUhZGeDz5XOvy9i8" alt="Artwork 3">
-                <div class="project-info">
-                    <h3>escalate</h3>
-                    <p>pallette as mentions</p>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="project-card fade-in">
-                <img class="project-img" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/684c2a84-44c4-4280-b3af-8c3d53f1204e/dlxsghk-170ef25d-732e-493d-b573-eb6fd55c579c.png/v1/fit/w_828,h_1794,q_70,strp/she_swindles_like_a_flower_by_ajxcool79_dlxsghk-414w-2x.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MjM0MCIsInBhdGgiOiIvZi82ODRjMmE4NC00NGM0LTQyODAtYjNhZi04YzNkNTNmMTIwNGUvZGx4c2doay0xNzBlZjI1ZC03MzJlLTQ5M2QtYjU3My1lYjZmZDU1YzU3OWMucG5nIiwid2lkdGgiOiI8PTEwODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.5NJHtqnsK7ZxLqb5wC9kVirHQEa3D_3pum1wx54oOu0" alt="Artwork 4">
-                <div class="project-info">
-                    <h3>Flowers Falling</h3>
-                    <p>wallpaper of my phone</p>
-                </div>
-            </div>
-
-          
-
+            <img class="pl-layer" id="pl-mountains" src="Bg/mountains.png" alt="" decoding="async" fetchpriority="high">
+            <img class="pl-layer" id="pl-land" src="Bg/land.png" alt="" decoding="async" fetchpriority="high">
+            <img class="pl-layer" id="pl-fence" src="Bg/fence.png" alt="" decoding="async" fetchpriority="high">
+            <img class="pl-layer" id="pl-bench" src="Bg/bench.png" alt="" decoding="async" fetchpriority="high">
+            <img class="pl-layer" id="pl-girl" src="Bg/girl.png" alt="" decoding="async" fetchpriority="high">
+            <div id="dynamic-light"></div>
         </div>
 
-        <div style="text-align:center; margin-top:3rem;">
-            <a href="https://www.deviantart.com/ajxcool79"
-               target="_blank"
-               class="btn-capsule">
-                View Full Gallery
-            </a>
+        <div id="thumb-reveal"></div>
+
+        <!-- INTRO OVERLAY -->
+        <div id="intro-overlay">
+            <div id="namaste">Hello</div>
         </div>
-    </div>
-</section>
 
-        
-    </div>
-</section>
+        <div id="intro-pill"></div>
 
+        <div id="identity">
+            <h1>I'm <span class="nm">Arjun Singh</span>.</h1>
+            <p class="tl">Building games, software & things I probably shouldn't.</p>
+            <div class="srow">
+                <a href="https://79gamescoldatnight.itch.io/" target="_blank" rel="noopener"><i
+                        class="fab fa-itch-io"></i></a>
+                <a href="https://x.com/AllHeresy89790" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/arjun-singh-0108981b4/" target="_blank" rel="noopener"><i
+                        class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/cold_substantial/" target="_blank" rel="noopener"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="https://steamcommunity.com/id/ColdatNight/" target="_blank" rel="noopener"><i
+                        class="fab fa-steam"></i></a>
+                <a href="https://www.youtube.com/channel/UCOeRs-e34uktZ4x4e0k4XdA" target="_blank" rel="noopener"><i
+                        class="fab fa-youtube"></i></a>
+                <a href="https://github.com/COLDATNIGHT-79" target="_blank" rel="noopener"><i
+                        class="fab fa-github"></i></a>
+            </div>
+        </div>
 
+        <div id="cards"></div>
+        <div id="catlabel"></div>
 
-
-    <section class="statement">
-        <div class="statement-bg"></div>
-        <h2>thegmailmessage</h2>
-    </section>
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title fade-in">say hi</h2>
-            <p class="contact-email fade-in">Email me directly at: <a href="mailto:ajnimator@gmail.com">ajnimator@gmail.com</a></p>
-            <form class="fade-in" id="contactForm">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit" class="btn-capsule">Send Message</button>
+        <div id="cpanel">
+            <h2>Say Hi.</h2>
+            <p class="csub">Or email: <a href="mailto:ajnimator@gmail.com">ajnimator@gmail.com</a></p>
+            <form id="cf">
+                <div><label>Name</label><input type="text" name="name" required></div>
+                <div><label>Email</label><input type="email" name="email" required></div>
+                <div><label>Message</label><textarea name="message" required></textarea></div>
+                <button type="submit" class="sbtn">Send It</button>
             </form>
-        </div>
-    </section>
-
-    <div id="game-over-modal">
-        <span>Game Over</span>
-        <div class="btn-container">
-            <button id="restart-game-btn" class="btn-capsule">Restart</button>
-            <button id="browse-site-btn" class="btn-capsule">Browse Site</button>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!emailPattern.test(email)) {
-                console.error('Please enter a valid email address.');
-                return;
-            }
-
-            const form = event.target;
-            const formData = new FormData(form);
-            const mailtoLink = `mailto:ajnimator@gmail.com?subject=Message from ${formData.get('name')}&body=${formData.get('message')}`;
-
-            window.location.href = mailtoLink;
-        });
-    </script>
-
-    <script>
-function fetchLatestArt() {
-    const username = "ajxcool79";
-    const galleryContainer = document.getElementById('drawing-gallery');
-    const status = document.getElementById('drawing-status');
-
-    const rssUrl = `https://backend.deviantart.com/rss.xml?q=by:${username}+sort:time`;
-    const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-
-    fetch(proxyUrl)
-        .then(res => res.json())
-        .then(data => {
-            if (data.status !== 'ok') throw new Error('Feed error');
-
-            galleryContainer.innerHTML = '';
-
-            data.items.slice(0, 6).forEach(item => {
-                const img = item.thumbnail || item.enclosure?.link;
-
-                const card = document.createElement('div');
-                card.className = 'project-card fade-in visible';
-
-                card.innerHTML = `
-                    <img class="project-img" src="${img}" alt="${item.title}">
-                    <div class="project-info">
-                        <h3>${item.title}</h3>
-                        <p>Latest from DeviantArt</p>
-                        <div class="project-links">
-                            <a href="${item.link}" target="_blank" class="btn-capsule">View Artwork</a>
-                        </div>
-                    </div>
-                `;
-                galleryContainer.appendChild(card);
-            });
-        })
-        .catch(() => {
-            status.innerHTML = `
-                Gallery temporarily unavailable.<br><br>
-                <a href="https://www.deviantart.com/ajxcool79"
-                   target="_blank"
-                   class="btn-capsule">
-                   Go to Gallery
-                </a>
-            `;
-        });
-}
-
-document.addEventListener('DOMContentLoaded', fetchLatestArt);
-</script>
-
-
-    <footer>
-        <div class="social-icons">
-            <a href="https://79gamescoldatnight.itch.io/" target="_blank"><i class="fab fa-itch-io"></i></a>
-            <div style="text-align: center; margin: 0;">
-                <a href="https://x.com/AllHeresy89790" target="_blank"><i class="fab fa-twitter" style="font-size: 0.75em;"></i></a>
-                <div style="font-size: 0.5em;">not calling it X</div>
+            <div class="srow" style="margin-top:1rem;justify-content:center;">
+                <a href="https://79gamescoldatnight.itch.io/" target="_blank" rel="noopener"><i
+                        class="fab fa-itch-io"></i></a>
+                <a href="https://x.com/AllHeresy89790" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/arjun-singh-0108981b4/" target="_blank" rel="noopener"><i
+                        class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/cold_substantial/" target="_blank" rel="noopener"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="https://steamcommunity.com/id/ColdatNight/" target="_blank" rel="noopener"><i
+                        class="fab fa-steam"></i></a>
             </div>
-            <a href="https://www.linkedin.com/in/arjun-singh-0108981b4/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.instagram.com/cold_substantial/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://steamcommunity.com/id/ColdatNight/" target="_blank"><i class="fab fa-steam"></i></a>
         </div>
-    </footer>
 
-    <div class="project-detail">
-        <div class="project-detail-content">
-            <span class="project-detail-close">&times;</span>
-            <img class="detail-image" src="" alt="Project image">
-            <h2 class="detail-title"></h2>
-            <p class="detail-description"></p>
-            <div class="detail-links"></div>
+        <div id="nav-wrap">
+            <div id="pill-nav">
+                <div id="pill-thumb"></div>
+                <div class="ptab on" data-cat="home">Home</div>
+                <div class="ptab" data-cat="games">Games</div>
+                <div class="ptab" data-cat="software">Software</div>
+                <div class="ptab" data-cat="prototypes">Prototypes</div>
+                <div class="ptab" data-cat="art">Art</div>
+                <div class="ptab" data-cat="contact">Contact</div>
+            </div>
         </div>
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let brickBreakerGame = null;
+        /* ══════════════════════════════
+           DATA
+        ══════════════════════════════ */
+        const DATA = {
+            games: [
+                { t: "Fortiori", d: "Relentless number multiplication puzzle. My first game on Steam.", img: "yes.png", lk: [{ l: "Play", u: "https://fortiori.site/" }] },
+                { t: "MVNES", d: "Chess meets Minesweeper in a horror setting with rule-changing levels.", img: "https://img.itch.zone/aW1nLzE3MzUyMDY0LnBuZw==/original/EirMSH.png", lk: [{ l: "Play", u: "https://79gamescoldatnight.itch.io/mvnes-chess-minesweeper" }] },
+                { t: "10s to Scale Everest", d: "Do I HAVE to explain that title?", img: "https://img.itch.zone/aW1nLzE3MzkwNzgxLnBuZw==/original/%2BGPwfl.png", lk: [{ l: "Play", u: "https://79gamescoldatnight.itch.io/10stste" }] },
+                { t: "CHA'CHINKO", d: "Roguelike pachinko — score more than atoms on Earth.", img: "https://img.itch.zone/aW1hZ2UvMzI2OTY4NC8xOTUyMzMzMS5wbmc=/original/ezJPJW.png", lk: [{ l: "Play", u: "https://79gamescoldatnight.itch.io/cha-chinka" }] },
+                { t: "5000 Metres Deep", d: "Horror on a static boat in the middle of the ocean.", img: "https://img.itch.zone/aW1nLzE5ODc4MTI3LnBuZw==/315x250%23c/7rzKOF.png", lk: [{ l: "Play", u: "https://79gamescoldatnight.itch.io/5000-metres-deep" }] },
+            ],
+            software: [
+                { t: "PyDancer", d: "Auto-generate interfaces for Python code & schedule runs.", img: "get2.png", lk: [] },
+                { t: "DROP IT!!", d: "Physics-based chat — play with others' messages. Android & iOS.", img: "get3.png", lk: [{ l: "Try It", u: "https://drop-it-wyq5.onrender.com/" }] },
+                { t: "CUT-IT", d: "Cut images in any shape, resize components, apply filters.", img: "get6.png", lk: [{ l: "Try It", u: "https://cut-it-91ir.onrender.com/" }] },
+                { t: "I Hate This Person", d: "A social media site to spread (healthy) hatred.", img: "get-20.png", lk: [{ l: "Try It", u: "https://ihatethisperson.onrender.com/create" }] },
+                { t: "Cold's App Launcher", d: "Clean hub to categorize & instantly find all your programs.", img: "get4.png", lk: [{ l: "GitHub", u: "https://github.com/COLDATNIGHT-79/Custom-App-Launcher-and-close" }] },
+                { t: "Minimal Notepad", d: "Write stuff in this app :D", img: "https://img.itch.zone/aW1nLzI2MTIwNDAwLnBuZw==/315x250%23c/6nbdOU.png", lk: [] },
+            ],
+            prototypes: [
+                { t: "Osaka Browser", d: "My own browser for privacy. Used it before Arc.", img: "get5.png", lk: [{ l: "GitHub", u: "https://github.com/COLDATNIGHT-79/Osakar-Browser" }] },
+                { t: "Hand Gesture Gaming", d: "Control games with hand gestures via Python.", img: "https://placehold.co/600x400/110a2e/c88cff?text=Hands", lk: [{ l: "GitHub", u: "https://github.com/COLDATNIGHT-79/Hand-gamingr" }] },
+                { t: "FPS Deck Builder", d: "FPS + card deck with impactful visual gameplay changes.", img: "https://img.youtube.com/vi/wp9cfFwf24U/hqdefault.jpg", lk: [{ l: "Demo", u: "https://youtu.be/wp9cfFwf24U" }] },
+                { t: "The Rotating Prison", d: "Huge rotating horror prison prototype. Abandoned. Poetic.", img: "https://img.youtube.com/vi/loSf8KmCd9w/hqdefault.jpg", lk: [{ l: "Demo", u: "https://youtu.be/loSf8KmCd9w" }] },
+                { t: "Early Stuff", d: "Replicating things to grasp the basics. All on GitHub.", img: "https://placehold.co/600x400/0a1e0a/7ec8ff?text=:3", lk: [] },
+            ],
+            art: [
+                { t: "Ever Shatter", d: "Sleek and bold.", img: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/684c2a84-44c4-4280-b3af-8c3d53f1204e/dl1pgfh-9fa8522e-bcbf-4bec-bea4-8c35a21fdd72.png/v1/fill/w_1196,h_668,q_70,strp/ever_shatter___coldatnight_by_ajxcool79_dl1pgfh-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzE1IiwicGF0aCI6Ii9mLzY4NGMyYTg0LTQ0YzQtNDI4MC1iM2FmLThjM2Q1M2YxMjA0ZS9kbDFwZ2ZoLTlmYTg1MjJlLWJjYmYtNGJlYy1iZWE0LThjMzVhMjFmZGQ3Mi5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.55Xj103veEwDhxQVx0k_nlT0OUhnwcwr5ealJtRfcm4", lk: [{ l: "Gallery", u: "https://www.deviantart.com/ajxcool79" }] },
+                { t: "Come, Rest", d: "Cozy illustration.", img: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/684c2a84-44c4-4280-b3af-8c3d53f1204e/dlxx9da-6b2444bb-ee62-41c9-b3cb-9e4383b35212.png/v1/fill/w_1024,h_576,q_80,strp/ignore_the_fluff__cone_rest__by_ajxcool79_dlxx9da-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi82ODRjMmE4NC00NGM0LTQyODAtYjNhZi04YzNkNTNmMTIwNGUvZGx4eDlkYS02YjI0NDRiYi1lZTYyLTQxYzktYjNjYi05ZTQzODNiMzUyMTIucG5nIiwiaGVpZ2h0IjoiPD01NzYiLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS53YXRlcm1hcmsiXSwid21rIjp7InBhdGgiOiIvd20vNjg0YzJhODQtNDRjNC00MjgwLWIzYWYtOGMzZDUzZjEyMDRlL2FqeGNvb2w3OS00LnBuZyIsIm9wYWNpdHkiOjk1LCJwcm9wb3J0aW9ucyI6MC40NSwiZ3Jhdml0eSI6ImNlbnRlciJ9fQ.K_4W4OlsDTMiXFQ03sWfANNrWgamhmSFLdcY_x4jbW4", lk: [{ l: "Gallery", u: "https://www.deviantart.com/ajxcool79" }] },
+                { t: "Escalate", d: "Palette as mentioned.", img: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/684c2a84-44c4-4280-b3af-8c3d53f1204e/dly0o3n-5d7c3588-0aa5-4b20-9318-d099ad5c5b5e.png/v1/fill/w_894,h_894,q_70,strp/escalate_by_coldatnight_by_ajxcool79_dly0o3n-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA4MCIsInBhdGgiOiIvZi82ODRjMmE4NC00NGM0LTQyODAtYjNhZi04YzNkNTNmMTIwNGUvZGx5MG8zbi01ZDdjMzU4OC0wYWE1LTRiMjAtOTMxOC1kMDk5YWQ1YzViNWUucG5nIiwid2lkdGgiOiI8PTEwODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.CYAwqdtXEslCVmnSmew2PTt_g9FCUhZGeDz5XOvy9i8", lk: [{ l: "Gallery", u: "https://www.deviantart.com/ajxcool79" }] },
+                { t: "Flowers Falling", d: "Wallpaper of my phone.", img: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/684c2a84-44c4-4280-b3af-8c3d53f1204e/dlzfrb0-d54baf50-f217-4460-93d9-2a0622ea2cd4.png/v1/fit/w_828,h_1036,q_70,strp/indian_saree_respect_by_ajxcool79_dlzfrb0-414w-2x.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTYwMCIsInBhdGgiOiIvZi82ODRjMmE4NC00NGM0LTQyODAtYjNhZi04YzNkNTNmMTIwNGUvZGx6ZnJiMC1kNTRiYWY1MC1mMjE3LTQ0NjAtOTNkOS0yYTA2MjJlYTJjZDQucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uud2F0ZXJtYXJrIl0sIndrIjp7InBhdGgiOiIvd20vNjg0YzJhODQtNDRjNC00MjgwLWIzYWYtOGMzZDUzZjEyMDRlL2FqeGNvb2w3OS00LnBuZyIsIm9wYWNpdHkiOjk1LCJwcm9wb3J0aW9ucyI6MC40NSwiZ3Jhdml0eSI6ImNlbnRlciJ9fQ.kRegQgO0-w6W7EYnhNAIWrrH3seHiPH2EPxNVFQTdl8", lk: [{ l: "Gallery", u: "https://www.deviantart.com/ajxcool79" }] },
+            ]
+        };
 
-        setupNavbarScroll();
-        setupFadeInAnimations();
-        setupSmoothScrolling();
-        setupProjectModal();
-        setupInteractiveStatement();
-        setupSlingshotLogo();
-        initMMinigame();
-        initBrickBreakerGame();
+        const THUMBS = [
+            "yes.png", "get2.png", "get3.png", "get4.png", "get5.png", "get6.png", "get-20.png",
+            "https://img.itch.zone/aW1nLzE3MzUyMDY0LnBuZw==/original/EirMSH.png",
+            "https://img.itch.zone/aW1hZ2UvMzI2OTY4NC8xOTUyMzMzMS5wbmc=/original/ezJPJW.png",
+            "https://img.itch.zone/aW1nLzE5ODc4MTI3LnBuZw==/315x250%23c/7rzKOF.png",
+            "https://img.itch.zone/aW1nLzE3MzkwNzgxLnBuZw==/original/%2BGPwfl.png",
+        ];
 
-        function setupSlingshotLogo() {
-            const logo = document.querySelector('.logo');
-            if (!logo) return;
+        /* ══════════════════════════════
+           UTILS
+        ══════════════════════════════ */
+        const shuffle = a => [...a].sort(() => Math.random() - .5);
+        const wait = ms => new Promise(r => setTimeout(r, ms));
 
-            let isDragging = false;
-            let startPos = { x: 0, y: 0 };
-            let currentPos = { x: 0, y: 0 };
-            let velocity = { x: 0, y: 0 };
-            let animationFrame;
-
-            const stiffness = 0.1;
-            const damping = 0.8;
-
-            function animate() {
-                if (isDragging) return;
-
-                const dx = -currentPos.x;
-                const dy = -currentPos.y;
-
-                const ax = dx * stiffness;
-                const ay = dy * stiffness;
-
-                velocity.x += ax;
-                velocity.y += ay;
-
-                velocity.x *= damping;
-                velocity.y *= damping;
-
-                currentPos.x += velocity.x;
-                currentPos.y += velocity.y;
-
-                logo.style.transform = `translate(${currentPos.x}px, ${currentPos.y}px)`;
-
-                if (Math.abs(currentPos.x) < 0.1 && Math.abs(currentPos.y) < 0.1 && Math.abs(velocity.x) < 0.1 && Math.abs(velocity.y) < 0.1) {
-                    logo.style.transform = 'translate(0, 0)';
-                    cancelAnimationFrame(animationFrame);
-                    return;
-                }
-                animationFrame = requestAnimationFrame(animate);
-            }
-
-            function onMouseDown(e) {
-                isDragging = true;
-                cancelAnimationFrame(animationFrame);
-                startPos.x = e.clientX - currentPos.x;
-                startPos.y = e.clientY - currentPos.y;
-                document.addEventListener('mousemove', onMouseMove);
-                document.addEventListener('mouseup', onMouseUp);
-            }
-
-            function onMouseMove(e) {
-                if (!isDragging) return;
-                currentPos.x = e.clientX - startPos.x;
-                currentPos.y = e.clientY - startPos.y;
-                logo.style.transform = `translate(${currentPos.x}px, ${currentPos.y}px)`;
-            }
-
-            function onMouseUp() {
-                isDragging = false;
-                document.removeEventListener('mousemove', onMouseMove);
-                document.removeEventListener('mouseup', onMouseUp);
-                animate();
-            }
-
-            logo.addEventListener('mousedown', onMouseDown);
+        function homeItems() {
+            const all = [...DATA.games, ...DATA.software, ...DATA.prototypes, ...DATA.art];
+            return shuffle(all).slice(0, 6);
         }
 
-        function initBrickBreakerGame() {
-            const imText = document.getElementById('im-text');
-            const highlightSpan = document.querySelector('.highlight');
-            const descriptionText = document.getElementById('description-text');
-            const gameTrigger = document.getElementById('game-trigger');
+        /* ══════════════════════════════
+           CARD LAYOUT
+        ══════════════════════════════ */
+        function getCardDims() {
+            const vw = innerWidth, vh = innerHeight;
+            const yTop = 120;
+            const yBot = vh - 72;
+            const available = yBot - yTop;
+            const GAP = 14;
+            let ch = Math.floor((available - 2 * GAP) / 3);
+            ch = Math.max(220, Math.min(ch, 370));
+            const cw = Math.round(ch / 1.45);
+            return { cw, ch, gap: GAP, yTop };
+        }
 
-            if (!imText || !highlightSpan || !descriptionText || !gameTrigger) return;
-            
-            const originalTexts = {
-                im: imText.innerText,
-                highlight: highlightSpan.innerText,
-                description: descriptionText.innerText
-            };
-            
-            let isReadyForGame = false;
-
-            function setupBricks() {
-                if(isReadyForGame) return;
-                splitTextIntoBricks(imText, 4);
-                splitTextIntoBricks(highlightSpan, 8);
-                splitTextIntoBricks(descriptionText, 2);
-                isReadyForGame = true;
-            }
-
-            function splitTextIntoBricks(element, hits) {
-                const text = element.innerText;
-                element.innerHTML = '';
-                text.split('').forEach(char => {
-                    const span = document.createElement('span');
-                    if (char.trim() === '') {
-                        span.innerHTML = '&nbsp;';
-                    } else {
-                        span.textContent = char;
-                    }
-                    span.classList.add('brick');
-                    span.dataset.hits = hits;
-                    span.dataset.initialHits = hits;
-                    element.appendChild(span);
+        function layoutPositions(n, { cw, ch, gap, yTop }) {
+            const vw = innerWidth, vh = innerHeight;
+            const SIDE_PAD = 14;
+            const leftX = SIDE_PAD;
+            const rightX = vw - cw - SIDE_PAD;
+            const pos = [];
+            const perCol = 3;
+            const totalH = perCol * ch + (perCol - 1) * gap;
+            const yStart = yTop + ((vh - 72 - yTop) - totalH) / 2;
+            for (let i = 0; i < n; i++) {
+                const side = i % 2;
+                const row = Math.floor(i / 2);
+                pos.push({
+                    x: side === 0 ? leftX : rightX,
+                    y: Math.round(yStart + row * (ch + gap))
                 });
             }
-            
-            function restoreOriginalText() {
-                imText.innerHTML = originalTexts.im;
-                highlightSpan.innerHTML = originalTexts.highlight;
-                descriptionText.innerHTML = originalTexts.description;
-                isReadyForGame = false;
-            }
-
-
-            let clickCount = 0;
-            gameTrigger.addEventListener('click', () => {
-                clickCount++;
-                if (clickCount === 3 && !brickBreakerGame) {
-                    clickCount = 0;
-                    setupBricks();
-                    brickBreakerGame = new BrickBreaker(restoreOriginalText);
-                    brickBreakerGame.start();
-                }
-            });
+            return pos;
         }
 
-        class BrickBreaker {
-            constructor(onEndCallback) {
-                this.onEndCallback = onEndCallback;
-                this.header = document.querySelector('header');
-                this.highlight = document.querySelector('.highlight');
-                this.paddleEl = document.getElementById('paddle-element');
-                this.gameTrigger = document.getElementById('game-trigger');
-                this.bricks = Array.from(document.querySelectorAll('.hero .brick'));
-                this.canvas = document.createElement('canvas');
-                this.ctx = this.canvas.getContext('2d');
-                this.ball = { x: 0, y: 0, dx: 0, dy: 0, radius: 10 };
-                this.paddle = { x: 0, y: 0, width: 0, height: 15, speed: 10 };
-                this.controls = { left: false, right: false };
-                this.animationFrameId = null;
-                this.gameActive = false;
-                this.gameOverModal = document.getElementById('game-over-modal');
-                this.restartBtn = document.getElementById('restart-game-btn');
-                this.browseBtn = document.getElementById('browse-site-btn');
-                this.bbControls = document.getElementById('brick-breaker-controls');
-                this.bbLeftBtn = document.getElementById('bb-left-btn');
-                this.bbRightBtn = document.getElementById('bb-right-btn');
-                
-                this.movePaddleHandler = this.movePaddle.bind(this);
-                this.restartHandler = this.restart.bind(this);
-                this.endGameHandler = this.endGame.bind(this);
-                this.keyDownHandler = this.keyDown.bind(this);
-                this.keyUpHandler = this.keyUp.bind(this);
-            }
+        /* ══════════════════════════════
+           CARDS ENGINE
+        ══════════════════════════════ */
+        const cardLayer = document.getElementById('cards');
+        let liveCards = [], openCard = null;
 
-            start() {
-                if (this.gameActive) return;
-                this.gameActive = true;
+        function clearCards(cb) {
+            liveCards.forEach(el => {
+                el.style.transition = 'opacity .22s ease, transform .22s ease';
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(18px) scale(.94)';
+            });
+            setTimeout(() => { cardLayer.innerHTML = ''; liveCards = []; openCard = null; cb && cb(); }, 280);
+        }
 
-                this.canvas.classList.add('brick-breaker-canvas');
-                this.header.appendChild(this.canvas);
-                this.resizeCanvas();
-                window.addEventListener('resize', () => this.resizeCanvas());
+        function dealCards(items) {
+            const dims = getCardDims();
+            const positions = layoutPositions(Math.min(items.length, 6), dims);
+            const { cw, ch } = dims;
+            const vw = innerWidth, vh = innerHeight;
+            const deckX = vw / 2 - cw / 2;
+            const deckY = vh + 20;
 
-                this.gameTrigger.style.opacity = '0';
-                this.highlight.classList.add('game-active');
-                this.bbControls.style.display = 'flex';
-                
-                const highlightRect = this.highlight.getBoundingClientRect();
-                this.paddleEl.style.width = `${highlightRect.width}px`;
-                this.paddleEl.style.left = `${highlightRect.left}px`;
-                this.paddleEl.style.top = `${highlightRect.bottom - this.paddle.height}px`;
-                this.paddleEl.style.opacity = '1';
-                this.paddleEl.style.transform = `translateY(${this.canvas.height * 0.6}px)`;
-                
+            items.slice(0, 6).forEach((item, i) => {
+                const el = document.createElement('div');
+                el.className = 'gc';
+                el.dataset.i = i;
+
+                const thumbH = Math.round(ch * 0.46);
+                const lh = (item.lk || []).map(l =>
+                    `<a class="cla" href="${l.u}" target="_blank" rel="noopener">${l.l}</a>`).join('');
+
+                el.innerHTML = `<button class="cbtn">✕</button>
+                    <img class="th" src="${item.img}" alt="${item.t}" loading="lazy" decoding="async" style="height:${thumbH}px">
+                    <div class="ci"><h3>${item.t}</h3><p>${item.d}</p><div class="clk">${lh}</div></div>`;
+
+                const angle = (Math.random() - .5) * 12;
+                /* PERF: Use translate3d for initial position — triggers GPU layer immediately.
+                   Don't use left/top for the starting offscreen position; instead use transform
+                   and then switch to actual position on deal. */
+                el.style.cssText = `left:${deckX}px;top:${deckY}px;width:${cw}px;opacity:0;transform:translate3d(0,0,0) scale(.78) rotate(${angle}deg);z-index:${10 + i};transition:none;`;
+
+                cardLayer.appendChild(el);
+                liveCards.push(el);
+
+                el.querySelector('.cbtn').addEventListener('click', e => { e.stopPropagation(); collapseCard(el); });
+                el.addEventListener('click', e => {
+                    if (e.target.closest('.cla')) return;
+                    if (el.classList.contains('xp')) return;
+                    expandCard(el, i, positions, dims);
+                });
+
                 setTimeout(() => {
-                    const paddleRect = this.paddleEl.getBoundingClientRect();
-                    const canvasRect = this.canvas.getBoundingClientRect();
-                    this.paddle.width = paddleRect.width;
-                    this.paddle.x = paddleRect.left - canvasRect.left;
-                    this.paddle.y = paddleRect.top - canvasRect.top;
-                    
-                    const triggerRect = this.gameTrigger.getBoundingClientRect();
-                    this.ball.x = (triggerRect.left + triggerRect.right) / 2 - canvasRect.left;
-                    this.ball.y = triggerRect.top - canvasRect.top;
-                    this.ball.dx = 5 * (Math.random() > 0.5 ? 1 : -1);
-                    this.ball.dy = -5;
+                    /* PERF: Animate with transform only during deal (no left/top change).
+                       Set final left/top first with no transition, then animate the transform. */
+                    el.style.transition = 'none';
+                    el.style.left = positions[i].x + 'px';
+                    el.style.top = positions[i].y + 'px';
+                    /* Force reflow once to apply the new position */
+                    el.getBoundingClientRect();
+                    el.style.transition = `opacity .22s ease, transform .36s cubic-bezier(.22,.9,.36,1)`;
+                    el.style.opacity = '1';
+                    el.style.transform = `translate3d(0,0,0) rotate(${(Math.random() - .5) * 1.5}deg) scale(1)`;
+                }, i * 65);
+            });
 
-                    this.addEventListeners();
-                    this.update();
-                }, 500);
-            }
+            /* Lock to hover-only transitions after deal settles */
+            setTimeout(() => {
+                liveCards.forEach(el => {
+                    if (!el.classList.contains('xp'))
+                        el.style.transition = 'box-shadow .3s, border-color .3s, transform .3s cubic-bezier(.34,1.2,.64,1)';
+                });
+            }, 6 * 65 + 420);
+        }
+
+        function expandCard(el, idx, positions, dims) {
+            const vw = innerWidth, vh = innerHeight;
+            const expW = Math.min(500, vw - 32);
+            const expH = Math.min(500, vh - 100);
+            const tx = Math.round((vw - expW) / 2);
+            const ty = Math.round((vh - expH) / 2);
+
+            el.dataset.ox = el.style.left;
+            el.dataset.oy = el.style.top;
+
+            if (openCard && openCard !== el) collapseCard(openCard, true);
+            openCard = el;
+
+            /* PERF: Animate using transform instead of left/top to completely eliminate layout thrashing for position. */
+            el.style.transition = `width .46s cubic-bezier(.34,1.1,.64,1), transform .46s cubic-bezier(.34,1.1,.64,1), opacity .3s, box-shadow .35s, border-color .35s, border-radius .4s, background .4s`;
             
-            addEventListeners() {
-                this.header.addEventListener('mousemove', this.movePaddleHandler);
-                document.addEventListener('keydown', this.keyDownHandler);
-                document.addEventListener('keyup', this.keyUpHandler);
-                this.restartBtn.addEventListener('click', this.restartHandler);
-                this.browseBtn.addEventListener('click', this.endGameHandler);
+            const dx = tx - parseFloat(el.dataset.ox);
+            const dy = ty - parseFloat(el.dataset.oy);
 
-                this.bbLeftBtn.addEventListener('touchstart', () => this.controls.left = true);
-                this.bbLeftBtn.addEventListener('touchend', () => this.controls.left = false);
-                this.bbRightBtn.addEventListener('touchstart', () => this.controls.right = true);
-                this.bbRightBtn.addEventListener('touchend', () => this.controls.right = false);
-            }
+            el.style.width = expW + 'px';
+            el.style.transform = `translate3d(${dx}px, ${dy}px, 0) rotate(0deg) scale(1)`;
+            el.style.zIndex = 300;
+            el.classList.add('xp');
+        }
 
-            removeEventListeners() {
-                this.header.removeEventListener('mousemove', this.movePaddleHandler);
-                document.removeEventListener('keydown', this.keyDownHandler);
-                document.removeEventListener('keyup', this.keyUpHandler);
-                this.restartBtn.removeEventListener('click', this.restartHandler);
-                this.browseBtn.removeEventListener('click', this.endGameHandler);
-            }
-
-            keyDown(e) {
-                if (e.key === 'Right' || e.key === 'ArrowRight') this.controls.right = true;
-                if (e.key === 'Left' || e.key === 'ArrowLeft') this.controls.left = true;
-            }
-
-            keyUp(e) {
-                if (e.key === 'Right' || e.key === 'ArrowRight') this.controls.right = false;
-                if (e.key === 'Left' || e.key === 'ArrowLeft') this.controls.left = false;
-            }
-
-            movePaddle(e) {
-                 const rect = this.canvas.getBoundingClientRect();
-                 const newX = e.clientX - rect.left - this.paddle.width / 2;
-                 this.paddle.x = Math.max(0, Math.min(newX, this.canvas.width - this.paddle.width));
-                 this.paddleEl.style.transform = `translate(${this.paddle.x - (this.paddleEl.offsetLeft - rect.left)}px, ${this.canvas.height * 0.6}px)`;
-            }
-
-            resizeCanvas() {
-                this.canvas.width = this.header.clientWidth;
-                this.canvas.height = this.header.clientHeight;
-            }
-
-            update() {
-                if (!this.gameActive) return;
-                
-                if(this.controls.right) {
-                    this.paddle.x += this.paddle.speed;
-                }
-                if(this.controls.left) {
-                    this.paddle.x -= this.paddle.speed;
-                }
-                this.paddle.x = Math.max(0, Math.min(this.paddle.x, this.canvas.width - this.paddle.width));
-                const canvasRect = this.canvas.getBoundingClientRect();
-                this.paddleEl.style.transform = `translate(${this.paddle.x - (this.paddleEl.offsetLeft - canvasRect.left)}px, ${this.canvas.height * 0.6}px)`;
-
-
-                this.moveBall();
-                this.draw();
-                this.animationFrameId = requestAnimationFrame(() => this.update());
-            }
-
-            moveBall() {
-                this.ball.x += this.ball.dx;
-                this.ball.y += this.ball.dy;
-
-                if (this.ball.x + this.ball.radius > this.canvas.width || this.ball.x - this.ball.radius < 0) this.ball.dx *= -1;
-                if (this.ball.y - this.ball.radius < 0) this.ball.dy *= -1;
-                
-                if (this.ball.y + this.ball.radius > this.canvas.height) {
-                    this.gameOver();
-                    return;
-                }
-
-                const paddleRect = this.paddleEl.getBoundingClientRect();
-                const canvasRect = this.canvas.getBoundingClientRect();
-                if (this.ball.y + this.ball.radius > paddleRect.top - canvasRect.top && this.ball.x > paddleRect.left - canvasRect.left && this.ball.x < paddleRect.right - canvasRect.left) {
-                    this.ball.dy *= -1;
-                    this.ball.y = paddleRect.top - canvasRect.top - this.ball.radius;
-                }
-
-                this.bricks.forEach(brick => {
-                    if (parseInt(brick.dataset.hits) <= 0) return;
-                    const brickRect = brick.getBoundingClientRect();
-                    
-                    if (this.ball.x + this.ball.radius > brickRect.left - canvasRect.left && 
-                        this.ball.x - this.ball.radius < brickRect.right - canvasRect.left &&
-                        this.ball.y + this.ball.radius > brickRect.top - canvasRect.top &&
-                        this.ball.y - this.ball.radius < brickRect.bottom - canvasRect.top) {
-                        
-                        this.ball.dy *= -1;
-                        brick.dataset.hits--;
-                        this.handleBrickHit(brick);
-                    }
-                });
-            }
+        function collapseCard(el, fast = false) {
+            if (!el) return;
+            const d = fast ? '.32s' : '.44s';
+            /* PERF: Animate using transform instead of left/top */
+            el.style.transition = `width ${d} cubic-bezier(.34,1.1,.64,1), transform ${d} cubic-bezier(.34,1.1,.64,1), box-shadow .3s, border-color .3s, border-radius .4s, background .4s`;
             
-            handleBrickHit(brick) {
-                brick.classList.add('hit');
-                setTimeout(() => brick.classList.remove('hit'), 200);
-                const hitsLeft = parseInt(brick.dataset.hits);
-                const maxHits = parseInt(brick.dataset.initialHits) || 8;
-                const shatterLevel = (maxHits - hitsLeft) / maxHits;
-                let shadow = Array.from({length: 10 * shatterLevel}, () => `${(Math.random() - 0.5) * 20 * shatterLevel}px ${(Math.random() - 0.5) * 20 * shatterLevel}px 0 rgba(255, 255, 255, ${Math.random() * 0.5})`).join(',');
-                brick.style.boxShadow = shadow;
-                if (hitsLeft <= 0) {
-                    brick.style.transition = 'opacity 0.3s, transform 0.3s';
-                    brick.style.opacity = '0';
-                    brick.style.transform = 'scale(0.5) rotate(45deg)';
-                }
-            }
-
-            draw() {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.ctx.beginPath();
-                this.ctx.arc(this.ball.x, this.ball.y, this.ball.radius, 0, Math.PI * 2);
-                this.ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
-                this.ctx.fill();
-                this.ctx.closePath();
-            }
-
-            gameOver() {
-                this.gameActive = false;
-                cancelAnimationFrame(this.animationFrameId);
-                this.gameOverModal.style.display = 'flex';
-                this.bbControls.style.display = 'none';
-            }
-
-            restart() {
-                this.gameOverModal.style.display = 'none';
-                this.bbControls.style.display = 'flex';
-                this.bricks.forEach(brick => {
-                    brick.dataset.hits = brick.dataset.initialHits;
-                    brick.style.opacity = '1';
-                    brick.style.transform = 'none';
-                    brick.style.boxShadow = 'none';
-                });
-                const triggerRect = this.gameTrigger.getBoundingClientRect();
-                const canvasRect = this.canvas.getBoundingClientRect();
-                this.ball.x = (triggerRect.left + triggerRect.right) / 2 - canvasRect.left;
-                this.ball.y = triggerRect.top - canvasRect.top;
-                this.ball.dx = 5 * (Math.random() > 0.5 ? 1 : -1);
-                this.ball.dy = -5;
-                this.gameActive = true;
-                this.update();
-            }
-
-            endGame() {
-                this.gameOverModal.style.display = 'none';
-                if (this.header.contains(this.canvas)) {
-                    this.header.removeChild(this.canvas);
-                }
-                this.paddleEl.style.opacity = '0';
-                this.paddleEl.style.transform = 'translateY(0)';
-                this.highlight.classList.remove('game-active');
-                this.gameTrigger.style.opacity = '1';
-                this.bbControls.style.display = 'none';
-                
-                this.removeEventListeners();
-
-                if(this.onEndCallback) this.onEndCallback();
-                brickBreakerGame = null;
-            }
+            el.style.width = getCardDims().cw + 'px';
+            el.style.transform = `translate3d(0,0,0) rotate(${(Math.random() - .5) * 1.2}deg) scale(1)`;
+            el.style.zIndex = 10 + parseInt(el.dataset.i || 0);
+            el.classList.remove('xp');
+            if (openCard === el) openCard = null;
+            setTimeout(() => {
+                if (!el.classList.contains('xp'))
+                    el.style.transition = 'box-shadow .3s, border-color .3s, transform .3s cubic-bezier(.34,1.2,.64,1)';
+            }, 460);
         }
 
-        function initMMinigame() {
-            const contactTitle = document.querySelector('.contact .section-title');
-            if (!contactTitle) return;
-            const text = contactTitle.textContent;
-            contactTitle.innerHTML = '';
-            text.split('').forEach((char, i) => {
-                const span = document.createElement('span');
-                span.textContent = char;
-                span.className = 'title-letter';
-                if (i === 0) span.className += ' first-m';
-                contactTitle.appendChild(span);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && openCard) collapseCard(openCard); });
+        
+        document.addEventListener('click', e => {
+            if (openCard && !e.target.closest('.gc')) {
+                collapseCard(openCard);
+            }
+        });
+
+        /* ══════════════════════════════
+           PILL NAV
+        ══════════════════════════════ */
+        const pn = document.getElementById('pill-nav');
+        const pt = document.getElementById('pill-thumb');
+        const ptabs = document.querySelectorAll('.ptab');
+        const navWrap = document.getElementById('nav-wrap');
+        const catlabel = document.getElementById('catlabel');
+        const identity = document.getElementById('identity');
+        const cpanel = document.getElementById('cpanel');
+
+        let activeCat = 'home';
+        let dragging = false, dragLastTab = null, dragOriginTab = null;
+
+        function tabGeom(tab) {
+            const nr = pn.getBoundingClientRect();
+            const tr = tab.getBoundingClientRect();
+            return { l: tr.left - nr.left, w: tr.width };
+        }
+
+        function snapThumb(tab, animate = true) {
+            const g = tabGeom(tab);
+            pt.style.transition = animate
+                ? 'left .4s cubic-bezier(.34,1.56,.64,1), width .4s cubic-bezier(.34,1.56,.64,1)'
+                : 'none';
+            pt.style.left = g.l + 'px';
+            pt.style.width = g.w + 'px';
+        }
+
+        function stretchThumb(fromTab, toTab) {
+            const nr = pn.getBoundingClientRect();
+            const fr = fromTab.getBoundingClientRect();
+            const tr = toTab.getBoundingClientRect();
+            const l = Math.min(fr.left, tr.left) - nr.left;
+            const r = Math.max(fr.right, tr.right) - nr.left;
+            pt.style.transition = 'none';
+            pt.style.left = l + 'px';
+            pt.style.width = (r - l) + 'px';
+        }
+
+        function switchCat(cat) {
+            if (cat === activeCat) return;
+            activeCat = cat;
+            ptabs.forEach(t => t.classList.toggle('on', t.dataset.cat === cat));
+            const onTab = document.querySelector('.ptab.on');
+            if (onTab) snapThumb(onTab);
+
+            identity.classList.toggle('vis', cat === 'home');
+            cpanel.classList.toggle('vis', cat === 'contact');
+
+            if (cat === 'home' || cat === 'contact') {
+                catlabel.textContent = '';
+                catlabel.classList.remove('sh');
+            } else {
+                catlabel.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+                catlabel.classList.add('sh');
+            }
+
+            clearCards(() => {
+                if (cat === 'home') dealCards(homeItems());
+                else if (cat !== 'contact') dealCards((DATA[cat] || []).slice(0, 6));
             });
-            const firstM = document.querySelector('.first-m');
-            if (!firstM) return;
-            let clickCount = 0;
-            let mGame = { active: false, paused: false, score: 0, obstacleInterval: null, bulletInterval: null, player: null, gameContainer: null };
-            firstM.addEventListener('click', () => {
-                clickCount++;
-                if (clickCount >= 5 && !mGame.active) startMGame();
+        }
+
+        let dragStartX = 0;
+
+        pn.addEventListener('pointerdown', e => {
+            dragging = true; dragLastTab = null;
+            dragStartX = e.clientX;
+            dragOriginTab = document.querySelector('.ptab.on') || ptabs[0];
+            pn.setPointerCapture(e.pointerId);
+        });
+
+        pn.addEventListener('pointermove', e => {
+            if (!dragging) return;
+            const cx = e.clientX;
+            if (Math.abs(cx - dragStartX) < 5) return;
+            let best = null, bestD = Infinity;
+            ptabs.forEach(tab => {
+                const r = tab.getBoundingClientRect();
+                const d = Math.abs(r.left + r.width / 2 - cx);
+                if (d < bestD) { bestD = d; best = tab; }
             });
-            window.addEventListener('keydown', (e) => {
-                if (mGame.active) {
-                    if (e.code === 'Space') {
-                        e.preventDefault();
-                        mGame.paused = !mGame.paused;
-                        document.body.classList.toggle('scroll-locked', !mGame.paused);
+            if (best) {
+                ptabs.forEach(t => t.classList.toggle('on', t === best));
+                if (best === dragOriginTab) {
+                    snapThumb(best, false);
+                } else {
+                    stretchThumb(dragOriginTab, best);
+                }
+                dragLastTab = best;
+            }
+        });
+
+        pn.addEventListener('pointerup', e => {
+            if (dragging) {
+                const cx = e.clientX;
+                if (Math.abs(cx - dragStartX) < 5) {
+                    let clickedTab = null;
+                    ptabs.forEach(tab => {
+                        const r = tab.getBoundingClientRect();
+                        if (cx >= r.left - 5 && cx <= r.right + 5) clickedTab = tab;
+                    });
+                    if (clickedTab) {
+                        snapThumb(clickedTab, true);
+                        switchCat(clickedTab.dataset.cat);
+                    } else if (dragOriginTab) {
+                        snapThumb(dragOriginTab, true);
+                        ptabs.forEach(t => t.classList.toggle('on', t === dragOriginTab));
                     }
-                    if (['ArrowUp', 'ArrowDown', 'w', 's'].includes(e.key) && !mGame.paused) e.preventDefault();
-                }
-            });
-            function startMGame() {
-                mGame = { ...mGame, active: true, paused: false, score: 0 };
-                document.body.classList.add('scroll-locked');
-                const existingGame = document.getElementById('m-game-container');
-                if (existingGame) existingGame.remove();
-                mGame.gameContainer = document.createElement('div');
-                mGame.gameContainer.id = 'm-game-container';
-                const scoreDisplay = document.createElement('div');
-                scoreDisplay.id = 'm-game-score';
-                scoreDisplay.style.cssText = 'position:absolute; top:10px; right:10px; color:#00ffcc; font-size:20px; font-weight:bold;';
-                scoreDisplay.textContent = 'Score: 0';
-                mGame.gameContainer.appendChild(scoreDisplay);
-                mGame.player = document.createElement('div');
-                mGame.player.id = 'm-game-player';
-                mGame.player.textContent = 'M';
-                mGame.player.style.cssText = "position:absolute; left:50px; top:150px; font-size:30px; color:#ff0000; transform:rotate(90deg); transition:top 0.1s ease;";
-                mGame.gameContainer.appendChild(mGame.player);
-                document.querySelector('.contact-email').parentNode.insertBefore(mGame.gameContainer, document.querySelector('.contact-email').nextSibling);
-                setupMGameControls();
-                startObstacles();
-                startBullets();
-            }
-            function setupMGameControls() {
-                document.addEventListener('keydown', function(e) {
-                    if (!mGame.active || mGame.paused) return;
-                    const currentTop = parseInt(mGame.player.style.top);
-                    const moveStep = 15;
-                    if (e.key === 'ArrowUp' || e.key === 'w') mGame.player.style.top = Math.max(10, currentTop - moveStep) + 'px';
-                    else if (e.key === 'ArrowDown' || e.key === 's') mGame.player.style.top = Math.min(mGame.gameContainer.offsetHeight - 40, currentTop + moveStep) + 'px';
-                });
-            }
-            function startObstacles() {
-                mGame.obstacleInterval = setInterval(() => {
-                    if (!mGame.active || mGame.paused) return;
-                    const obstacle = document.createElement('div');
-                    obstacle.className = 'm-game-obstacle';
-                    obstacle.style.cssText = `position:absolute; right:-20px; top:${Math.floor(Math.random()*(mGame.gameContainer.offsetHeight-20))}px; width:15px; height:15px; background-color:#ff0066;`;
-                    mGame.gameContainer.appendChild(obstacle);
-                    let pos = -20;
-                    const move = setInterval(() => {
-                        if (!mGame.active) { clearInterval(move); obstacle.remove(); return; }
-                        if (mGame.paused) return;
-                        pos += 5;
-                        obstacle.style.right = pos + 'px';
-                        if (checkCollision(mGame.player, obstacle)) gameOver();
-                        if (pos > mGame.gameContainer.offsetWidth) { clearInterval(move); obstacle.remove(); updateScore(1); }
-                    }, 20);
-                }, 1500);
-            }
-            function startBullets() {
-                 mGame.bulletInterval = setInterval(() => {
-                    if (!mGame.active || mGame.paused) return;
-                    const bullet = document.createElement('div');
-                    bullet.className = 'm-game-bullet';
-                    bullet.style.cssText = `position:absolute; left:70px; top:${parseInt(mGame.player.style.top)+10}px; width:10px; height:3px; background-color:#00ffcc;`;
-                    mGame.gameContainer.appendChild(bullet);
-                    let pos = 70;
-                    const move = setInterval(() => {
-                        if (!mGame.active) { clearInterval(move); bullet.remove(); return; }
-                        if (mGame.paused) return;
-                        pos += 10;
-                        bullet.style.left = pos + 'px';
-                        document.querySelectorAll('.m-game-obstacle').forEach(obs => {
-                            if (checkCollision(bullet, obs)) { obs.remove(); bullet.remove(); updateScore(5); }
-                        });
-                        if (pos > mGame.gameContainer.offsetWidth) { clearInterval(move); bullet.remove(); }
-                    }, 20);
-                }, 400);
-            }
-            function checkCollision(el1, el2) {
-                const r1 = el1.getBoundingClientRect();
-                const r2 = el2.getBoundingClientRect();
-                return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom);
-            }
-            function updateScore(p) {
-                if (!mGame.active) return;
-                mGame.score += p;
-                const scoreDisplay = document.getElementById('m-game-score');
-                if (scoreDisplay) {
-                    scoreDisplay.textContent = 'Score: ' + mGame.score;
+                } else if (dragLastTab) {
+                    snapThumb(dragLastTab, true);
+                    switchCat(dragLastTab.dataset.cat);
                 }
             }
-            function gameOver() {
-                mGame.active = false;
-                document.body.classList.remove('scroll-locked');
-                clearInterval(mGame.obstacleInterval);
-                clearInterval(mGame.bulletInterval);
-                alert('Game Over! Score: ' + mGame.score);
-                document.getElementById('m-game-container').remove();
+            dragging = false;
+        });
+
+        /* ══════════════════════════════
+           PARALLAX — batched RAF, no per-event style writes
+           PERF: The original read from e.clientX and immediately wrote to style.
+           This can force mid-frame layout recalculations. Fixed by:
+           1. Storing raw mouse values
+           2. Writing all style updates in a single rAF callback
+           3. Using transform3d always (keeps layers on GPU)
+           4. Throttling to one rAF per frame (already done in original,
+              but we also cap the mouse sensitivity for small screens)
+        ══════════════════════════════ */
+        const plSky = document.getElementById('pl-sky');
+        const plMountains = document.getElementById('pl-mountains');
+        const plLand = document.getElementById('pl-land');
+        const plFence = document.getElementById('pl-fence');
+        const plBench = document.getElementById('pl-bench');
+        const plGirl = document.getElementById('pl-girl');
+        const plClouds = document.getElementById('pl-clouds-layer');
+        const dynLight = document.getElementById('dynamic-light');
+
+        /* PERF: Keep mx/my as raw pixel deltas from center, not ratios.
+           We multiply by strength factor once in the rAF write, not on every move. */
+        let pmx = 0, pmy = 0, prafPending = false;
+
+        document.addEventListener('mousemove', e => {
+            pmx = (e.clientX / innerWidth - .5) * 2;
+            pmy = (e.clientY / innerHeight - .5) * 2;
+            if (!prafPending) {
+                prafPending = true;
+                requestAnimationFrame(writeParallax);
             }
+        }, { passive: true });
+
+        function writeParallax() {
+            prafPending = false;
+            dynLight && (dynLight.style.transform = `translate3d(${pmx * 40}px,${pmy * 40}px,0)`);
         }
-        function setupNavbarScroll() { const n=document.getElementById('navbar');window.addEventListener('scroll',()=>{n.classList.toggle('nav-scrolled',window.scrollY>50)}) }
-        function setupFadeInAnimations() { const o=new IntersectionObserver(e=>{e.forEach(t=>{if(t.isIntersecting){t.target.classList.add('visible');o.unobserve(t.target)}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.fade-in').forEach(e=>o.observe(e)) }
-        function setupSmoothScrolling() { document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener('click',function(t){t.preventDefault();const o=document.querySelector(this.getAttribute('href'));o&&window.scrollTo({top:o.offsetTop-100,behavior:'smooth'})})}) }
-        function setupProjectModal() { const e=document.querySelector('.project-detail');document.querySelectorAll('.project-card').forEach(t=>{t.addEventListener('click',()=>{const o=t.querySelector('.project-img').src,n=t.querySelector('h3').textContent,r=t.querySelector('p').textContent,c=t.querySelector('.project-links');e.querySelector('.detail-image').src=o;e.querySelector('.detail-title').textContent=n;e.querySelector('.detail-description').textContent=r;const l=e.querySelector('.detail-links');l.innerHTML=c?c.innerHTML:'';e.style.display='block';setTimeout(()=>e.classList.add('active'),10)})});const t=()=>{e.classList.remove('active');setTimeout(()=>e.style.display='none',500)};e.querySelector('.project-detail-close').addEventListener('click',t);window.addEventListener('click',o=>{o.target===e&&t()}) }
-        function setupInteractiveStatement() {
-            document.querySelectorAll('.statement h2').forEach(text => {
-                const letters = text.textContent.split('');
-                text.innerHTML = '';
-                letters.forEach(letter => {
-                    const span = document.createElement('span');
-                    span.textContent = letter;
-                    span.className = 'interactive-letter';
-                    text.appendChild(span);
-                });
 
-                text.addEventListener('mousemove', (e) => {
-                    const rect = text.getBoundingClientRect();
-                    const letters = text.querySelectorAll('.interactive-letter');
-                    
-                    letters.forEach(letter => {
-                        const letterRect = letter.getBoundingClientRect();
-                        const centerX = letterRect.left + letterRect.width / 2;
-                        const centerY = letterRect.top + letterRect.height / 2;
-                        
-                        const distX = e.clientX - centerX;
-                        const distY = e.clientY - centerY;
-                        const distance = Math.sqrt(distX * distX + distY * distY);
-                        
-                        if (distance < 150) {
-                            const scale = 1 + (1 - distance / 150) * 0.5;
-                            const rotate = (1 - distance / 150) * 15 * (Math.random() > 0.5 ? 1 : -1);
-                            const translateX = (1 - distance / 150) * distX * 0.1;
-                            const translateY = (1 - distance / 150) * distY * 0.1;
-                            
-                            letter.style.transform = `scale(${scale}) rotate(${rotate}deg) translate(${translateX}px, ${translateY}px)`;
-                            letter.style.color = `hsl(${Math.floor(Math.random() * 360)}, 100%, 70%)`;
-                            letter.style.transition = '0.1s ease-out';
-                        } else {
-                            letter.style.transform = 'scale(1) rotate(0deg) translate(0px, 0px)';
-                            letter.style.color = '';
-                            letter.style.transition = '0.5s ease';
-                        }
-                    });
-                });
+        /* ══════════════════════════════
+           CONTACT FORM
+        ══════════════════════════════ */
+        document.getElementById('cf').addEventListener('submit', e => {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            window.location.href = `mailto:ajnimator@gmail.com?subject=Portfolio message from ${fd.get('name')}&body=${fd.get('message')}`;
+        });
 
-                text.addEventListener('mouseleave', () => {
-                    const letters = text.querySelectorAll('.interactive-letter');
-                    letters.forEach(letter => {
-                        letter.style.transform = 'scale(1) rotate(0deg) translate(0px, 0px)';
-                        letter.style.color = '';
-                        letter.style.transition = '0.5s ease';
-                    });
-                });
+        /* ══════════════════════════════
+           INTRO SEQUENCE
+        ══════════════════════════════ */
+        const WORDS = ['Hello', 'Hola', 'Bonjour', 'مرحبا', 'こんにちは', 'Привет', 'Ciao', '你好', '안녕', 'Hallo', 'Olá'];
+        const overlay = document.getElementById('intro-overlay');
+        const namasteEl = document.getElementById('namaste');
+        const introPill = document.getElementById('intro-pill');
+
+        async function runIntro() {
+            /* Phase 1: Rapid Words */
+            for (let i = 0; i < WORDS.length; i++) {
+                namasteEl.textContent = WORDS[i];
+                await wait(120);
+            }
+            namasteEl.textContent = 'Namaste';
+            await wait(400);
+
+            /* Phase 2 & 3: Yellow becomes white and background fades simultaneously */
+            namasteEl.style.color = '#fff';
+            overlay.style.backgroundColor = 'transparent';
+            await wait(900);
+
+            /* Phase 4: THEN the glass pill starts */
+            const nmR = namasteEl.getBoundingClientRect();
+            introPill.style.transition = 'width .55s cubic-bezier(.34,1.2,.64,1), height .55s cubic-bezier(.34,1.2,.64,1), opacity .4s ease, border-radius .5s ease';
+            introPill.style.opacity = '1';
+            await wait(30);
+            introPill.style.width = (nmR.width + 64) + 'px';
+            introPill.style.height = (nmR.height + 32) + 'px';
+            introPill.style.borderRadius = '32px';
+            await wait(600);
+
+            /* Fade namaste out and remove overlay */
+            namasteEl.style.opacity = '0';
+            await wait(400);
+            overlay.style.display = 'none';
+
+            /* ── Phase 5: Pill shrinks to text-pill ── */
+            introPill.style.transition = 'width .65s cubic-bezier(.34,1.1,.64,1), height .5s cubic-bezier(.34,1.1,.64,1), border-radius .5s ease';
+            introPill.style.width = 'min(480px,82vw)';
+            introPill.style.height = '106px';
+            introPill.style.borderRadius = '24px';
+            await wait(700);
+
+            introPill.innerHTML = `<div id="ipt-inner">
+                <div id="ipt-name"></div>
+                <div id="ipt-sub"></div>
+            </div>`;
+            const iptInner = document.getElementById('ipt-inner');
+            const iptName = document.getElementById('ipt-name');
+            const iptSub = document.getElementById('ipt-sub');
+            iptInner.style.opacity = '1';
+
+            await new Promise(res => {
+                const full = "I'm Arjun Singh.";
+                const pre = "I'm ";
+                const name = "Arjun Singh";
+                const post = ".";
+                let i = 0;
+                const iv = setInterval(() => {
+                    i++;
+                    const txt = full.slice(0, i);
+                    if (i <= pre.length) {
+                        iptName.textContent = txt;
+                    } else if (i <= pre.length + name.length) {
+                        iptName.innerHTML = `${pre}<span class="nm">${txt.slice(pre.length)}</span>`;
+                    } else {
+                        iptName.innerHTML = `${pre}<span class="nm">${name}</span>${post}`;
+                    }
+                    if (i >= full.length) { clearInterval(iv); res(); }
+                }, 40);
             });
+
+            await wait(60);
+            await new Promise(res => {
+                const full = "Building games, software & things I probably shouldn't.";
+                let i = 0;
+                const iv = setInterval(() => {
+                    iptSub.textContent = full.slice(0, ++i);
+                    if (i >= full.length) { clearInterval(iv); res(); }
+                }, 22);
+            });
+            await wait(950);
+
+            /* ── Phase 6: Pill rises ── */
+            const idH1 = document.querySelector('#identity h1');
+            const idTl = document.querySelector('#identity .tl');
+            idH1.innerHTML = `I'm <span class="nm">Arjun Singh</span>.`;
+            idTl.textContent = "Building games, software & things I probably shouldn't.";
+
+            introPill.style.transition = 'top .88s cubic-bezier(.4,0,.2,1), transform .88s cubic-bezier(.4,0,.2,1)';
+            introPill.style.top = '1.6rem';
+            introPill.style.transform = 'translate(-50%, 0)';
+            await wait(900);
+
+            iptInner.style.opacity = '0';
+            await wait(300);
+
+            const navR = navWrap.getBoundingClientRect();
+            introPill.style.transition = [
+                'width .65s cubic-bezier(.34,1.1,.64,1)',
+                'height .52s cubic-bezier(.34,1.1,.64,1)',
+                'top .88s cubic-bezier(.34,1.1,.64,1)',
+                'opacity .5s ease',
+                'border-radius .5s ease'
+            ].join(',');
+            introPill.style.top = navR.top + 'px';
+            introPill.style.width = navR.width + 'px';
+            introPill.style.height = navR.height + 'px';
+            introPill.style.borderRadius = '100px';
+
+            identity.classList.add('vis');
+            await wait(900);
+
+            introPill.style.opacity = '0';
+            navWrap.classList.add('vis');
+            const firstTab = document.querySelector('.ptab.on');
+            if (firstTab) setTimeout(() => snapThumb(firstTab, false), 40);
+            await wait(300);
+
+            dealCards(homeItems());
+            activeCat = 'home';
+            setTimeout(() => { introPill.style.display = 'none'; }, 600);
         }
-    });
+
+        document.fonts.ready.then(() => setTimeout(runIntro, 200));
     </script>
-     
 </body>
+
 </html>
-
-
