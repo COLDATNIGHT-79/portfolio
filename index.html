@@ -206,6 +206,70 @@
             transition: background-color 0.9s ease;
         }
 
+        /* ══════════════════════════════
+   REPLAY INTRO BUTTON
+══════════════════════════════ */
+        #replay-intro-btn {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 600;
+            display: none;
+            align-items: center;
+            gap: .45rem;
+            padding: .38rem .9rem .38rem .7rem;
+            border-radius: 100px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, .14);
+            box-shadow: 0 4px 18px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.1);
+            color: rgba(255,255,255,.72);
+            font-family: 'Montserrat', sans-serif;
+            font-size: .68rem;
+            font-weight: 500;
+            letter-spacing: .04em;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity .4s ease, background .25s, transform .2s;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        #replay-intro-btn.rib-vis {
+            opacity: 1;
+        }
+
+        #replay-intro-btn:hover {
+            background: rgba(255,255,255,.1);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        #replay-intro-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Double-tap hint */
+        #skip-hint {
+            position: fixed;
+            bottom: 5.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 502;
+            font-family: 'Montserrat', sans-serif;
+            font-size: .62rem;
+            font-weight: 500;
+            letter-spacing: .08em;
+            color: rgba(255,255,255,.28);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .5s ease;
+            white-space: nowrap;
+        }
+
+        #skip-hint.sh-vis {
+            opacity: 1;
+        }
+
         #namaste {
             position: absolute;
             top: 50%;
@@ -287,7 +351,9 @@
             font-weight: 700;
             color: #fff;
             letter-spacing: .03em;
-            white-space: nowrap;
+            white-space: normal;
+            text-align: center;
+            max-width: 100%;
         }
 
         /* ══════════════════════════════
@@ -815,8 +881,18 @@
         <div id="intro-overlay">
             <div id="namaste">Hello</div>
         </div>
+        <div id="skip-hint">Double-tap to skip</div>
 
         <div id="intro-pill"></div>
+
+        <!-- REPLAY INTRO BUTTON -->
+        <button id="replay-intro-btn" title="Watch intro again">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="1 4 1 10 7 10"/>
+                <path d="M3.51 15a9 9 0 1 0 .49-3.29"/>
+            </svg>
+            Intro
+        </button>
 
         <div id="identity">
             <h1>I'm <span class="nm">Arjun Singh</span>.</h1>
@@ -869,6 +945,7 @@
                 <div class="ptab on" data-cat="home">Home</div>
                 <div class="ptab" data-cat="games">Games</div>
                 <div class="ptab" data-cat="software">Software</div>
+                <div class="ptab" data-cat="hardware">Hardware</div>
                 <div class="ptab" data-cat="prototypes">Prototypes</div>
                 <div class="ptab" data-cat="art">Art</div>
                 <div class="ptab" data-cat="contact">Contact</div>
@@ -884,6 +961,7 @@
             games: [
                 { t: "Fortiori", d: "A relentless number-multiplication puzzle game built around escalating chain reactions. My first commercial release on Steam - designed from the ground up to be mechanically simple but deeply satisfying to master.", img: "yes.png", lk: [{ l: "Play", u: "https://fortiori.site/" }] },
                 { t: "MVNES", d: "A genre fusion experiment marrying Chess's strategic depth with Minesweeper's hidden-information tension, wrapped in a horror aesthetic. Features dynamic rule-changing levels that force players to rethink every assumption mid-game.", img: "https://img.itch.zone/aW1nLzE3MzUyMDY0LnBuZw==/original/EirMSH.png", lk: [{ l: "Play", u: "https://79gamescoldatnight.itch.io/mvnes-chess-minesweeper" }] },
+                { t: "BOMBAY GUNS EXCHANGE", d: "A high-stakes illegal arms trading simulator. Sell guns to psychos, doomsday cults, and pirate fleets in a cutthroat 60-second auction against rival dealers who will outbid, sabotage, and steal from you.", img: "https://img.itch.zone/aW1nLzI1ODIzNjg1LnBuZw==/original/u3SX07.png", lk: [{ l: "Play", u: "https://79gamescoldatnight.itch.io/bombay-guns-exchange" }] },
                 { t: "10s to Scale Everest", d: "A punishing time-pressure challenge distilled to its purest form. Built around a single outrageous premise, this game asks whether you can compress an impossible feat into 10 seconds of pure chaos.", img: "https://img.itch.zone/aW1nLzE3MzkwNzgxLnBuZw==/original/%2BGPwfl.png", lk: [{ l: "Play", u: "https://79gamescoldatnight.itch.io/10stste" }] },
                 { t: "CHA'CHINKO", d: "A roguelike pachinko hybrid that rewards greed at astronomical scale. Combines procedural runs with physics-based chaos - the goal is to score more than atoms in the observable universe.", img: "https://img.itch.zone/aW1hZ2UvMzI2OTY4NC8xOTUyMzMzMS5wbmc=/original/ezJPJW.png", lk: [{ l: "Play", u: "https://79gamescoldatnight.itch.io/cha-chinka" }] },
                 { t: "5000 Metres Deep", d: "A minimalist horror experience set aboard a motionless vessel in the open ocean. Tension is built entirely through atmosphere and sound rather than jump scares - stillness is the threat.", img: "https://img.itch.zone/aW1nLzE5ODc4MTI3LnBuZw==/315x250%23c/7rzKOF.png", lk: [{ l: "Play", u: "https://79gamescoldatnight.itch.io/5000-metres-deep" }] },
@@ -894,7 +972,11 @@
                 { t: "CUT-IT", d: "A browser-based image editor focused on freeform cropping, arbitrary shape masks, component resizing, and live filter application. Built for creators who need flexible output without heavyweight software.", img: "get6.png", lk: [{ l: "Try It", u: "https://cut-it-91ir.onrender.com/" }] },
                 { t: "I Hate This Person", d: "A satirical social platform for venting frustration in a structured, consequence-free format. Designed around the psychology of healthy expression - a space to be dramatically, harmlessly petty.", img: "get-20.png", lk: [{ l: "Try It", u: "https://ihatethisperson.onrender.com/create" }] },
                 { t: "Cold's App Launcher", d: "A custom desktop launcher built for speed and organization. Lets you categorize all your installed programs and surface any one of them instantly - a clean alternative to cluttered start menus.", img: "get4.png", lk: [{ l: "GitHub", u: "https://github.com/COLDATNIGHT-79/Custom-App-Launcher-and-close" }] },
-                { t: "Minimal Notepad", d: "A no-frills, distraction-free writing app. Intentionally stripped of features to remove any friction between thought and text.", img: "https://img.itch.zone/aW1nLzI2MTIwNDAwLnBuZw==/315x250%23c/6nbdOU.png", lk: [] },
+                { t: "Minimal Notepad", d: "A no-frills, distraction-free writing app. Intentionally stripped of features to remove any friction between thought and text.", img: "https://img.itch.zone/aW1nLzI2MTIwNDAwLnBuZw==/315x250%23c/6nbdOU.png", lk: [{ l: "Open App", u: "https://just-a-minimal-notepad.vercel.app/" }] },
+            ],
+            hardware: [
+                { t: "Fingerprint Payroll ERP", d: "A hardware-integrated ERP system where employees clock in and out via a fingerprint scanner. Attendance data drives automated salary calculations and payroll processing - no timesheets, no manual entries.", img: "scanner.jpeg", lk: [{ l: "GitHub", u: "https://github.com/COLDATNIGHT-79/payroll-erp-system" }] },
+                { t: "Adaptive Joystick Controller", d: "A hardware controller built for people with disabilities. A few physical buttons combined with joystick gestures — inspired by fighting game combos — map to every possible PC input, from cursor movement to full keyboard and mouse control.", img: "stick.jpeg", lk: [{ l: "GitHub", u: "https://github.com/COLDATNIGHT-79/iot_proj-420" }] },
             ],
             prototypes: [
                 { t: "Osaka Browser", d: "A privacy-first desktop browser built from scratch before switching to Arc. Developed as an exploration of browser architecture, tab management, and local-first data handling.", img: "get5.png", lk: [{ l: "GitHub", u: "https://github.com/COLDATNIGHT-79/Osakar-Browser" }] },
@@ -913,6 +995,7 @@
 
         const THUMBS = [
             "yes.png", "get2.png", "get3.png", "get4.png", "get5.png", "get6.png", "get-20.png",
+            "scanner.jpeg", "stick.jpeg",
             "https://img.itch.zone/aW1nLzE3MzUyMDY0LnBuZw==/original/EirMSH.png",
             "https://img.itch.zone/aW1hZ2UvMzI2OTY4NC8xOTUyMzMzMS5wbmc=/original/ezJPJW.png",
             "https://img.itch.zone/aW1nLzE5ODc4MTI3LnBuZw==/315x250%23c/7rzKOF.png",
@@ -926,7 +1009,7 @@
         const wait = ms => new Promise(r => setTimeout(r, ms));
 
         function homeItems() {
-            const all = [...DATA.games, ...DATA.software, ...DATA.prototypes];
+            const all = [...DATA.games, ...DATA.software, ...DATA.hardware, ...DATA.prototypes];
             return shuffle(all).slice(0, 6);
         }
 
@@ -1261,42 +1344,128 @@
         const overlay = document.getElementById('intro-overlay');
         const namasteEl = document.getElementById('namaste');
         const introPill = document.getElementById('intro-pill');
+        const skipHint = document.getElementById('skip-hint');
+        const replayBtn = document.getElementById('replay-intro-btn');
+
+        /* ── Double-tap / double-click to skip intro ── */
+        let introRunning = false;
+        let introSkipResolver = null;
+        let lastTapTime = 0;
+
+        function skipIntro() {
+            introRunning = false;          /* signal bail-out to all guards */
+            if (introSkipResolver) {
+                introSkipResolver();       /* resolve the current await instantly */
+                introSkipResolver = null;
+            }
+        }
+
+        function handleDoubleTap(e) {
+            if (!introRunning) return;
+            const now = Date.now();
+            if (now - lastTapTime < 350) {
+                skipIntro();
+            }
+            lastTapTime = now;
+        }
+
+        /* Desktop: dblclick is already a confirmed double-click — call skipIntro directly */
+        document.addEventListener('dblclick', e => {
+            if (introRunning) skipIntro();
+        });
+        /* Mobile/touch: touchend fires on every tap so we need manual 350ms detection */
+        document.addEventListener('touchend', handleDoubleTap, { passive: true });
+
+        /* Promise that resolves immediately on skip or after ms delay */
+        function skippableWait(ms) {
+            return new Promise(res => {
+                const t = setTimeout(res, ms);
+                introSkipResolver = () => { clearTimeout(t); res(); };
+            });
+        }
+
+        /* ── Replay button ── */
+        replayBtn.addEventListener('click', () => {
+            replayBtn.classList.remove('rib-vis');
+            setTimeout(() => { replayBtn.style.display = 'none'; }, 420);
+            /* Reset and replay */
+            clearCards(() => {});
+            navWrap.classList.remove('vis');
+            identity.classList.remove('vis');
+            cpanel.classList.remove('vis');
+            catlabel.classList.remove('sh');
+            catlabel.textContent = '';
+            activeCat = 'home';
+            ptabs.forEach(t => t.classList.toggle('on', t.dataset.cat === 'home'));
+            const homeTab = document.querySelector('.ptab[data-cat="home"]');
+            if (homeTab) snapThumb(homeTab, false);
+            setTimeout(runIntro, 80);
+        });
 
         async function runIntro() {
+            /* Reset state */
+            introRunning = true;
+            introSkipResolver = null;
+            lastTapTime = 0;
+
+            /* Reset DOM for replays */
+            overlay.style.display = '';
+            overlay.style.backgroundColor = '#000';
+            overlay.style.pointerEvents = 'none';
+            namasteEl.style.opacity = '1';
+            namasteEl.style.color = '#ffeb3b';
+            namasteEl.textContent = 'Hello';
+            introPill.style.display = '';
+            introPill.style.opacity = '0';
+            introPill.style.width = '12px';
+            introPill.style.height = '44px';
+            introPill.style.borderRadius = '100px';
+            introPill.style.top = '50%';
+            introPill.style.transform = 'translate(-50%, -50%)';
+            introPill.innerHTML = '';
+
+            /* Show double-tap hint after a short delay */
+            setTimeout(() => { if (introRunning) skipHint.classList.add('sh-vis'); }, 600);
+
             /* Phase 1: Rapid Words */
             for (let i = 0; i < WORDS.length; i++) {
                 namasteEl.textContent = WORDS[i];
-                await wait(120);
+                await skippableWait(120);
+                if (!introRunning) { finishIntro(); return; }
             }
             namasteEl.textContent = 'Namaste';
-            await wait(400);
+            await skippableWait(400);
+            if (!introRunning) { finishIntro(); return; }
 
             /* Phase 2 & 3: Yellow becomes white and background fades simultaneously */
             namasteEl.style.color = '#fff';
             overlay.style.backgroundColor = 'transparent';
-            await wait(900);
+            await skippableWait(900);
+            if (!introRunning) { finishIntro(); return; }
 
-            /* Phase 4: THEN the glass pill starts */
+            /* Phase 4: Glass pill expands */
             const nmR = namasteEl.getBoundingClientRect();
             introPill.style.transition = 'width .55s cubic-bezier(.34,1.2,.64,1), height .55s cubic-bezier(.34,1.2,.64,1), opacity .4s ease, border-radius .5s ease';
             introPill.style.opacity = '1';
-            await wait(30);
+            await skippableWait(30);
             introPill.style.width = (nmR.width + 64) + 'px';
             introPill.style.height = (nmR.height + 32) + 'px';
             introPill.style.borderRadius = '32px';
-            await wait(600);
+            await skippableWait(600);
+            if (!introRunning) { finishIntro(); return; }
 
             /* Fade namaste out and remove overlay */
             namasteEl.style.opacity = '0';
-            await wait(400);
+            await skippableWait(400);
             overlay.style.display = 'none';
 
-            /* ── Phase 5: Pill shrinks to text-pill ── */
+            /* Phase 5: Pill shrinks to text-pill */
             introPill.style.transition = 'width .65s cubic-bezier(.34,1.1,.64,1), height .5s cubic-bezier(.34,1.1,.64,1), border-radius .5s ease';
             introPill.style.width = 'min(480px,82vw)';
             introPill.style.height = '106px';
             introPill.style.borderRadius = '24px';
-            await wait(700);
+            await skippableWait(700);
+            if (!introRunning) { finishIntro(); return; }
 
             introPill.innerHTML = `<div id="ipt-inner">
                 <div id="ipt-name"></div>
@@ -1313,6 +1482,7 @@
                 const name = "Arjun Singh";
                 const post = ".";
                 let i = 0;
+                introSkipResolver = () => { i = full.length - 1; };
                 const iv = setInterval(() => {
                     i++;
                     const txt = full.slice(0, i);
@@ -1323,22 +1493,24 @@
                     } else {
                         iptName.innerHTML = `${pre}<span class="nm">${name}</span>${post}`;
                     }
-                    if (i >= full.length) { clearInterval(iv); res(); }
+                    if (i >= full.length) { clearInterval(iv); introSkipResolver = null; res(); }
                 }, 40);
             });
 
-            await wait(60);
+            await skippableWait(60);
             await new Promise(res => {
                 const full = "And this is a showcase of games, softwares, and other things I have created over the time.";
                 let i = 0;
+                introSkipResolver = () => { i = full.length - 1; };
                 const iv = setInterval(() => {
                     iptSub.textContent = full.slice(0, ++i);
-                    if (i >= full.length) { clearInterval(iv); res(); }
+                    if (i >= full.length) { clearInterval(iv); introSkipResolver = null; res(); }
                 }, 22);
             });
-            await wait(950);
+            await skippableWait(950);
+            if (!introRunning) { finishIntro(); return; }
 
-            /* ── Phase 6: Pill rises ── */
+            /* Phase 6: Pill rises to identity position */
             const idH1 = document.querySelector('#identity h1');
             const idTl = document.querySelector('#identity .tl');
             idH1.innerHTML = `I'm <span class="nm">Arjun Singh</span>.`;
@@ -1347,10 +1519,10 @@
             introPill.style.transition = 'top .88s cubic-bezier(.4,0,.2,1), transform .88s cubic-bezier(.4,0,.2,1)';
             introPill.style.top = '1.6rem';
             introPill.style.transform = 'translate(-50%, 0)';
-            await wait(900);
+            await skippableWait(900);
 
             iptInner.style.opacity = '0';
-            await wait(300);
+            await skippableWait(300);
 
             const navR = navWrap.getBoundingClientRect();
             introPill.style.transition = [
@@ -1366,17 +1538,30 @@
             introPill.style.borderRadius = '100px';
 
             identity.classList.add('vis');
-            await wait(900);
+            await skippableWait(900);
 
+            finishIntro();
+        }
+
+        function finishIntro() {
+            introRunning = false;
+            introSkipResolver = null;
+            skipHint.classList.remove('sh-vis');
+
+            overlay.style.display = 'none';
             introPill.style.opacity = '0';
             navWrap.classList.add('vis');
+            identity.classList.add('vis');
             const firstTab = document.querySelector('.ptab.on');
             if (firstTab) setTimeout(() => snapThumb(firstTab, false), 40);
-            await wait(300);
 
             dealCards(homeItems());
             activeCat = 'home';
-            setTimeout(() => { introPill.style.display = 'none'; }, 600);
+            setTimeout(() => {
+                introPill.style.display = 'none';
+                replayBtn.style.display = 'flex';
+                requestAnimationFrame(() => replayBtn.classList.add('rib-vis'));
+            }, 600);
         }
 
         document.fonts.ready.then(() => setTimeout(runIntro, 200));
